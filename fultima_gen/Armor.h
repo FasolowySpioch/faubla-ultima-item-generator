@@ -14,9 +14,9 @@ public:
     bool getIsMartial();
     int getIniciative();
 
-    void setIniciative();
-    void setIsMartial();
-    void setMDefense();
-    void setDefense();
+    void setIniciative(int i);
+    void setIsMartial(bool m);
+    void setMDefense(std::string md);
+    void setDefense(std::string d);
 };
 

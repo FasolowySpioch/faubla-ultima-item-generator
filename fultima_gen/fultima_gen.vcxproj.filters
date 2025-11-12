@@ -21,10 +21,10 @@
     <ClInclude Include="Armor.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Enums.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Help.h">
+    <ClInclude Include="json.hpp">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +35,5 @@
     <ClCompile Include="Armor.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="fultima_gen.rc">
-      <Filter>Pliki zasobów</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

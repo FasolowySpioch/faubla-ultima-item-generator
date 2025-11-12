@@ -124,16 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
-    <ClInclude Include="Help.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Item.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="fultima_gen.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
