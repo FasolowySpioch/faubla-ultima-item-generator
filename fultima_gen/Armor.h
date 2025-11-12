@@ -5,15 +5,18 @@ class Armor :
 {
 private:
     int _iniciative;
-    bool isMartial;
-    std::string _quality, _m_defense, _defense;
+    bool _isMartial;
+    std::string _m_defense, _defense;
 
 public:
-    std::string getQuality();
     std::string getMDef();
     std::string getDef();
+    bool getIsMartial();
+    int getIniciative();
 
-    int getIsMartial();
-
+    void setIniciative();
+    void setIsMartial();
+    void setMDefense();
+    void setDefense();
 };
 
