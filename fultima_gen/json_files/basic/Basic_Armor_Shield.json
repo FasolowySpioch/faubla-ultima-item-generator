@@ -3,8 +3,10 @@
     {
       "Name": "Silk Shirt",
       "Cost": 100,
-      "Defense": "DEX size",
-      "MagicDefense": "INS size + 1",
+      "Defense": 2,
+      "DefenseBonus": 0,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 1,
       "Initiative": -1,
       "IsMartial" : false,
       "Quality" : "No quality"
@@ -12,8 +14,10 @@
     {
       "Name": "Travel Garb",
       "Cost": 100,
-      "Defense": "DEX size + 1",
-      "MagicDefense": "INS size + 1",
+      "Defense": 2,
+      "DefenseBonus": 1,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 1,
       "Initiative": -1,
       "IsMartial" : false,
       "Quality" : "No quality"
@@ -21,8 +25,10 @@
     {
       "Name": "Combat Tunic",
       "Cost": 150,
-      "Defense": "DEX size + 1",
-      "MagicDefense": "INS size + 1",
+      "Defense": 2,
+      "DefenseBonus": 1,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 1,
       "Initiative": 0,
       "IsMartial" : false,
       "Quality" : "No quality"
@@ -30,8 +36,10 @@
     {
       "Name": "Sage Robe",
       "Cost": 200,
-      "Defense": "DEX size + 1",
-      "MagicDefense": "INS size + 2",
+      "Defense": 2,
+      "DefenseBonus": 1,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 2,
       "Initiative": -2,
       "IsMartial" : false,
       "Quality" : "No quality"
@@ -39,8 +47,10 @@
     {
       "Name": "Brigandine",
       "Cost": 150,
-      "Defense": "10",
-      "MagicDefense": "INS size",
+      "Defense": 10,
+      "DefenseBonus": 0,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 0,
       "Initiative": -2,
       "IsMartial" : true,
       "Quality" : "No quality"
@@ -48,8 +58,10 @@
     {
       "Name": "Bronze Plate",
       "Cost": 200,
-      "Defense": "11",
-      "MagicDefense": "INS size",
+      "Defense": 11,
+      "DefenseBonus": 0,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 0,
       "Initiative": -3,
       "IsMartial" : true,
       "Quality" : "No quality"
@@ -57,8 +69,10 @@
     {
       "Name": "Runic Plate",
       "Cost": 250,
-      "Defense": "11",
-      "MagicDefense": "INS size + 1",
+      "Defense": 11,
+      "DefenseBonus": 0,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 1,
       "Initiative": -3,
       "IsMartial" : true,
       "Quality" : "No quality"
@@ -66,8 +80,10 @@
     {
       "Name": "Steel Plate",
       "Cost": 300,
-      "Defense": "12",
-      "MagicDefense": "INS size",
+      "Defense": 12,
+      "DefenseBonus": 0,
+      "MagicDefense": 1,
+      "MagicDefenseBonus": 0,
       "Initiative": -4,
       "IsMartial" : true,
       "Quality" : "No quality"
@@ -77,8 +93,8 @@
     {
       "Name": "Bronze Shield",
       "Cost": 100,
-      "Defense": "+2",
-      "MagicDefense": "-",
+      "Defense": 2,
+      "MagicDefense": 0,
       "Initiative": 0,
       "IsMartial" : false,
       "Quality" : "No quality"
@@ -86,8 +102,8 @@
     {
       "Name": "Runic Shield",
       "Cost": 150,
-      "Defense": "+2",
-      "MagicDefense": "+2",
+      "Defense": 2,
+      "MagicDefense": 2,
       "Initiative": 0,
       "IsMartial" : true,
       "Quality" : "No quality"

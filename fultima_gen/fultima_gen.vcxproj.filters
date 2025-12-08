@@ -24,9 +24,6 @@
     <ClInclude Include="Enums.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="Armor.h">
       <Filter>Pliki nagłówkowe\Items</Filter>
     </ClInclude>

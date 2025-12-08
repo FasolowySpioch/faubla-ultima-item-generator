@@ -128,7 +128,6 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="json.hpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
