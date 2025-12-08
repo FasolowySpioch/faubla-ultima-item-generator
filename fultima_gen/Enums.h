@@ -13,3 +13,6 @@ enum class StatusEffect { //Jeszcze nie wiem czy to potrzebne ale mo¿e siê przyd
 	SLOW = 2, 
 	WEAK = 3
 };
+enum class WeaponType {
+	ARCANE = 0, BOW = 1, BRAWL = 2, DAGGER = 3, FIREARM = 4, FLAIL = 5, HEAVY = 6, SPEAR = 7, SWORD = 8, THROWN = 9
+};

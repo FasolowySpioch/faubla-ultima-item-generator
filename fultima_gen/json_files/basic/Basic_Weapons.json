@@ -1,7 +1,7 @@
 {
   "Weapon": [
     {
-      "Type": "Arcane",
+      "Type": 0,
       "Name": "Staff",
       "Cost": 100,
       "Accuracy_1": 0,
@@ -15,7 +15,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Arcane",
+      "Type": 0,
       "Name": "Tome",
       "Cost": 100,
       "Accuracy_1": 1,
@@ -29,7 +29,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Bow",
+      "Type": 1,
       "Name": "Crossbow",
       "Cost": 150,
       "Accuracy_1": 2,
@@ -43,7 +43,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Bow",
+      "Type": 1,
       "Name": "Shortbow",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -57,7 +57,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Brawl",
+      "Type": 2,
       "Name": "Iron Knuckle",
       "Cost": 150,
       "Accuracy_1": 2,
@@ -71,7 +71,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Dagger",
+      "Type": 3,
       "Name": "Steel Dagger",
       "Cost": 150,
       "Accuracy_1": 2,
@@ -85,7 +85,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Firearm",
+      "Type": 4,
       "Name": "Pistol",
       "Cost": 250,
       "Accuracy_1": 2,
@@ -99,7 +99,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Flail",
+      "Type": 5,
       "Name": "Chain Whip",
       "Cost": 150,
       "Accuracy_1": 2,
@@ -113,7 +113,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Heavy",
+      "Type": 6,
       "Name": "Iron Hammer",
       "Cost": 200,
       "Accuracy_1": 3,
@@ -127,7 +127,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Heavy",
+      "Type": 6,
       "Name": "Broadaxe",
       "Cost": 250,
       "Accuracy_1": 3,
@@ -141,7 +141,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Heavy",
+      "Type": 6,
       "Name": "Waraxe",
       "Cost": 250,
       "Accuracy_1": 3,
@@ -155,7 +155,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Spear",
+      "Type": 7,
       "Name": "Light Spear",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -169,7 +169,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Spear",
+      "Type": 7,
       "Name": "Heavy Spear",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -183,7 +183,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Sword",
+      "Type": 8,
       "Name": "Bronze Sword",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -197,7 +197,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Sword",
+      "Type": 8,
       "Name": "Greatsword",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -211,7 +211,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Sword",
+      "Type": 8,
       "Name": "Katana",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -225,7 +225,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Sword",
+      "Type": 8,
       "Name": "Rapier",
       "Cost": 200,
       "Accuracy_1": 2,
@@ -239,7 +239,7 @@
       "Quality": "No quality"
     },
     {
-      "Type": "Thrown",
+      "Type": 9,
       "Name": "Shuriken",
       "Cost": 150,
       "Accuracy_1": 2,
