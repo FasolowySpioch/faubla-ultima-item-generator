@@ -1,7 +1,3 @@
-//
-// Created by Micha on 9.12.2025.
-//
-
 #ifndef FULTIMA_TEMP_WEAPON_H
 #define FULTIMA_TEMP_WEAPON_H
 

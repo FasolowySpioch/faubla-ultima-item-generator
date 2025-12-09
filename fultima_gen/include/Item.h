@@ -1,11 +1,7 @@
-//
-// Created by Micha on 9.12.2025.
-//
-
 #ifndef FULTIMA_TEMP_ITEM_H
 #define FULTIMA_TEMP_ITEM_H
 
-#include <iostream>
+//#include <iostream>
 #include <string>
 // #include "Enums.h"
 //#include "json.hpp"
@@ -17,7 +13,7 @@ class Item
     int _zenith_cost;
 
 public:
-    Item();
+    Item() = default;
     Item(std::string_view name, std::string_view desc, int price);
     virtual ~Item() = default;
 
@@ -28,8 +24,6 @@ public:
     void setName(std::string_view n);
     void setDesc(std::string_view d);
     void setPrice(int p);
-
-    //virtual void calculateCost(int b_cost, int mod_cost = 0);
 };
 
 

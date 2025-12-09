@@ -4,11 +4,6 @@
 
 #include "../include/Item.h"
 
-Item::Item()
-    : _zenith_cost(0)
-{
-}
-
 Item::Item(const std::string_view name, const std::string_view desc, const int price)
     : _name(name)
     , _desc(desc)
