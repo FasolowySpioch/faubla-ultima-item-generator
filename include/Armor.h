@@ -12,7 +12,7 @@ class Armor : public Item
     int _defense;
 
 public:
-    Armor() = default;
+    Armor();
     Armor(std::string_view name, std::string_view desc, int price, int initiative,
         bool isMartial, int magic_defense, int defense);
 

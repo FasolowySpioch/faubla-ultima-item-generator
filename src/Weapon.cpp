@@ -1,14 +1,22 @@
-//
-// Created by Micha on 9.12.2025.
-//
-
 #include "Weapon.h"
 
 
+Weapon::Weapon()
+    : _weapon_type(WeaponType::NONE)
+    , _dmg_desc(0)
+    , _dmg_type(DMGType::NONE)
+    , _accuracy1(Attributes::NONE)
+    , _accuracy2(Attributes::NONE)
+    , _accuracy_bonus(0)
+    , _isSingleHanded(false)
+    , _isRange(false)
+    , _isMartial(false)
+{
+}
 
 Weapon::Weapon(const std::string_view name, const std::string_view desc, const int price, const WeaponType weapon_type,
-        const int dmg_desc, const DMGType dmg_type, const Attributes accuracy1, const Attributes accuracy2,
-        const int accuracy_bonus, const bool isSingleHanded, const bool isRange, const bool isMartial)
+               const int dmg_desc, const DMGType dmg_type, const Attributes accuracy1, const Attributes accuracy2,
+               const int accuracy_bonus, const bool isSingleHanded, const bool isRange, const bool isMartial)
     : Item(name, desc, price)
     , _weapon_type(weapon_type)
     , _dmg_desc(dmg_desc)

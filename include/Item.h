@@ -13,7 +13,7 @@ class Item
     int _zenith_cost;
 
 public:
-    Item() = default;
+    Item();
     Item(std::string_view name, std::string_view desc, int price);
     virtual ~Item() = default;
 

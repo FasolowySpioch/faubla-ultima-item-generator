@@ -1,12 +1,16 @@
-//
-// Created by Micha on 9.12.2025.
-//
-
 #include "Armor.h"
 
 
+Armor::Armor()
+    : _initiative(0)
+    , _isMartial(false)
+    , _magic_defense(0)
+    , _defense(0)
+{
+}
+
 Armor::Armor(const std::string_view name, const std::string_view desc, const int price,
-    const int initiative, const bool isMartial, const int magic_defense, const int defense)
+             const int initiative, const bool isMartial, const int magic_defense, const int defense)
     : Item(name, desc, price)
     , _initiative(initiative)
     , _isMartial(isMartial)

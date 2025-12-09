@@ -5,15 +5,15 @@
 #include <string_view>
 
 enum class Attributes {
-    WLP = 0, INS = 1, DEX = 2, MIG = 3 //Jak w JSONIe jest cokolwiek powyżej 3 to zmusić generator do przypisania wartości która jest tam wpisana
+    NONE = 0, WLP = 1, INS = 2, DEX = 3, MIG = 4 //Jak w JSONIe jest cokolwiek powyżej 3 to zmusić generator do przypisania wartości która jest tam wpisana
 };
 
 enum class DMGType {
-    PHYSICAL = 0, AIR = 1, BOLT = 2, DARK = 3, EARTH = 4, FIRE = 5, ICE = 6, LIGHT = 7, POISON = 8
+    NONE = 0, PHYSICAL = 1, AIR = 2, BOLT = 3, DARK = 4, EARTH = 5, FIRE = 6, ICE = 7, LIGHT = 8, POISON = 9
 };
 
 enum class WeaponType {
-    ARCANE = 0, BOW = 1, BRAWL = 2, DAGGER = 3, FIREARM = 4, FLAIL = 5, HEAVY = 6, SPEAR = 7, SWORD = 8, THROWN = 9
+    NONE = 0, ARCANE = 1, BOW = 2, BRAWL = 3, DAGGER = 4, FIREARM = 5, FLAIL = 6, HEAVY = 7, SPEAR = 8, SWORD = 9, THROWN = 10
 };
 
 class Weapon : public Item
@@ -30,7 +30,7 @@ class Weapon : public Item
     //Quality podpada pod desc og�lnie, bo z perspektywy kodu b�dzie to osobno
 
 public:
-    Weapon() = default;
+    Weapon();
     Weapon(std::string_view name, std::string_view desc, int price, WeaponType weapon_type, int dmg_desc,
         DMGType dmg_type, Attributes accuracy1, Attributes accuracy2, int accuracy_bonus,
         bool isSingleHanded, bool isRange, bool isMartial);
