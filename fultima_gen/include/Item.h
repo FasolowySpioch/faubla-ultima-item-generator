@@ -1,0 +1,37 @@
+//
+// Created by Micha on 9.12.2025.
+//
+
+#ifndef FULTIMA_TEMP_ITEM_H
+#define FULTIMA_TEMP_ITEM_H
+
+#include <iostream>
+#include <string>
+// #include "Enums.h"
+//#include "json.hpp"
+
+class Item
+{
+    std::string _name;
+    std::string _desc;
+    int _zenith_cost;
+
+public:
+    Item();
+    Item(std::string_view name, std::string_view desc, int price);
+    virtual ~Item() = default;
+
+    std::string_view getName() const;
+    std::string_view getDesc() const;
+    int getPrice() const;
+
+    void setName(std::string_view n);
+    void setDesc(std::string_view d);
+    void setPrice(int p);
+
+    //virtual void calculateCost(int b_cost, int mod_cost = 0);
+};
+
+
+
+#endif //FULTIMA_TEMP_ITEM_H
