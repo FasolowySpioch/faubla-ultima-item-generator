@@ -72,3 +72,12 @@ install(TARGETS fultima-gen
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(fultima-gen)
 endif()
+
+message(STATUS "-------------------------------------------------")
+message(STATUS "  **Project Configuration Summary**")
+message(STATUS "-------------------------------------------------")
+message(STATUS "  C++ ver      : ${CMAKE_CXX_STANDARD}")
+message(STATUS "  C++ Compiler : ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "  Qt Version   : ${Qt6_VERSION}")
+message(STATUS "  CMake Ver    : ${CMAKE_VERSION}")
+message(STATUS "-------------------------------------------------")
