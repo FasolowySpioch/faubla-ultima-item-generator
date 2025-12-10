@@ -32,6 +32,7 @@ void Armor::setInitiative(const int in)
     if (0 < in)
         _initiative = 0;
         //throw std::invalid_argument("Armor::setInitiative: Invalid value for _initiative");
+    else
     _initiative = in;
 }
 void Armor::setIsMartial(const bool m) { _isMartial = m; }
