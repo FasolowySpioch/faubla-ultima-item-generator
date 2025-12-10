@@ -25,6 +25,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         include/Accessory.h include/Armor.h include/Item.h include/Weapon.h
         src/Accessory.cpp src/Armor.cpp src/Item.cpp src/Weapon.cpp
+        src/Generator.cpp include/Generator.h
+        src/Player.cpp
+        include/Player.h
+            include/AttributeEnum.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET fultima-gen APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

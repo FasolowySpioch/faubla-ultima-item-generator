@@ -2,18 +2,16 @@
 #define FULTIMA_TEMP_WEAPON_H
 
 #include "Item.h"
+#include "AttributeEnum.h"
 #include <string_view>
 
-enum class Attributes {
-    NONE = 0, WLP = 1, INS = 2, DEX = 3, MIG = 4 //Jak w JSONIe jest cokolwiek powyżej 3 to zmusić generator do przypisania wartości która jest tam wpisana
-};
 
 enum class DMGType {
-    NONE = 0, PHYSICAL = 1, AIR = 2, BOLT = 3, DARK = 4, EARTH = 5, FIRE = 6, ICE = 7, LIGHT = 8, POISON = 9
+    PHYSICAL = 0, AIR = 1, BOLT = 2, DARK = 3, EARTH = 4, FIRE = 5, ICE = 6, LIGHT = 7, POISON = 8, NONE = 99
 };
 
 enum class WeaponType {
-    NONE = 0, ARCANE = 1, BOW = 2, BRAWL = 3, DAGGER = 4, FIREARM = 5, FLAIL = 6, HEAVY = 7, SPEAR = 8, SWORD = 9, THROWN = 10
+    ARCANE = 0, BOW = 1, BRAWL = 2, DAGGER = 3, FIREARM = 4, FLAIL = 5, HEAVY = 6, SPEAR = 7, SWORD = 8, THROWN = 9, NONE = 99
 };
 
 class Weapon : public Item
@@ -21,8 +19,8 @@ class Weapon : public Item
     WeaponType _weapon_type;
     int _dmg_desc;
     DMGType _dmg_type;
-    Attributes _accuracy1;
-    Attributes _accuracy2;
+    Attribute _accuracy1;
+    Attribute _accuracy2;
     int _accuracy_bonus;
     bool _isSingleHanded;
     bool _isRange;
@@ -32,13 +30,13 @@ class Weapon : public Item
 public:
     Weapon();
     Weapon(std::string_view name, std::string_view desc, int price, WeaponType weapon_type, int dmg_desc,
-        DMGType dmg_type, Attributes accuracy1, Attributes accuracy2, int accuracy_bonus,
+        DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus,
         bool isSingleHanded, bool isRange, bool isMartial);
 
     WeaponType getType() const;
     int getDmgDesc() const;
-    Attributes getAccuracy1() const;
-    Attributes getAccuracy2() const;
+    Attribute getAccuracy1() const;
+    Attribute getAccuracy2() const;
     int getAccuracyBonus() const;
     DMGType getDmgType() const;
     bool getIsSingleHanded() const;
@@ -47,8 +45,8 @@ public:
 
     void setType(WeaponType t);
     void setDmgDesc(int dd);
-    void setAccuracy1(Attributes a1);
-    void setAccuracy2(Attributes a2);
+    void setAccuracy1(Attribute a1);
+    void setAccuracy2(Attribute a2);
     void setAccuracyBonus(int ab);
     void setDmgType(DMGType dt);
     void setIsSingleHanded(bool ish);

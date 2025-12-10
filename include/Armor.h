@@ -9,7 +9,7 @@ class Armor : public Item
     int _initiative;
     bool _isMartial;
     int _magic_defense;
-    int _defense;
+    int _defense;       // how does it know when it's DEX+int or just int?
 
 public:
     Armor();
@@ -21,7 +21,7 @@ public:
     int getMagDef() const;
     int getDef() const;
 
-    void setInitiative(int i);
+    void setInitiative(int in);
     void setIsMartial(bool m);
     void setMagDef(int md);
     void setDef(int d);
