@@ -14,7 +14,7 @@ Armor::Armor()
 Armor::Armor(const std::string_view name, const std::string_view desc, const int price,
              const int initiative, const bool isMartial, const int magic_defense, const int defense)
     : Item(name, desc, price)
-    , _initiative((initiative <= 0) ? initiative : 0)       //throw std::invalid_argument("Armor::Armor: Invalid value for _initiative");
+    , _initiative((initiative <= 0) ? initiative : 0)   //throw std::invalid_argument("Armor::Armor: Invalid value for _initiative");
     , _isMartial(isMartial)
     , _magic_defense(magic_defense)
     , _defense(defense)
@@ -26,6 +26,14 @@ int Armor::getInitiative() const { return _initiative; }
 bool Armor::getIsMartial() const { return _isMartial; }
 int Armor::getMagDef() const { return _magic_defense; }
 int Armor::getDef() const { return _defense; }
+Attribute Armor::getMagDefAtr() { return Attribute::INS; }
+Attribute Armor::getDefAtr() const
+{
+    if (_defense <= 3)
+        return Attribute::DEX;
+
+    return Attribute::NONE;
+}
 
 void Armor::setInitiative(const int in)
 {

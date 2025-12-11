@@ -2,6 +2,7 @@
 #define FULTIMA_TEMP_ARMOR_H
 
 #include "Item.h"
+#include "AttributeEnum.h"
 #include <string_view>
 
 class Armor : public Item
@@ -20,6 +21,8 @@ public:
     bool getIsMartial() const;
     int getMagDef() const;
     int getDef() const;
+    static Attribute getMagDefAtr();
+    Attribute getDefAtr() const;
 
     void setInitiative(int in);
     void setIsMartial(bool m);

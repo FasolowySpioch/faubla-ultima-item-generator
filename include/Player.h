@@ -13,7 +13,8 @@
 
 class Player
 {
-    std::string _name;
+    std::string _character_name;
+    std::string _author_name;
     int _level;
     Attribute _primary_die1;
     Attribute _primary_die2;
@@ -25,11 +26,12 @@ class Player
 
 public:
     Player();
-    Player(std::string_view name, int level, Attribute p_die1, Attribute p_die2,
+    Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2,
         WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor,
         bool canRange, bool canShield);
 
-    std::string_view getName() const;
+    std::string_view getCharacterName() const;
+    std::string_view getAuthorName() const;
     int getLevel() const;
     Attribute getPrimaryDie1() const;
     Attribute getPrimaryDie2() const;
@@ -39,8 +41,9 @@ public:
     bool getCanRange() const;
     bool getCanShield() const;
 
+    void setCharacterName(std::string_view ch_name);
+    void setAuthorName(std::string_view author_name);
     void setLevel(int level);
-    void setName(std::string_view name);
     void setPrimaryDie1(Attribute p_die1);
     void setPrimaryDie2(Attribute p_die2);
     void setPreferredWeaponType(WeaponType pref_weapon);
