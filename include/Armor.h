@@ -8,9 +8,9 @@
 class Armor : public Item
 {
     int _initiative;
-    bool _isMartial;
     int _magic_defense;
     int _defense;       // how does it know when it's DEX+int or just int?
+    bool _isMartial;
 
 public:
     Armor();

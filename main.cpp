@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <Item.h>
+#include <iostream>
+
+#include "AttributeEnum.h"
+#include "Weapon.h"
 
 int main(int argc, char *argv[])
 {

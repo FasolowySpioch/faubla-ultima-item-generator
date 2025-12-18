@@ -1,7 +1,3 @@
-//
-// Created by Micha on 9.12.2025.
-//
-
 #include "Item.h"
 
 Item::Item()

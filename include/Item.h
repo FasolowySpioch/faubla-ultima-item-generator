@@ -1,11 +1,8 @@
 #ifndef FULTIMA_TEMP_ITEM_H
 #define FULTIMA_TEMP_ITEM_H
 
-//#include <iostream>
 #include <string>
 #include <string_view>
-// #include "Enums.h"
-//#include "json.hpp"
 
 class Item
 {

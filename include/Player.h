@@ -1,7 +1,3 @@
-//
-// Created by Micha on 10/12/2025.
-//
-
 #ifndef FULTIMA_GEN_PLAYER_H
 #define FULTIMA_GEN_PLAYER_H
 

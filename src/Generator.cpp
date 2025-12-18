@@ -1,8 +1,13 @@
-#include "Generator.h"
+#include "../include/Generator.h"
 #include <algorithm>
 
 
-void Generator::createPlayerProfile(const std::string_view ch_name, const std::string_view author_name, const int level,
+Generator::~Generator()
+{
+    deleteAllPlayer();
+}
+
+void Generator::createPlayer(const std::string_view ch_name, const std::string_view author_name, const int level,
                                     const Attribute p_die1, const Attribute p_die2, const WeaponType pref_weapon, const bool canMartialWeapon,
                                     const bool canMartialArmor, const bool canRange, const bool canShield)
 {
@@ -13,7 +18,7 @@ void Generator::createPlayerProfile(const std::string_view ch_name, const std::s
         ));
 }
 
-void Generator::deletePlayerProfile(Player* p)
+void Generator::deletePlayer(Player* p)
 {
     auto it = std::find(_players.begin(), _players.end(), p);
     if (it != _players.end())
@@ -23,15 +28,13 @@ void Generator::deletePlayerProfile(Player* p)
     }
 }
 
-void Generator::deleteAllPlayerProfiles()
+void Generator::deleteAllPlayer()
 {
     for (auto p : _players)
+    {
         delete p;
+        p = nullptr;
+    }
 
     _players.clear();
 }
-
-// Player* Generator::getPlayer(std::string_view name)
-// {
-//
-// }

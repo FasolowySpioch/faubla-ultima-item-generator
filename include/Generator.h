@@ -12,14 +12,15 @@ class Generator
 
 public:
     Generator() = default;
-    ~Generator();
+    virtual ~Generator();
 
-    void createPlayerProfile(std::string_view ch_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2,
+    void createPlayer(std::string_view ch_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2,
         WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor,
         bool canRange, bool canShield);
-    void deletePlayerProfile(Player* p);
-    void deleteAllPlayerProfiles();
-    Player* getPlayer(std::string_view name);   // either author's or character's name
+    void deletePlayer(Player* p);
+    void deleteAllPlayer();
+
+    virtual Item* generateItem(Player* p) = 0;
 };
 
 
