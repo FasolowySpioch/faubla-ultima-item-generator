@@ -26,8 +26,8 @@ public:
         WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor,
         bool canRange, bool canShield);
 
-    std::string_view getCharacterName() const;
-    std::string_view getAuthorName() const;
+    const std::string& getCharacterName() const;
+    const std::string& getAuthorName() const;
     int getLevel() const;
     Attribute getPrimaryDie1() const;
     Attribute getPrimaryDie2() const;

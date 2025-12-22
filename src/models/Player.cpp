@@ -31,8 +31,8 @@ Player::Player(const std::string_view character_name, const std::string_view aut
 }
 
 
-std::string_view Player::getCharacterName() const { return _character_name; }
-std::string_view Player::getAuthorName() const { return _author_name; }
+const std::string& Player::getCharacterName() const { return _character_name; }
+const std::string& Player::getAuthorName() const { return _author_name; }
 int Player::getLevel() const { return _level; }
 Attribute Player::getPrimaryDie1() const { return _primary_die1; }
 Attribute Player::getPrimaryDie2() const { return _primary_die2; }

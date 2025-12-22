@@ -3,9 +3,6 @@
 #include <QApplication>
 #include <iostream>
 
-#include "AttributeEnum.h"
-#include "Weapon.h"
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

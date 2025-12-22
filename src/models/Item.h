@@ -13,10 +13,10 @@ class Item
 public:
     Item();
     Item(std::string_view name, std::string_view desc, int price);
-    virtual ~Item() = default;
+    virtual ~Item() = 0;
 
-    std::string_view getName() const;
-    std::string_view getDesc() const;
+    const std::string& getName() const;
+    const std::string& getDesc() const;
     int getPrice() const;
 
     void setName(std::string_view n);

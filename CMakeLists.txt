@@ -17,20 +17,19 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        src/DerivedGenerators.cpp
-        include/DerivedGenerators.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(fultima-gen
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        include/Accessory.h include/Armor.h include/Item.h include/Weapon.h
-        src/Accessory.cpp src/Armor.cpp src/Item.cpp src/Weapon.cpp
-        src/Generator.cpp include/Generator.h
-        src/Player.cpp
-        include/Player.h
-            include/AttributeEnum.h
+            src/models/Accessory.h src/models/Armor.h src/models/Item.h src/models/Weapon.h
+            src/models/Accessory.cpp src/models/Armor.cpp src/models/Item.cpp src/models/Weapon.cpp
+            src/models/Player.cpp
+            src/models/Player.h
+            src/models/AttributeEnum.h
+            src/core/CampaignManager.cpp
+            src/core/CampaignManager.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET fultima-gen APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -50,7 +49,7 @@ else()
     endif()
 endif()
 
-target_include_directories(fultima-gen PRIVATE include)
+#target_include_directories(fultima-gen PRIVATE src)
 
 target_link_libraries(fultima-gen PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
