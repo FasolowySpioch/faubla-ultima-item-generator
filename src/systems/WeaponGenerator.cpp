@@ -7,16 +7,16 @@
 #include <QJsonObject>
 #include <QString>
 #include <algorithm>
-#include <vector>
 #include <iterator>
 #include <random>
+#include <iostream>
 
 std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
 {
 
     // ================== WCZYTYWANIE Z JSON ==================
 
-    QFile file("../data/basic/Basic_Weapons.json");
+    QFile file("../../data/basic/Basic_Weapons.json");
     if (!file.open(QIODevice::ReadOnly))
         throw std::runtime_error("WeaponGenerator::generate: Couldn't open JSON file");
 
@@ -46,7 +46,7 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
             return JsonVal.toObject().value("Type").toInt() == static_cast<int>(player.getPreferredWeaponType());
         });
     }
-    else if (player.getPreferredWeaponType() == WeaponType::NONE || JsonMatchedObjs.isEmpty())
+    else if (JsonMatchedObjs.isEmpty())
     {
         for (QJsonValueRef JsonVal : WeaponsArr)
         {
@@ -57,6 +57,7 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
                 else
                     JsonWeaklyMatchedObjs.push_back(JsonVal);
             }
+            // jesli 1-szy atrybut nie zgadza sie z 1-sza koscia gracza, sprawdz druga kosc
             else if (JsonVal.toObject().value("Accuracy_1").toInt() == static_cast<int>(player.getPrimaryDie2()))
             {
                 if (JsonVal.toObject().value("Accuracy_2").toInt() == static_cast<int>(player.getPrimaryDie1()))
@@ -67,7 +68,19 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
         }
     }
 
-    std::mt19937 mt;
+    // === Testing purposes ===
+    // for (auto el : JsonWeaklyMatchedObjs){
+    //     std::cerr << "\t\t" << el.toObject().value("Name").toString().toStdString() << '\n';
+    // }
+
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!   DOROBIĆ SPRAWDZENIE FLAG   !!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+    static std::random_device seed;
+    static std::mt19937 mt(seed());
     QJsonValue SelectedJsonObj;
 
     if (!JsonMatchedObjs.isEmpty())
@@ -91,7 +104,20 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
             SelectedJsonObj = JsonWeaklyMatchedObjs.last();
     }
 
-    // Utworzyć obiekt Weapon z SelectedJsonObject
-    // Zwrócić wynik
-    // + testy
+    std::unique_ptr<Item> ParsedObj = std::make_unique<Weapon>(
+        SelectedJsonObj.toObject().value("Name").toString().toStdString(),
+        SelectedJsonObj.toObject().value("Quality").toString().toStdString(),
+        SelectedJsonObj.toObject().value("Cost").toInt(),
+        static_cast<WeaponType>(SelectedJsonObj.toObject().value("Type").toInt()),
+        SelectedJsonObj.toObject().value("Damage_desc").toInt(),
+        static_cast<DMGType>(SelectedJsonObj.toObject().value("Damage_type").toInt()),
+        static_cast<Attribute>(SelectedJsonObj.toObject().value("Accuracy_1").toInt()),
+        static_cast<Attribute>(SelectedJsonObj.toObject().value("Accuracy_2").toInt()),
+        SelectedJsonObj.toObject().value("Accuracy_bonus").toInt(),
+        SelectedJsonObj.toObject().value("IsSingleHanded").toBool(),
+        SelectedJsonObj.toObject().value("IsRange").toBool(),
+        SelectedJsonObj.toObject().value("IsMartial").toBool()
+        );
+
+    return std::move(ParsedObj);
 }

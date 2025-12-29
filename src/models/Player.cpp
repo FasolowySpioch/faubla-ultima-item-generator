@@ -19,7 +19,7 @@ Player::Player(const std::string_view character_name, const std::string_view aut
     const bool canMartialArmor, const bool canRange, bool canShield)
         : _character_name((!character_name.empty()) ? character_name : "[The Nameless]")
         , _author_name((!author_name.empty()) ? author_name : "[The Creator]")
-        , _level((5 > level || level > 50) ? level : throw std::invalid_argument("Player::Player: level out of range"))
+        , _level((5 <= level && level <= 50) ? level : throw std::invalid_argument("Player::Player: level out of range"))
         , _primary_die1(p_die1)
         , _primary_die2(p_die2)
         , _preferred_weapon_type(pref_weapon)
