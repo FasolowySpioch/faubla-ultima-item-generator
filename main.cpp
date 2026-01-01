@@ -26,9 +26,9 @@ void testWeaponGenerator()
         5,
         Attribute::DEX,
         Attribute::INS,
-        // WeaponType::SWORD,
-        WeaponType::NONE,
-        false,
+        WeaponType::SWORD,
+        //WeaponType::NONE,
+        true,
         false,
         true,
         false
@@ -40,7 +40,7 @@ void testWeaponGenerator()
     std::string weapon_type[] = {"ARCANE", "BOW", "BRAWL", "DAGGER", "FIREARM",
         "FLAIL", "HEAVY", "SPEAR", "SWORD", "THROWN"};
 
-    WeaponGenerator WeaponGen;
+    WeaponGenerator WeaponGen("../../data/basic/Basic_Weapons.json");
 
     // ====== TEST START ======
 
@@ -49,7 +49,7 @@ void testWeaponGenerator()
         std::unique_ptr<Item> GeneratedItem = WeaponGen.generate(*pl);
         std::cerr << "weapon generation test: OK\n";
 
-        auto* GeneratedWeapon = static_cast<Weapon*>(GeneratedItem.get());
+        auto* GeneratedWeapon = dynamic_cast<Weapon*>(GeneratedItem.get());
         std::cerr << "weapon attributes read test:\n";
         try
         {
@@ -59,8 +59,8 @@ void testWeaponGenerator()
             std::cerr << "\tweapon_type: " << weapon_type[static_cast<size_t>(GeneratedWeapon->getType())] << '\n';
             std::cerr << "\tdmg_desc: " << GeneratedWeapon->getDmgDesc() << '\n';
             std::cerr << "\tdmg_type: " << dmg_type[static_cast<size_t>(GeneratedWeapon->getDmgType())] << '\n';
-            std::cerr << "\taccuracy1: " << attributes[static_cast<size_t>(GeneratedWeapon->getAccuracy1())] << '\n';
-            std::cerr << "\taccuracy2: " << attributes[static_cast<size_t>(GeneratedWeapon->getAccuracy2())] << '\n';
+            std::cerr << "\taccuracy_1: " << attributes[static_cast<size_t>(GeneratedWeapon->getAccuracy1())] << '\n';
+            std::cerr << "\taccuracy_2: " << attributes[static_cast<size_t>(GeneratedWeapon->getAccuracy2())] << '\n';
             std::cerr << "\taccuracy_bonus: " << GeneratedWeapon->getAccuracyBonus() << '\n';
             std::cerr << "\tisSingleHanded: " << GeneratedWeapon->getIsSingleHanded() << '\n';
             std::cerr << "\tisRange: " << GeneratedWeapon->getIsRange() << '\n';

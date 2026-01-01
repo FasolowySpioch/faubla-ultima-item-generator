@@ -16,17 +16,17 @@ Player::Player()
 
 Player::Player(const std::string_view character_name, const std::string_view author_name, const int level, const Attribute p_die1,
     const Attribute p_die2, const WeaponType pref_weapon, const bool canMartialWeapon,
-    const bool canMartialArmor, const bool canRange, bool canShield)
+    const bool canMartialArmor, const bool canRange, const bool canShield)
         : _character_name((!character_name.empty()) ? character_name : "[The Nameless]")
         , _author_name((!author_name.empty()) ? author_name : "[The Creator]")
         , _level((5 <= level && level <= 50) ? level : throw std::invalid_argument("Player::Player: level out of range"))
         , _primary_die1(p_die1)
         , _primary_die2(p_die2)
         , _preferred_weapon_type(pref_weapon)
-        , _canMartialWeapon(false)
-        , _canMartialArmor(false)
-        , _canRange(false)
-        , _canShield(false)
+        , _canMartialWeapon(canMartialWeapon)
+        , _canMartialArmor(canMartialArmor)
+        , _canRange(canRange)
+        , _canShield(canShield)
 {
 }
 
