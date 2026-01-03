@@ -1,5 +1,4 @@
 #include "WeaponGenerator.h"
-#include "../models/Weapon.h"
 #include "../io/JsonReader.h"
 
 
@@ -11,7 +10,7 @@ WeaponGenerator::WeaponGenerator(const std::string &file_path)
 
     // loading the file
     JsonReader reader;
-    const std::vector<std::unique_ptr<Item>> loadedItems = reader.loadItems(QString::fromStdString(file_path));
+    const std::vector<std::unique_ptr<Item>> loadedItems = reader.loadItems(QString::fromStdString(file_path), ItemType::WEAPON);
 
     // caching the file and casting to derived class
     _cache_weapons.reserve(loadedItems.size());
@@ -33,12 +32,13 @@ bool WeaponGenerator::isWeaponUsable(const Player &player, const Weapon &weapon)
     return true;
 }
 
-void WeaponGenerator::filterByPlayerPreference(const Player &player, std::vector<const Weapon*> &candidates) const
+std::vector<const Weapon*> WeaponGenerator::filterByPlayerPreference(const Player &player) const
 {
-    if (player.getPreferredWeaponType() == WeaponType::NONE)
-        return;
-
     std::vector<const Weapon*> filtered;
+
+    if (player.getPreferredWeaponType() == WeaponType::NONE)
+        return filtered;
+
     for (auto &w : _cache_weapons)
     {
         if (!isWeaponUsable(player, *w))
@@ -48,17 +48,13 @@ void WeaponGenerator::filterByPlayerPreference(const Player &player, std::vector
             filtered.push_back(w.get());
     }
 
-    if (!filtered.empty())
-        candidates = std::move(filtered);
+    return filtered;
 }
 
-void WeaponGenerator::filterByPlayerAttributesHard(const Player &player, std::vector<const Weapon*> &candidates) const
+std::vector<const Weapon*> WeaponGenerator::filterByPlayerAttributesHard(const Player &player) const
 {
-    // if (candidates.size() >= 2)
-    if (!candidates.empty())
-        return;
-
     std::vector<const Weapon*> filtered;
+
     for (auto &w : _cache_weapons)
     {
         if (!isWeaponUsable(player, *w))
@@ -72,16 +68,13 @@ void WeaponGenerator::filterByPlayerAttributesHard(const Player &player, std::ve
             filtered.push_back(w.get());
     }
 
-    if (!filtered.empty())
-        candidates = std::move(filtered);
+    return filtered;
 }
 
-void WeaponGenerator::filterByPlayerAttributesSoft(const Player &player, std::vector<const Weapon*> &candidates) const
+std::vector<const Weapon*> WeaponGenerator::filterByPlayerAttributesSoft(const Player &player) const
 {
-    if (!candidates.empty())
-        return;
-
     std::vector<const Weapon*> filtered;
+
     for (auto &w : _cache_weapons)
     {
         if (!isWeaponUsable(player, *w))
@@ -93,24 +86,26 @@ void WeaponGenerator::filterByPlayerAttributesSoft(const Player &player, std::ve
             filtered.push_back(w.get());
     }
 
-    if (!filtered.empty())
-        candidates = std::move(filtered);
+    return filtered;
 }
 
 std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
 {
-    std::vector<const Weapon*> weapons_final;
+    std::vector<const Weapon *> weapons_final = filterByPlayerPreference(player);
 
-    filterByPlayerPreference(player, weapons_final);
-    filterByPlayerAttributesHard(player, weapons_final);
-    filterByPlayerAttributesSoft(player, weapons_final);
+    // 'chain of responsibility' design pattern?
+    if (weapons_final.empty())
+        weapons_final = filterByPlayerAttributesHard(player);
+
+    if (weapons_final.empty())
+        weapons_final = filterByPlayerAttributesSoft(player);
 
     // if still empty, take everything that player can use
     if (weapons_final.empty())
     {
         for (auto &w : _cache_weapons)
         {
-            if ((!player.getCanRange() && w->getIsRange()) || (!player.getCanMartialWeapon() && w->getIsMartial()))
+            if (!isWeaponUsable(player, *w))
                 continue;
 
             weapons_final.push_back(w.get());
@@ -122,10 +117,10 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
     // - OR player is meant to have absolutely nothing
     if (weapons_final.empty())
         return nullptr;
+        // throw exception ??
 
     // choosing random weapon to return
     std::uniform_int_distribution<> dist(0, weapons_final.size() - 1);
 
-    // deep copy
     return std::make_unique<Weapon>(*weapons_final[dist(_mt)]);
 }

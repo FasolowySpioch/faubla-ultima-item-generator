@@ -39,6 +39,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
             src/systems/AccessoryGenerator.h
             src/io/JsonReader.cpp
             src/io/JsonReader.h
+            src/models/Quality.h
+            src/systems/QualityGenerator.cpp
+            src/systems/QualityGenerator.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET fultima-gen APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

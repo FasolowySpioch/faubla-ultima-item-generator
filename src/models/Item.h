@@ -4,6 +4,9 @@
 #include <string>
 #include <string_view>
 
+
+enum class ItemType { WEAPON, ARMOR, ACCESSORY };
+
 class Item
 {
     std::string _name;

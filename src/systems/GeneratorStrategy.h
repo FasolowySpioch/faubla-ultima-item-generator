@@ -4,11 +4,13 @@
 #include "../models/Item.h"
 #include "../models/Player.h"
 #include <memory>
-
-enum class ItemType { WEAPON, ARMOR, ACCESSORY };
+#include <random>
 
 class GeneratorStrategy
 {
+protected:
+    std::mt19937 _mt;
+
 public:
     virtual ~GeneratorStrategy() = default;
     virtual std::unique_ptr<Item> generate(const Player& player) = 0;
