@@ -13,7 +13,7 @@ Armor::Armor()
 
 Armor::Armor(const std::string_view name, const std::string_view desc, const int price,
              const int initiative, const bool isMartial, const int magic_defense, const int defense, const bool isShield)
-    : Item(name, desc, price)
+    : Item(name, desc, price, 0)
     , _initiative((initiative <= 0) ? initiative : 0)   //throw std::invalid_argument("Armor::Armor: Invalid value for _initiative");
     , _isMartial(isMartial)
     , _magic_defense(magic_defense)

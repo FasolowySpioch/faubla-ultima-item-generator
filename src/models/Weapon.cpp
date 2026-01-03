@@ -17,7 +17,7 @@ Weapon::Weapon()
 Weapon::Weapon(const std::string_view name, const std::string_view desc, const int price, const WeaponType weapon_type,
                const int dmg_desc, const DMGType dmg_type, const Attribute accuracy1, const Attribute accuracy2,
                const int accuracy_bonus, const bool isSingleHanded, const bool isRange, const bool isMartial)
-    : Item(name, desc, price)
+    : Item(name, desc, price, 0)
     , _weapon_type(weapon_type)
     , _dmg_desc(dmg_desc)   // check if input >=0 ??
     , _dmg_type(dmg_type)

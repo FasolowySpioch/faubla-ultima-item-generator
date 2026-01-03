@@ -9,6 +9,8 @@ struct Quality
     int cost_add;
     bool isOffensive;   // false == Defensive
 
+    Quality() : cost_add(0), isOffensive(false) {}
+
     Quality(const std::string_view _desc, const int _cost_add, const bool _isOffensive)
         : desc(_desc)
         , cost_add(_cost_add)
