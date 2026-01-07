@@ -1,7 +1,8 @@
 #include "JsonReader.h"
-#include <QFIle>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QJsonDocument>
 
 
 std::unique_ptr<Weapon> JsonReader::parseWeapon(const QJsonObject &JsonWeaponObj)

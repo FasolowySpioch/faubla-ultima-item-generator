@@ -49,5 +49,4 @@ public:
     void setCanShield(bool canShield);
 };
 
-
 #endif //FULTIMA_GEN_PLAYER_H

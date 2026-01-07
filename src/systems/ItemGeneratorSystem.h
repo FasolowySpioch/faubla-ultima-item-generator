@@ -5,7 +5,6 @@
 #include "QualityGenerator.h"
 #include <map>
 
-
 class ItemGeneratorSystem
 {
     std::map<ItemType, std::unique_ptr<GeneratorStrategy>> strategies;
