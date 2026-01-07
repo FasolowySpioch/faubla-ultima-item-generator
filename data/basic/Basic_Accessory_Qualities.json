@@ -1,0 +1,95 @@
+{  "Offensive_Quality": [
+    {
+      "ID": 1,
+      "Desc": "All damage dealt by your weapons, spells and Skills becomes of a (choose: specific type)",
+      "Cost_add": 300
+    },
+      {
+      "ID": 2,
+      "Desc": "All damage dealt by your weapons, spells and Skills becomes ",
+      "Cost_add": 300
+    },
+  {
+    "ID:" : 3,
+    "Desc" : "If you have this item equipped at the start of a conflict, you gain a +4 bonus to your Iniciative modifier.",
+    "Cost_add": 500
+  },
+    {
+      "ID": 4,
+      "Desc": "You gain a +1 bonus to your Accuracy Checks",
+      "Cost_add": 1000
+    },
+    {
+      "ID": 5,
+      "Desc": "You gain a +1 bonus to your Magic Checks",
+      "Cost_add": 1000
+    },
+    {
+      "ID" : 6,
+      "Desc": "When you recover HP, you recover 5 extra HP",
+      "Cost_add": 1000
+    },
+  {
+    "ID" : 7,
+    "Desc": "Spells you cast that whose effects restore HP will restore 5 extra HP",
+    "Cost_add": 1500
+  },
+    {
+    "ID" : 8,
+    "Desc" : "Spells you cast deal 5 extra damage",
+    "Cost_add": 2000
+    },
+  {
+    "ID": 9,
+    "Desc": "Your attacks with (choose one: melee, ranged) weapons deal 5 extra damage",
+    "Cost_add":2000
+  }
+    ],
+    "Defensive_Quality": [
+    {
+      "ID": 1,
+      "Desc": "You are immune to",
+      "Cost_add": 500
+    },
+    {
+      "ID": 2,
+      "Desc": "You have Resistance to",
+      "Cost_add": 700
+    },
+    {
+      "ID": 3,
+      "Desc": "You gain +1 bonus to Magic Defense.",
+      "Cost_add": 800
+    },
+    {
+      "ID": 4,
+      "Desc": "You gain +1 bonus to Defense.",
+      "Cost_add": 800
+    },
+    {
+      "ID": 5,
+      "Desc": "You have Resistance to",
+      "Cost_add": 1000
+    },
+    {
+      "ID": 6,
+      "Desc": "You have Resistance to physical damage.",
+      "Cost_add": 1000
+    },
+    {
+      "ID": 7,
+      "Desc": "You have Immunity to",
+      "Cost_add": 1500
+    },
+    {
+      "ID": 8,
+      "Desc": "You gain +1 bonus to Defense and Magic Defense.",
+      "Cost_add": 2000
+    },
+    {
+      "ID": 9,
+      "Desc": "You are immune to all status effects.",
+      "Cost_add": 2000
+    }
+  ]
+}

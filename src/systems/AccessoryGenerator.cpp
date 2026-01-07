@@ -22,6 +22,7 @@ AccessoryGenerator::AccessoryGenerator(const std::string &file_path)
 }
 
 // == how should it be even generated????? ==
+//Answer: Generate empty item and assign a quality to it. Congrats item is done, just check if cost is valid. I will create some namegen later maybe
 std::unique_ptr<Item> AccessoryGenerator::generate(const Player &player)
 {
     // if cache is empty, then probably something's wrong with the file
