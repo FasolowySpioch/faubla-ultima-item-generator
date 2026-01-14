@@ -19,7 +19,7 @@ class Test {
         ItemGeneratorSystem _igs;
         std::unique_ptr<WeaponGenerator> _wg = std::make_unique<WeaponGenerator>("../../data/basic/Basic_Weapons.json");
         std::unique_ptr<ArmorGenerator> _ag = std::make_unique<ArmorGenerator>("../../data/basic/Basic_Armor_Shield.json");
-        std::unique_ptr<QualityGenerator> _qg = std::make_unique<QualityGenerator>("../../data/basic/Basic_Qualities.json");
+        std::unique_ptr<QualityGenerator> _qg = std::make_unique<QualityGenerator>("../../data/basic/Basic_Weapon_Qualities.json");
 
         //STRING ARRAYS
         std::string attributes[4] = {"WLP", "INS", "DEX", "MIG"};

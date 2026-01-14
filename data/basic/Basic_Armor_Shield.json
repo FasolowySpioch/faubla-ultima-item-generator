@@ -47,8 +47,8 @@
     {
       "Name": "Brigandine",
       "Cost": 150,
-      "Defense": 10,
-      "DefenseBonus": 0,
+      "Defense": 69,
+      "DefenseBonus": 10,
       "MagicDefense": 1,
       "MagicDefenseBonus": 0,
       "Initiative": -2,
@@ -58,8 +58,8 @@
     {
       "Name": "Bronze Plate",
       "Cost": 200,
-      "Defense": 11,
-      "DefenseBonus": 0,
+      "Defense": 69,
+      "DefenseBonus": 11,
       "MagicDefense": 1,
       "MagicDefenseBonus": 0,
       "Initiative": -3,
@@ -69,8 +69,8 @@
     {
       "Name": "Runic Plate",
       "Cost": 250,
-      "Defense": 11,
-      "DefenseBonus": 0,
+      "Defense": 69,
+      "DefenseBonus": 11,
       "MagicDefense": 1,
       "MagicDefenseBonus": 1,
       "Initiative": -3,

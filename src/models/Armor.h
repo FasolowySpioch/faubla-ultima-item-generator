@@ -7,23 +7,25 @@
 
 class Armor : public Item
 {
+    Attribute _magic_defense;
+    Attribute _defense;
+    int _magic_defense_bonus;
+    int _defense_bonus;
     int _initiative;
-    int _magic_defense;
-    int _defense;
     bool _isMartial;
     bool _isShield;
 
 public:
     Armor();
     Armor(std::string_view name, std::string_view desc, int price, int initiative,
-        bool isMartial, int magic_defense, int defense, bool isShield);
+        bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield);
 
     int getInitiative() const;
     bool getIsMartial() const;
     bool getIsShield() const;
     int getMagDefBonus() const;
     int getDefBonus() const;
-    static Attribute getMagDefAtr();
+    Attribute getMagDefAtr() const;
     Attribute getDefAtr() const;
 
     void setInitiative(int in);

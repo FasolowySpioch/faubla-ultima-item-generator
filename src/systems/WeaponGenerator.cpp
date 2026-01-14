@@ -10,7 +10,7 @@ WeaponGenerator::WeaponGenerator(const std::string &file_path)
 
     // loading the file
     JsonReader reader;
-    const std::vector<std::unique_ptr<Item>> loadedItems = reader.loadItems(QString::fromStdString(file_path), ItemType::WEAPON);
+    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(QString::fromStdString(file_path), ItemType::WEAPON);
 
     // caching the file and casting to derived class
     _cache_weapons.reserve(loadedItems.size());

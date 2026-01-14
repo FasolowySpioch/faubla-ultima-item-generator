@@ -9,7 +9,7 @@ QualityGenerator::QualityGenerator(const std::string &file_path)
 
     // loading the file into cache
     JsonReader reader;
-    _cache_qualities = reader.loadQualities(QString::fromStdString(file_path));
+    _cache_qualities = JsonReader::loadQualities(QString::fromStdString(file_path));
 }
 
 

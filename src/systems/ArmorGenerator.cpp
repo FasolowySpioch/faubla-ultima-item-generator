@@ -10,7 +10,7 @@ ArmorGenerator::ArmorGenerator(const std::string &file_path)
 
     // loading the file
     JsonReader reader;
-    const std::vector<std::unique_ptr<Item>> loadedItems = reader.loadItems(QString::fromStdString(file_path), ItemType::ARMOR);
+    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(QString::fromStdString(file_path), ItemType::ARMOR);
 
     // caching the file and casting to derived class
     _cache_armors.reserve(loadedItems.size());

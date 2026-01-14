@@ -12,13 +12,13 @@
 
 class JsonReader
 {
-    std::unique_ptr<Weapon> parseWeapon(const QJsonObject& JsonWeaponObj);
-    std::unique_ptr<Armor> parseArmor(const QJsonObject& JsonArmorObj, bool makeShield);
-    Quality parseQuality(const QJsonObject &JsonQualityObj, bool makeOffensive);   // makeOffensive == false --> return defensive
+    static std::unique_ptr<Weapon> parseWeapon(const QJsonObject& JsonWeaponObj);
+    static std::unique_ptr<Armor> parseArmor(const QJsonObject& JsonArmorObj, bool makeShield);
+    static Quality parseQuality(const QJsonObject &JsonQualityObj, bool makeOffensive);   // makeOffensive == false --> return defensive
 
 public:
-    std::vector<std::unique_ptr<Item>> loadItems(const QString& file_path, ItemType type);
-    std::vector<Quality> loadQualities(const QString& file_path);
+    static std::vector<std::unique_ptr<Item>> loadItems(const QString& file_path, ItemType type);
+    static std::vector<Quality> loadQualities(const QString& file_path);
 };
 
 

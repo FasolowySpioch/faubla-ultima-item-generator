@@ -11,6 +11,9 @@ class ItemGeneratorSystem
     std::unique_ptr<QualityGenerator> quality_strategy;
     std::mt19937 mt;
 
+    ItemType getRandomItemType();
+    static bool isItemPriceValid(const Item &item, const Player &player);
+
 public:
     ItemGeneratorSystem();
 

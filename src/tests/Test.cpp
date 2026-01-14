@@ -12,7 +12,7 @@ void Test::allWeaponTests(){
     std::cerr<<"\t\t\t=== WEAPON TEST STOP ===\n";
 }
 
-//THIS TESTS DO NOT CHCECK COST!
+//THESE TESTS DO NOT CHECK COST!
 //Items generated in here do not have any quality, so costs are the default ones.
 void Test::testWeaponFullPreferences(){
     std::cerr<<"\n=== WEAPON FULL PREFERENCES TEST ===\n";

@@ -1,7 +1,7 @@
 {  "Offensive_Quality": [
     {
       "ID": 1,
-      "Desc": "You gain a +4 bonus to your Iniciative modifier",
+      "Desc": "You gain a +4 bonus to your Initiative modifier",
       "Cost_add": 500
     },
     {
@@ -19,21 +19,21 @@
       "Desc": "When you recover HP, you recover 5 extra HP",
       "Cost_add": 1000
     },
-  {
-    "ID" : 5,
-    "Desc": "Spells you cast that whose effects restore HP will restore 5 extra HP",
-    "Cost_add": 1500
-  },
+    {
+      "ID" : 5,
+      "Desc": "Spells you cast that whose effects restore HP will restore 5 extra HP",
+      "Cost_add": 1500
+    },
     {
     "ID" : 6,
     "Desc" : "Spells you cast deal 5 extra damage",
     "Cost_add": 2000
     },
-  {
-    "ID": 7,
-    "Desc": "Your attacks with (choose one: melee, ranged) weapons deal 5 extra damage",
-    "Cost_add":2000
-  }
+    {
+      "ID": 7,
+      "Desc": "Your attacks with (choose one: melee, ranged) weapons deal 5 extra damage",
+      "Cost_add":2000
+    }
     ],
     "Defensive_Quality": [
     {

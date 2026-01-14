@@ -7,10 +7,9 @@
 
 class AccessoryGenerator final : public GeneratorStrategy
 {
-    std::vector<std::unique_ptr<Accessory>> _cache_accessories;
 
 public:
-    explicit AccessoryGenerator(const std::string &file_path);
+    explicit AccessoryGenerator();
 
     std::unique_ptr<Item> generate(const Player &player) override;
 };

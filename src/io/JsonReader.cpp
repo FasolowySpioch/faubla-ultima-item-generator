@@ -32,14 +32,14 @@ std::unique_ptr<Armor> JsonReader::parseArmor(const QJsonObject &JsonArmorObj, b
     int price = JsonArmorObj.value("Cost").toInt();
 
     int initiative = JsonArmorObj.value("Initiative").toInt();
-    int magic_def = JsonArmorObj.value("MagicDefense").toInt();
+    Attribute magic_def = static_cast<Attribute>(JsonArmorObj.value("MagicDefense").toInt());
     int magic_def_bonus = JsonArmorObj.value("MagicDefenseBonus").toInt();
-    int def = JsonArmorObj.value("Defense").toInt();
+    Attribute def = static_cast<Attribute>(JsonArmorObj.value("Defense").toInt());
     int def_bonus = JsonArmorObj.value("DefenseBonus").toInt();
     bool isMartial = JsonArmorObj.value("IsMartial").toBool();
 
     return std::make_unique<Armor>(name.toStdString(), desc.toStdString(), price, initiative,
-        isMartial, magic_def_bonus, def + def_bonus, makeShield);
+        isMartial, magic_def, magic_def_bonus, def, def_bonus, makeShield);
 }
 
 Quality JsonReader::parseQuality(const QJsonObject &JsonQualityObj, bool makeOffensive)
