@@ -3,84 +3,84 @@
     {
       "ID": 1,
       "Desc": "The weapon targets Magic Defense instead of Defense.",
-      "Zenith_add": 100
+      "Cost_add": 100
     },
     {
       "ID": 2,
-      "Desc": "The weapon deals 5 extra damage to creatures of particlular Species",
-      "Zenith_add": 300
+      "Desc": "The weapon deals 5 extra damage to creatures of particular Species",
+      "Cost_add": 300
     },
     {
       "ID": 3,
       "Desc": "Damage dealt by the weapon ignores Resistances",
-      "Zenith_add": 400
+      "Cost_add": 400
     },
     {
       "ID": 4,
-      "Desc": "The weapon deals 5 extra damage to creatures belongign to one of two particular Species",
-      "Zenith_add": 500
+      "Desc": "The weapon deals 5 extra damage to creatures belonging to one of two particular Species",
+      "Cost_add": 500
     },
     {
       "ID": 5,
-      "Desc": "Attacks with the weapon have multiplyer (2)",
-      "Zenith_add": 1000
+      "Desc": "Attacks with the weapon have multiplier (2)",
+      "Cost_add": 1000
     },
     {
       "ID": 6,
       "Desc": "Each target hit by the weapon suffers",
-      "Zenith_add": 1500
+      "Cost_add": 1500
     },
     {
       "ID": 7,
       "Desc": "Each target hit by the weapon suffers",
-      "Zenith_add": 2000
+      "Cost_add": 2000
     }
   ],
   "Defensive_Quality": [
     {
       "ID": 1,
       "Desc": "You are immune to",
-      "Zenith_add": 500
+      "Cost_add": 500
     },
     {
       "ID": 2,
       "Desc": "You have Resistance to",
-      "Zenith_add": 700
+      "Cost_add": 700
     },
     {
       "ID": 3,
       "Desc": "You gain +1 bonus to Magic Defense.",
-      "Zenith_add": 800
+      "Cost_add": 800
     },
     {
       "ID": 4,
       "Desc": "You gain +1 bonus to Defense.",
-      "Zenith_add": 800
+      "Cost_add": 800
     },
     {
       "ID": 5,
       "Desc": "You have Resistance to",
-      "Zenith_add": 1000
+      "Cost_add": 1000
     },
     {
       "ID": 6,
       "Desc": "You have Resistance to physical damage.",
-      "Zenith_add": 1000
+      "Cost_add": 1000
     },
     {
       "ID": 7,
       "Desc": "You have Immunity to",
-      "Zenith_add": 1500
+      "Cost_add": 1500
     },
     {
       "ID": 8,
       "Desc": "You gain +1 bonus to Defense and Magic Defense.",
-      "Zenith_add": 2000
+      "Cost_add": 2000
     },
     {
       "ID": 9,
       "Desc": "You are immune to all status effects.",
-      "Zenith_add": 2000
+      "Cost_add": 2000
     }
   ]
 }

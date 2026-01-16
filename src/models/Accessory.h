@@ -2,6 +2,7 @@
 #define FULTIMA_TEMP_ACCESSORY_H
 
 #include "Item.h"
+#include <string_view>
 
 class Accessory : public Item
 {
