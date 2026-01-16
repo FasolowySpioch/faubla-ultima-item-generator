@@ -8,7 +8,7 @@
 class ItemGeneratorSystem
 {
     std::map<ItemType, std::unique_ptr<GeneratorStrategy>> strategies;
-    std::unique_ptr<QualityGenerator> quality_strategy;
+    std::map<ItemType, std::unique_ptr<QualityGenerator>> quality_gen;
     std::mt19937 mt;
 
     ItemType getRandomItemType();
@@ -18,7 +18,7 @@ public:
     ItemGeneratorSystem();
 
     std::unique_ptr<Item> generateItem(const Player &player, ItemType type);
-    void rerollQuality(ItemType type, Item *item) const;
+    void assignQuality(ItemType type, Item *item);
 };
 
 

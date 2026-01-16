@@ -1,6 +1,7 @@
 #include "ItemGeneratorSystem.h"
 
 #include <stdexcept>
+#include <cassert>
 
 #include "AccessoryGenerator.h"
 #include "ArmorGenerator.h"
@@ -19,7 +20,9 @@ ItemGeneratorSystem::ItemGeneratorSystem()
     strategies[ItemType::ARMOR] = std::make_unique<ArmorGenerator>("../../data/basic/Basic_Armor_Shield.json");
     strategies[ItemType::ACCESSORY] = std::make_unique<AccessoryGenerator>();
 
-    quality_strategy = std::make_unique<QualityGenerator>("../../data/basic/Basic_Weapon_Qualities.json");
+    quality_gen[ItemType::WEAPON] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Weapon_Qualities.json");
+    quality_gen[ItemType::ARMOR] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Armor_Qualities.json");
+    quality_gen[ItemType::ACCESSORY] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Accessory_Qualities.json");
 }
 
 ItemType ItemGeneratorSystem::getRandomItemType()
@@ -72,7 +75,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(const Player &player, It
         if (i < no_of_tries)
         {
             // generate quality and apply to item
-            rerollQuality(type, item.get());
+            assignQuality(type, item.get());
         }
 
         if (isItemPriceValid(*item, player))
@@ -82,9 +85,10 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(const Player &player, It
     }
 }
 
-void ItemGeneratorSystem::rerollQuality(const ItemType type, Item *item) const
+void ItemGeneratorSystem::assignQuality(const ItemType type, Item *item)
 {
-    if (!item) throw std::invalid_argument("ItemGeneratorSystem::rerollQuality(): Invalid pointer to item");
+    assert(type != ItemType::RANDOM);
+    if (!item) throw std::invalid_argument("ItemGeneratorSystem::assignQuality(): Invalid pointer to item");
 
-    quality_strategy->applyRandomQualityTo(type, item);
+    quality_gen[type]->applyRandomQualityTo(item);
 }

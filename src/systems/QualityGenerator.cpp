@@ -13,37 +13,21 @@ QualityGenerator::QualityGenerator(const std::string &file_path)
 }
 
 
-const Quality& QualityGenerator::generate(ItemType type)
+const Quality& QualityGenerator::generate()
 {
-    std::vector<const Quality*> legal_qualities;
-
-    if (type == ItemType::WEAPON)
-    {
-        for (const Quality& quality : _cache_qualities)
-        {
-            if (quality.isOffensive)
-                legal_qualities.push_back(&quality);
-        }
-    }
-    else
-    {
-        for (const Quality& quality : _cache_qualities)
-                legal_qualities.push_back(&quality);
-    }
-
-    if (legal_qualities.empty())
+    if (_cache_qualities.empty())
         return Quality();
 
-    std::uniform_int_distribution<> dist(0, legal_qualities.size() - 1);
+    std::uniform_int_distribution<> dist(0, _cache_qualities.size() - 1);
 
-    return *legal_qualities[dist(_mt)];
+    return _cache_qualities[dist(_mt)];
 }
 
-void QualityGenerator::applyRandomQualityTo(const ItemType type, Item* item)
+void QualityGenerator::applyRandomQualityTo(Item* item)
 {
     if (!item) return;
 
-    const Quality& q = generate(type);
+    const Quality& q = generate();
 
     item->setDefaultDesc();
     item->setDefaultPrice();

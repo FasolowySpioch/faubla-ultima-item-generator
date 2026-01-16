@@ -16,8 +16,8 @@ class QualityGenerator
 public:
     explicit QualityGenerator(const std::string& file_path);
 
-    const Quality& generate(ItemType type);
-    void applyRandomQualityTo(ItemType type, Item* item);
+    const Quality& generate();
+    void applyRandomQualityTo(Item* item);
 };
 
 
