@@ -219,7 +219,7 @@ void Test::checkAttributes(const Weapon &w, const Player &p){
 }
 
 void Test::checkPreference(const Weapon &w, const Player &p){
-    if(p.getPreferredWeaponType() == w.getType()) std::cerr << "OK\n";
+    if(p.getPreferredWeaponType() == w.getWeaponType()) std::cerr << "OK\n";
     else std::cerr<<"FAIL\n";
 }
 
@@ -227,7 +227,7 @@ void Test::readWeapon(const Weapon &GenWeapon){
     std::cerr << "\tname: " << GenWeapon.getName() << '\n';
     std::cerr << "\tquality: "<< GenWeapon.getDesc() << '\n';
     std::cerr << "\tprice: " << GenWeapon.getPrice() << '\n';
-    std::cerr << "\tweapon_type: " << weapon_type[static_cast<size_t>(GenWeapon.getType())] << '\n';
+    std::cerr << "\tweapon_type: " << weapon_type[static_cast<size_t>(GenWeapon.getWeaponType())] << '\n';
     std::cerr << "\tdmg_desc: " << GenWeapon.getDmgDesc() << '\n';
     std::cerr << "\tdmg_type: " << dmg_type[static_cast<size_t>(GenWeapon.getDmgType())] << '\n';
     std::cerr << "\taccuracy_1: " << attributes[static_cast<size_t>(GenWeapon.getAccuracy1())] << '\n';

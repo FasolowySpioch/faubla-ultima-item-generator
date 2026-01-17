@@ -4,3 +4,5 @@ Accessory::Accessory(const std::string_view name, const std::string_view desc, c
     : Item(name, desc, price, 0)
 {
 }
+
+ItemType Accessory::getItemType() const { return ItemType::ACCESSORY; }

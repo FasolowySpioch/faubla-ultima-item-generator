@@ -14,8 +14,6 @@ Item::Item(const std::string_view name, const std::string_view desc, const int d
 {
 }
 
-Item::~Item() = default;
-
 const std::string& Item::getName() const { return _name; }
 const std::string& Item::getDesc() const { return _desc; }
 int Item::getPrice() const { return _default_price; }

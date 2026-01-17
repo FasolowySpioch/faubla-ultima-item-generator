@@ -17,7 +17,9 @@ class Item
 public:
     Item();
     Item(std::string_view name, std::string_view desc, int default_price, int add_price);
-    virtual ~Item() = 0;
+    virtual ~Item() = default;
+
+    virtual ItemType getItemType() const = 0;
 
     const std::string& getName() const;
     const std::string& getDesc() const;

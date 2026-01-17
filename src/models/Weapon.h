@@ -33,7 +33,9 @@ public:
         DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus,
         bool isSingleHanded, bool isRange, bool isMartial);
 
-    WeaponType getType() const;
+    ItemType getItemType() const override;
+
+    WeaponType getWeaponType() const;
     int getDmgDesc() const;
     Attribute getAccuracy1() const;
     Attribute getAccuracy2() const;

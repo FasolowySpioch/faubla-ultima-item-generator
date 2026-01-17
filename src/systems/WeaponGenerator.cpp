@@ -44,7 +44,7 @@ std::vector<const Weapon*> WeaponGenerator::filterByPlayerPreference(const Playe
         if (!isWeaponUsable(player, *w))
             continue;
 
-        if (w->getType() == player.getPreferredWeaponType())
+        if (w->getWeaponType() == player.getPreferredWeaponType())
             filtered.push_back(w.get());
     }
 

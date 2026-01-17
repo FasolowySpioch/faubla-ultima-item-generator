@@ -26,6 +26,7 @@ Armor::Armor(const std::string_view name, const std::string_view desc, const int
 {
 }
 
+ItemType Armor::getItemType() const { return ItemType::ARMOR; }
 
 int Armor::getInitiative() const { return _initiative; }
 bool Armor::getIsMartial() const { return _isMartial; }
