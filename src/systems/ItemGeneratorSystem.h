@@ -17,7 +17,7 @@ class ItemGeneratorSystem
 public:
     ItemGeneratorSystem();
 
-    std::unique_ptr<Item> generateItem(const Player &player, ItemType type);
+    [[nodiscard]] std::unique_ptr<Item> generateItem(ItemType type, const Player &player);
     void assignQuality(ItemType type, Item *item);
 };
 

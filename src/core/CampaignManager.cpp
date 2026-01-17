@@ -28,7 +28,7 @@ Item& CampaignManager::getItem(const size_t idx) const
     if (idx >= _items.size())
         throw std::out_of_range("CampaignManager::getItem: index out of range");
 
-    const auto& ptr = _items.at(idx);
+    const auto &ptr = _items.at(idx);
     if (!ptr)
         throw std::runtime_error("CampaignManager::getItem: null unique_ptr at idx" + std::to_string(idx));
 
@@ -38,6 +38,16 @@ Item& CampaignManager::getItem(const size_t idx) const
 const std::vector<std::unique_ptr<Item>>& CampaignManager::getItems() const
 {
     return _items;
+}
+
+void CampaignManager::replaceItem(const size_t idx, std::unique_ptr<Item> item)
+{
+    if (!item)
+        throw std::invalid_argument("CampaignManager::replaceItem: Invalid address to item.");
+    if (idx >= _items.size())
+        throw std::out_of_range("CampaignManager::replaceItem: index out of range");
+
+    _items.at(idx) = std::move(item);
 }
 
 
@@ -76,4 +86,14 @@ Player& CampaignManager::getPlayer(const size_t idx) const
 const std::vector<std::unique_ptr<Player>>& CampaignManager::getPlayers() const
 {
     return _players;
+}
+
+void CampaignManager::replacePlayer(const size_t idx, std::unique_ptr<Player> player)
+{
+    if (!player)
+        throw std::invalid_argument("CampaignManager::replacePlayer: Invalid address to player.");
+    if (idx >= _players.size())
+        throw std::out_of_range("CampaignManager::replacePlayer: index out of range");
+
+    _players.at(idx) = std::move(player);
 }

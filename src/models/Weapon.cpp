@@ -30,7 +30,9 @@ Weapon::Weapon(const std::string_view name, const std::string_view desc, const i
 {
 }
 
-WeaponType Weapon::getType() const { return _weapon_type; }
+ItemType Weapon::getItemType() const { return ItemType::WEAPON; }
+
+WeaponType Weapon::getWeaponType() const { return _weapon_type; }
 int Weapon::getDmgDesc() const { return _dmg_desc; }
 DMGType Weapon::getDmgType() const { return _dmg_type; }
 Attribute Weapon::getAccuracy1() const { return _accuracy1; }

@@ -20,6 +20,8 @@ public:
     Armor(std::string_view name, std::string_view desc, int price, int initiative,
         bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield);
 
+    ItemType getItemType() const override;
+
     int getInitiative() const;
     bool getIsMartial() const;
     bool getIsShield() const;
