@@ -31,6 +31,25 @@ Player::Player(const std::string_view character_name, const std::string_view aut
 }
 
 
+QJsonObject Player::toJson() const
+{
+    QJsonObject json;
+
+    json["Type"] = "Player";
+    json["Character_Name"] = QString::fromStdString(_character_name);
+    json["Author_Name"] = QString::fromStdString(_author_name);
+    json["Level"] = _level;
+    json["Primary_Die_1"] = static_cast<int>(_primary_die1);
+    json["Primary_Die_2"] = static_cast<int>(_primary_die2);
+    json["Preferred_Weapon_Type"] = static_cast<int>(_preferred_weapon_type);
+    json["CanMartialWeapon"] = _canMartialWeapon ? 1 : 0;
+    json["CanMartialArmor"] = _canMartialArmor ? 1 : 0;
+    json["CanRange"] = _canRange ? 1 : 0;
+    json["CanShield"] = _canShield ? 1 : 0;
+
+    return json;
+}
+
 const std::string& Player::getCharacterName() const { return _character_name; }
 const std::string& Player::getAuthorName() const { return _author_name; }
 int Player::getLevel() const { return _level; }
