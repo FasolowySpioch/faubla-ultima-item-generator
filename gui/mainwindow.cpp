@@ -60,6 +60,9 @@ void MainWindow::on_BttnQuickGenerate_clicked()
 
 void MainWindow::on_BttnNormalGenerate_clicked()
 {
+    ItemGenDialogue idg(this);
+    if(idg.exec() == QDialog::Accepted){
 
+    }
 }
 

@@ -6,6 +6,7 @@
 #include "../src/controllers/AppController.h"
 #include "dialogue/editplayer/editplayerdialogue.h"
 #include "dialogue/addplayer/addplayerdialogue.h"
+#include "dialogue/itemgen/itemgendialogue.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
