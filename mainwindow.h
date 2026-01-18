@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "src/controllers/AppController.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,5 +20,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    AppController _appcontrol;
 };
 #endif // MAINWINDOW_H
