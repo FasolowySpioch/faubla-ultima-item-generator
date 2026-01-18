@@ -125,7 +125,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="GridQuickGenButton" columnstretch="2,1">
+       <layout class="QGridLayout" name="GridGenButtons" columnstretch="2,1">
         <item row="0" column="0">
          <spacer name="horizontalSpacer">
           <property name="orientation">

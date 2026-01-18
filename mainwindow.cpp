@@ -12,3 +12,51 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+
+
+// === BUTTON ON CLICK FUNCTIONS ===
+
+// -- Player functions
+void MainWindow::on_BttnEditPlayers_clicked()
+{
+
+    //testting if dialouge works for now:
+    EditPlayerDialogue epd(this);
+    if(epd.exec() == QDialog::Accepted){
+
+    }
+}
+
+
+void MainWindow::on_BttnAddPlayers_clicked()
+{
+
+}
+
+// -- Campain functions
+//TODO: comeback after a commit with functions
+void MainWindow::on_BttnLoadCampain_clicked()
+{
+
+}
+
+
+void MainWindow::on_BttnSaveCampain_clicked()
+{
+
+}
+
+// -- Generate functions
+void MainWindow::on_BttnQuickGenerate_clicked()
+{
+
+}
+
+
+void MainWindow::on_BttnNormalGenerate_clicked()
+{
+
+}
+
