@@ -32,7 +32,10 @@ void MainWindow::on_BttnEditPlayers_clicked()
 
 void MainWindow::on_BttnAddPlayers_clicked()
 {
-
+    AddPlayerDialogue apd(this);
+    if(apd.exec() == QDialog::Accepted){
+        //TODO: Grab players to vector
+    }
 }
 
 // -- Campain functions
