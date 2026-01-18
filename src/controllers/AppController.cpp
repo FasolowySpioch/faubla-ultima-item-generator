@@ -45,6 +45,13 @@ std::unique_ptr<Item> AppController::generateRandomItem(const Player &player) co
     return generator->generateItem(ItemType::RANDOM, player);
 }
 
+std::unique_ptr<Item> AppController::generateItemForRandomPlayer() const
+{
+    const Player random_pl = repository->getRandomPlayer();
+
+    return generator->generateItem(ItemType::RANDOM, random_pl);
+}
+
 void AppController::rerollQuality(Item *item) const
 {
     generator->assignQuality(item->getItemType(), item);

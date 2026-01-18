@@ -28,7 +28,7 @@ public:
 
     [[nodiscard]] std::unique_ptr<Item> generateItem(ItemType type, const Player &player) const;
     [[nodiscard]] std::unique_ptr<Item> generateRandomItem(const Player &player) const;
-    // std::unique_ptr<Item> generateItemForRandomPlayer();      // random player + random item
+    [[nodiscard]] std::unique_ptr<Item> generateItemForRandomPlayer() const;      // random player + random item
     void rerollQuality(Item *item) const;
 
 };

@@ -3,6 +3,14 @@
 #include <stdexcept>
 
 
+CampaignManager::CampaignManager()
+{
+    // rng init
+    std::random_device seed;
+    mt = std::mt19937(seed());
+}
+
+
 // ==== Items methods ====
 
 void CampaignManager::addItem(std::unique_ptr<Item> item)
@@ -81,6 +89,13 @@ Player& CampaignManager::getPlayer(const size_t idx) const
         throw std::runtime_error("CampaignManager::getPlayer: null unique_ptr at idx" + std::to_string(idx));
 
     return *ptr;
+}
+
+const Player& CampaignManager::getRandomPlayer()
+{
+    const int random_idx = std::uniform_int_distribution<>(0, _players.size()-1)(mt);
+
+    return *_players[random_idx].get();
 }
 
 const std::vector<std::unique_ptr<Player>>& CampaignManager::getPlayers() const
