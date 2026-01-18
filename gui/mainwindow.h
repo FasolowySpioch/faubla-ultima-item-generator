@@ -3,8 +3,9 @@
 
 #include <QDialog>
 #include <QMainWindow>
-#include "src/controllers/AppController.h"
-#include "editplayerdialogue.h"
+#include "../src/controllers/AppController.h"
+#include "dialogue/editplayer/editplayerdialogue.h"
+#include "dialogue/addplayer/addplayerdialogue.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

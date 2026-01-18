@@ -15,6 +15,9 @@ public:
     explicit EditPlayerDialogue(QWidget *parent = nullptr);
     ~EditPlayerDialogue();
 
+private slots:
+    void on_BttnConfirmSelection_clicked();
+
 private:
     Ui::EditPlayerDialogue *ui;
 };

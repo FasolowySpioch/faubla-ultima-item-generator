@@ -12,3 +12,11 @@ EditPlayerDialogue::~EditPlayerDialogue()
 {
     delete ui;
 }
+
+
+//TODO: Accualy make it change things in the form
+void EditPlayerDialogue::on_BttnConfirmSelection_clicked()
+{
+
+}
+

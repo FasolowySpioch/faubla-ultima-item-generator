@@ -25,7 +25,7 @@ void MainWindow::on_BttnEditPlayers_clicked()
     //testting if dialouge works for now:
     EditPlayerDialogue epd(this);
     if(epd.exec() == QDialog::Accepted){
-
+        //TODO: Check if players were modified, if yes check index in campain
     }
 }
 

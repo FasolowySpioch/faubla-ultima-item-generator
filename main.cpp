@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "gui/mainwindow.h"
 #include "src/systems/WeaponGenerator.h"
 #include "src/tests/Test.h"
 

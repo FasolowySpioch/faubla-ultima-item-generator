@@ -17,13 +17,24 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Edytuj gracza</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
      <item>
-      <widget class="QComboBox" name="ComboBoxSelectPlayer"/>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0">
+       <item>
+        <widget class="QComboBox" name="ComboBoxSelectPlayer"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="BttnConfirmSelection">
+         <property name="text">
+          <string>WYBIERZ</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="Line" name="line">
@@ -130,7 +141,7 @@
        <item row="7" column="1">
         <widget class="QCheckBox" name="CheckBoxRange">
          <property name="text">
-          <string>Zasięg</string>
+          <string>Zasięgowa broń</string>
          </property>
         </widget>
        </item>
