@@ -45,7 +45,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QTextEdit" name="textEdit">
+      <widget class="QTextEdit" name="textEditAuthor">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QTextEdit" name="textEdit_2">
+      <widget class="QTextEdit" name="textEditName">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -80,34 +80,34 @@
       <widget class="QSpinBox" name="spinBox"/>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="QComboBox" name="comboBoxAttribute1"/>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="comboBox_2"/>
+      <widget class="QComboBox" name="comboBoxAttribute2"/>
      </item>
      <item row="5" column="1">
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="checkBoxMartialArmor">
        <property name="text">
         <string>Martial zbroja</string>
        </property>
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QCheckBox" name="checkBoxMartialWeapon">
        <property name="text">
         <string>Martial broń</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QCheckBox" name="checkBox_3">
+      <widget class="QCheckBox" name="checkBoxRange">
        <property name="text">
         <string>Zasięgowa broń</string>
        </property>
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QCheckBox" name="checkBox_4">
+      <widget class="QCheckBox" name="checkBoxShield">
        <property name="text">
         <string>Tarcza</string>
        </property>
