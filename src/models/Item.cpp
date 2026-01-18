@@ -1,4 +1,5 @@
 #include "Item.h"
+#include <QJsonObject>
 
 Item::Item()
     : _default_price(0)

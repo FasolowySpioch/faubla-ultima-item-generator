@@ -42,6 +42,9 @@ set(PROJECT_SOURCES
         src/systems/ItemGeneratorSystem.h
         src/controllers/AppController.cpp
         src/controllers/AppController.h
+        src/io/CampaignSerializer.cpp
+        src/io/CampaignSerializer.h
+        src/models/IJsonSerializable.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

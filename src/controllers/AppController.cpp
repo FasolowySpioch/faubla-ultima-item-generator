@@ -1,58 +1,74 @@
 #include "AppController.h"
 
-AppController::AppController()
-    : repository(std::make_unique<CampaignManager>())
-    , generator(std::make_unique<ItemGeneratorSystem>())
-{}
+#include <QFile>
 
-void AppController::savePlayer(std::unique_ptr<Player> player) const
+
+bool AppController::loadCampaign(const QString& file_path)
 {
-    repository->addPlayer(std::move(player));
+    repository.clear();
+    return CampaignSerializer::load(repository, file_path);
 }
 
-void AppController::removePlayer(const size_t idx) const
+bool AppController::saveCampaign(const QString& file_path) const
 {
-    repository->deletePlayer(idx);
+    return CampaignSerializer::save(repository, file_path);
 }
 
-void AppController::saveItem(std::unique_ptr<Item> item) const
+bool AppController::deleteCampaign(const QString& file_path)
 {
-    repository->addItem(std::move(item));
+    return QFile::remove(file_path);
 }
 
-void AppController::removeItem(const size_t idx) const
+
+void AppController::savePlayer(std::unique_ptr<Player> player)
 {
-    repository->deleteItem(idx);
+    repository.addPlayer(std::move(player));
 }
 
-void AppController::editPlayer(const size_t idx, std::unique_ptr<Player> edited_player) const
+void AppController::removePlayer(const size_t idx)
 {
-    repository->replacePlayer(idx, std::move(edited_player));
+    repository.deletePlayer(idx);
 }
 
-void AppController::editItem(const size_t idx, std::unique_ptr<Item> edited_item) const
+void AppController::saveItem(std::unique_ptr<Item> item)
 {
-    repository->replaceItem(idx, std::move(edited_item));
+    repository.addItem(std::move(item));
 }
 
-std::unique_ptr<Item> AppController::generateItem(const ItemType type, const Player &player) const
+void AppController::removeItem(const size_t idx)
 {
-    return generator->generateItem(type, player);
+    repository.deleteItem(idx);
 }
 
-std::unique_ptr<Item> AppController::generateRandomItem(const Player &player) const
+void AppController::editPlayer(const size_t idx, std::unique_ptr<Player> edited_player)
 {
-    return generator->generateItem(ItemType::RANDOM, player);
+    repository.replacePlayer(idx, std::move(edited_player));
 }
 
-std::unique_ptr<Item> AppController::generateItemForRandomPlayer() const
+void AppController::editItem(const size_t idx, std::unique_ptr<Item> edited_item)
 {
-    const Player random_pl = repository->getRandomPlayer();
-
-    return generator->generateItem(ItemType::RANDOM, random_pl);
+    repository.replaceItem(idx, std::move(edited_item));
 }
 
-void AppController::rerollQuality(Item *item) const
+
+std::unique_ptr<Item> AppController::generateItem(const ItemType type, const Player &player)
 {
-    generator->assignQuality(item->getItemType(), item);
+    return generator.generateItem(type, player);
+}
+
+std::unique_ptr<Item> AppController::generateRandomItem(const Player &player)
+{
+    return generator.generateItem(ItemType::RANDOM, player);
+}
+
+std::unique_ptr<Item> AppController::generateItemForRandomPlayer()
+{
+    const Player random_pl = repository.getRandomPlayer();
+
+    return generator.generateItem(ItemType::RANDOM, random_pl);
+}
+
+void AppController::rerollQuality(Item *item)
+{
+    generator.assignQuality(item->getItemType(), item);
 }
