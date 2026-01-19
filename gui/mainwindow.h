@@ -1,0 +1,38 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QDialog>
+#include <QMainWindow>
+#include "../src/controllers/AppController.h"
+#include "dialogue/editplayer/editplayerdialogue.h"
+#include "dialogue/addplayer/addplayerdialogue.h"
+#include "dialogue/itemgen/itemgendialogue.h"
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
+QT_END_NAMESPACE
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private slots:
+    void on_BttnEditPlayers_clicked();
+    void on_BttnAddPlayers_clicked();
+    void on_BttnLoadCampain_clicked();
+    void on_BttnSaveCampain_clicked();
+    void on_BttnQuickGenerate_clicked();
+    void on_BttnNormalGenerate_clicked();
+
+private:
+    Ui::MainWindow *ui;
+    AppController _appcontrol;
+
+};
+#endif // MAINWINDOW_H
