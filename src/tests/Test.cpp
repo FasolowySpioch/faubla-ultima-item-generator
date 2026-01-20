@@ -257,8 +257,8 @@ void Test::testArmorPreferences(){
             Attribute::NONE,
             Attribute::NONE,
             WeaponType::HEAVY,
-            true,
-            true,
+            false,
+            false,
             false,
             false
             );
@@ -299,9 +299,9 @@ void Test::testArmorRandom(){
             Attribute::NONE,
             WeaponType::NONE,
             true,
-            false,
             true,
-            false
+            true,
+            true
             );
         std::cerr<<"Generating armor for a player...";
         std::unique_ptr<Item> GenItem= _wg->generate(*p);
@@ -361,9 +361,29 @@ void Test::readArmor(const Armor &GenArmor){
 
 //=== OTHER
 void Test::checkCost(const Item &i){
-
+    std::cerr << "\tcost: " << i.getPrice() << '\n';
 }
 
 void Test::checkCostToLevel(const Item &i, const Player &p){
-
+    int maxPrice = 0;
+    int price = i.getPriceModified();
+    if(p.getLevel()>=40){
+        std::cerr << "\tcost: " << price << "\t==>\tOK\n";
+    }else{
+        if(p.getLevel()>=30){
+            maxPrice = 2000;
+        }else if(p.getLevel()>=20){
+            maxPrice = 1500;
+        }else if(p.getLevel()>=10){
+            maxPrice = 1000;
+        }else if(p.getLevel()>=5){
+            maxPrice = 500;
+        }else{
+            std::cerr << "FAIL --- TOO LOW PLAYER LEVEL\n";
+        }
+        if(price > maxPrice)
+            std::cerr << "\tcost: " << price << "\t==>\tFAIL --- TOO MUCH VALUE OF ITEM\n";
+        else
+            std::cerr << "\tcost: " << price << "\t==>\tOK\n";
+    }
 }
