@@ -2,6 +2,7 @@
 #define ITEMGENDIALOGUE_H
 
 #include <QDialog>
+#include "../../../src/models/Player.h"
 
 namespace Ui {
 class ItemGenDialogue;
@@ -12,7 +13,7 @@ class ItemGenDialogue : public QDialog
     Q_OBJECT
 
 public:
-    explicit ItemGenDialogue(QWidget *parent = nullptr);
+    explicit ItemGenDialogue(std::vector<Player>& players, QWidget *parent = nullptr);
     ~ItemGenDialogue();
 
 private slots:
@@ -20,6 +21,8 @@ private slots:
 
 private:
     Ui::ItemGenDialogue *ui;
+    void setLayoutVisible(bool visible, QLayout* l);
+    std::vector<Player>& players;
 };
 
 #endif // ITEMGENDIALOGUE_H

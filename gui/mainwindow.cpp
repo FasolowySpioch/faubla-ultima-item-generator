@@ -65,7 +65,7 @@ void MainWindow::on_BttnSaveCampain_clicked()
 // -- Generate functions
 void MainWindow::on_BttnQuickGenerate_clicked()
 {
-    _appcontrol.generateItemForRandomPlayer();
+    //_appcontrol.generateItemForRandomPlayer();
 }
 
 
