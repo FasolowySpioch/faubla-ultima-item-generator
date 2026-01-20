@@ -1,9 +1,13 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "dialogue/addplayer/addplayerdialogue.h"
+#include "dialogue/itemgen/itemgendialogue.h"
+#include "dialogue/editplayer/editplayerdialogue.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , _item_model(_appcontrol.getItemsRepository())
 {
     ui->setupUi(this);
 }
@@ -12,8 +16,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
 
 
 // === BUTTON ON CLICK FUNCTIONS ===
@@ -54,7 +56,11 @@ void MainWindow::on_BttnSaveCampain_clicked()
 // -- Generate functions
 void MainWindow::on_BttnQuickGenerate_clicked()
 {
+    std::unique_ptr<Item> item = _appcontrol.generateItemForRandomPlayer();
+    if (!item)
+        return;
 
+    _appcontrol.saveItem(std::move(item));
 }
 
 

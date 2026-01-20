@@ -4,7 +4,8 @@
 
 #include <QFile>
 #include <QJsonArray>
-
+#include <QJsonDocument>
+#include <QJsonParseError>
 
 std::unique_ptr<Player> CampaignSerializer::playerFromJson(QJsonObject json_player)
 {
@@ -99,7 +100,7 @@ bool CampaignSerializer::save(const CampaignManager &mng, const QString &file_pa
     RootObj["Players"] = PlayersArr;
     RootObj["Items"] = ItemsArr;
 
-    QJsonDocument JsonDocument = QJsonDocument(RootObj);
+    QJsonDocument JsonDocument(RootObj);
     QFile file(file_path);
     if (!file.open(QIODevice::WriteOnly))
         return false;

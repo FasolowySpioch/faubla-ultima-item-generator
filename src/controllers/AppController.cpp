@@ -72,3 +72,14 @@ void AppController::rerollQuality(Item *item)
 {
     generator.assignQuality(item->getItemType(), item);
 }
+
+
+const std::vector<std::unique_ptr<Item>>& AppController::getItemsRepository() const
+{
+    return repository.getItems();
+}
+
+const std::vector<std::unique_ptr<Player>>& AppController::getPlayersRepository() const
+{
+    return repository.getPlayers();
+}
