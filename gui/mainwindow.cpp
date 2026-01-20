@@ -36,7 +36,18 @@ void MainWindow::on_BttnAddPlayers_clicked()
 {
     AddPlayerDialogue apd(this);
     if(apd.exec() == QDialog::Accepted){
-        //TODO: Grab players to vector
+        QList<Player> list = apd.getPlayers();
+        for(int i = 0; list.size() > i; i++){
+            _appcontrol.savePlayer(std::make_unique<Player>(list.at(i)));
+        }
+    }
+
+    if(apd.getPlayers().size() > 0){
+        ui->BttnEditPlayers->setEnabled(true);
+        ui->BttnQuickGenerate->setEnabled(true);
+        ui->BttnNormalGenerate->setEnabled(true);
+        ui->BttnSaveCampain->setEnabled(true);
+        ui->BttnDelCampain->setEnabled(true);
     }
 }
 
