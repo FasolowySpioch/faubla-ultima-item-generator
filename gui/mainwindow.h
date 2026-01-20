@@ -36,6 +36,7 @@ private:
     AppController _appcontrol;
     ItemModel _item_model;
     QString _loadedFile = "";
+    void removePlayer(int index);
 
     void clearControls();
 

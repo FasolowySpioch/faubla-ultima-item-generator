@@ -47,14 +47,31 @@ EditPlayerDialogue::~EditPlayerDialogue()
 
 void EditPlayerDialogue::on_BttnDelPlayer_clicked()
 {
-    //emit removePlayerRequest(ui->ComboBoxSelectPlayer->currentIndex());
+    if(players.size() > 1){
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "Usunięcie postaci", "Czy na pewno chcesz usunąć postać?");
+        if( reply == QMessageBox::Yes){
+            emit removePlayerRequest(ui->ComboBoxSelectPlayer->currentIndex());
+
+            ui->ComboBoxSelectPlayer->blockSignals(true);
+            ui->ComboBoxSelectPlayer->clear();
+
+            for(int i = 0; i < players.size(); i++){
+                QString s = QString::fromStdString(players.at(i)->getCharacterName());
+                ui->ComboBoxSelectPlayer->addItem(s, i);
+            }
+
+            ui->ComboBoxSelectPlayer->blockSignals(false);
+            on_ComboBoxSelectPlayer_currentIndexChanged(0);
+        }
+    }
+    else QMessageBox::warning(this, "Uwaga", "Nie można usunąć jedynej postaci.");
 }
 
 
 void EditPlayerDialogue::on_ComboBoxSelectPlayer_currentIndexChanged(int index)
 {
     ui->TxtEditAuthor->setPlainText(QString::fromStdString(players.at(index)->getAuthorName()));
-    ui->TxtEditCharName->setPlainText(QString::fromStdString(players.at(index)->getAuthorName()));
+    ui->TxtEditCharName->setPlainText(QString::fromStdString(players.at(index)->getCharacterName()));
     ui->SpinBoxLvl->setValue(players.at(index)->getLevel());
 
     if(ui->ComboBoxAttributes->findData(static_cast<int>(players.at(index)->getPrimaryDie1()))){

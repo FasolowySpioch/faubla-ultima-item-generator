@@ -28,6 +28,7 @@ void MainWindow::on_BttnEditPlayers_clicked()
 
     //testting if dialouge works for now:
     EditPlayerDialogue epd(_appcontrol.getPlayersRepository(),this);
+    connect(&epd, &EditPlayerDialogue::removePlayerRequest, this, &MainWindow::removePlayer);
     if(epd.exec() == QDialog::Accepted){
         //TODO: Check if players were modified, if yes check index in campain
     }
@@ -63,14 +64,16 @@ void MainWindow::on_BttnLoadCampain_clicked()
         QDir::homePath(),
         "*.json"
         );
-    _appcontrol.loadCampaign(fileName);
-    _loadedFile = fileName;
+    if(!fileName.isEmpty()){
+        _appcontrol.loadCampaign(fileName);
+        _loadedFile = fileName;
 
-    ui->BttnEditPlayers->setEnabled(true);
-    ui->BttnQuickGenerate->setEnabled(true);
-    ui->BttnNormalGenerate->setEnabled(true);
-    ui->BttnSaveCampain->setEnabled(true);
-    ui->BttnDelCampain->setEnabled(true);
+        ui->BttnEditPlayers->setEnabled(true);
+        ui->BttnQuickGenerate->setEnabled(true);
+        ui->BttnNormalGenerate->setEnabled(true);
+        ui->BttnSaveCampain->setEnabled(true);
+        ui->BttnDelCampain->setEnabled(true);
+    }
 }
 
 
@@ -82,7 +85,7 @@ void MainWindow::on_BttnSaveCampain_clicked()
         "kampania.json",
         "*.json"
         );
-    if(fileName.endsWith(".json", Qt::CaseInsensitive)) fileName += ".json";
+    if(!fileName.endsWith(".json", Qt::CaseInsensitive)) fileName += ".json";
     _appcontrol.saveCampaign(fileName);
     if(!fileName.isEmpty()) _loadedFile = fileName;
 }
@@ -125,4 +128,8 @@ void MainWindow::on_BttnDelCampain_clicked()
 void MainWindow::clearControls() {
     //TODO: Finish this function
     //ui->TableGeneratedItems
+}
+
+void MainWindow::removePlayer(int index){
+    _appcontrol.removePlayer(index);
 }
