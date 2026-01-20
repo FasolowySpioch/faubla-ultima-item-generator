@@ -3,7 +3,6 @@
 
 #include "../../../src/models/Player.h"
 #include <QDialog>
-#include "../../../src/models/Player.h"
 
 namespace Ui {
 class ItemGenDialogue;
