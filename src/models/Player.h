@@ -7,7 +7,7 @@
 #include <string_view>
 
 
-class Player
+class Player : public IJsonSerializable
 {
     std::string _character_name;
     std::string _author_name;
@@ -25,6 +25,8 @@ public:
     Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2,
         WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor,
         bool canRange, bool canShield);
+
+    QJsonObject toJson() const override;
 
     const std::string& getCharacterName() const;
     const std::string& getAuthorName() const;
