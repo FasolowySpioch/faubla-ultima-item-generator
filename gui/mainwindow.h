@@ -4,9 +4,8 @@
 #include <QDialog>
 #include <QMainWindow>
 #include "../src/controllers/AppController.h"
-#include "dialogue/editplayer/editplayerdialogue.h"
-#include "dialogue/addplayer/addplayerdialogue.h"
-#include "dialogue/itemgen/itemgendialogue.h"
+#include "models/ItemModel.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,6 +32,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     AppController _appcontrol;
+    ItemModel _item_model;
 
 };
 #endif // MAINWINDOW_H
