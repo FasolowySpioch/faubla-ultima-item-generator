@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , _item_model(_appcontrol.getItemsRepository())
 {
     ui->setupUi(this);
+    // ui->TableGeneratedItems->setModel(_item_model);
 }
 
 MainWindow::~MainWindow()
@@ -66,7 +67,7 @@ void MainWindow::on_BttnQuickGenerate_clicked()
 
 void MainWindow::on_BttnNormalGenerate_clicked()
 {
-    ItemGenDialogue idg(this);
+    ItemGenDialogue idg(_appcontrol.getPlayersRepository(), this);
     if(idg.exec() == QDialog::Accepted){
 
     }
