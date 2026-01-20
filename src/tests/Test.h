@@ -65,6 +65,8 @@ class Test {
 
         void testIGSRandom();
         void testIGSSpecific();
+
+        void allCostTests();
         //TODO: write those later when it works.
         //=== ACCESSORIES GENERATOR TEST ===
 };
