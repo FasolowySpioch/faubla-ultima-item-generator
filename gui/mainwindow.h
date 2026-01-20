@@ -29,10 +29,15 @@ private slots:
     void on_BttnQuickGenerate_clicked();
     void on_BttnNormalGenerate_clicked();
 
+    void on_BttnDelCampain_clicked();
+
 private:
     Ui::MainWindow *ui;
     AppController _appcontrol;
     ItemModel _item_model;
+    QString _loadedFile = "";
+
+    void clearControls();
 
 };
 #endif // MAINWINDOW_H
