@@ -1,7 +1,7 @@
 #include "itemgendialogue.h"
 #include "ui_itemgendialogue.h"
 
-ItemGenDialogue::ItemGenDialogue(std::vector<Player>& players, QWidget *parent)
+ItemGenDialogue::ItemGenDialogue(const std::vector<std::unique_ptr<Player>>& players, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ItemGenDialogue), players(players)
 {

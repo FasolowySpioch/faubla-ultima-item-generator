@@ -162,6 +162,13 @@
          </property>
         </widget>
        </item>
+       <item row="10" column="0">
+        <widget class="QPushButton" name="BttnDelPlayer">
+         <property name="text">
+          <string>Usuń</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
