@@ -31,7 +31,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="labelName_2">
+      <widget class="QLabel" name="labelLevel">
        <property name="text">
         <string>Level:</string>
        </property>
@@ -77,7 +77,14 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSpinBox" name="spinBox"/>
+      <widget class="QSpinBox" name="spinBoxLvL">
+       <property name="minimum">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <number>200</number>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
       <widget class="QComboBox" name="comboBoxAttribute1"/>
@@ -114,7 +121,7 @@
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QComboBox" name="comboBox_3"/>
+      <widget class="QComboBox" name="comboBoxPreff"/>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="labelPreference">
