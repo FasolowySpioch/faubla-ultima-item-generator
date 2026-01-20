@@ -241,9 +241,121 @@ void Test::readWeapon(const Weapon &GenWeapon){
 
 //=== ARMOR GENERATOR TESTS ===
 void Test::allArmorTests(){
-   // testArmorPreferances();
-   // testArmorRandom();
-   // testLegalArmorQuality();
+    std::cerr<<"\t\t\t=== ARMOR TYPE TESTS START ===\n";
+    testArmorPreferences();
+    testArmorRandom();
+    //testLegalArmorQuality();
+}
+
+void Test::testArmorPreferences(){
+    std::cerr<<"\n=== ARMOR TEST ===\n";
+    try{
+        std::unique_ptr<Player> p = std::make_unique<Player>(
+            "X'Azih",
+            "FasolowySpioch",
+            9,
+            Attribute::NONE,
+            Attribute::NONE,
+            WeaponType::HEAVY,
+            true,
+            true,
+            false,
+            false
+            );
+        std::cerr<<"Generating armor for a player...";
+        std::unique_ptr<Item> GenItem= _wg->generate(*p);
+        std::cerr<<"OK\n";
+
+        auto* GenArmor = dynamic_cast<Armor*>(GenItem.get());
+
+        std::cerr<<"Reading armor...\n";
+        try{
+            readArmor(*GenArmor);
+            std::cerr <<"Reading complete!\n";
+        }
+        catch(const std::exception& e){
+            std::cerr<<"FAIL! --- " << e.what();
+        }
+        std::cerr<<"\n=MAIN CHECK=\n";
+        std::cerr << "Armor valid: \n";
+        std::cerr << "\tMartial: ";
+        checkMartial(*GenArmor, *p);
+        std::cerr << "\tShield: ";
+        checkShield(*GenArmor, *p);
+    }
+    catch(const std::exception& e){
+        std::cerr<<"FAIL! --- " << e.what();
+    }
+}
+
+void Test::testArmorRandom(){
+    std::cerr<<"\n=== ARMOR TEST ===\n";
+    try{
+        std::unique_ptr<Player> p = std::make_unique<Player>(
+            "Kael",
+            "Reddi",
+            5,
+            Attribute::NONE,
+            Attribute::NONE,
+            WeaponType::NONE,
+            true,
+            false,
+            true,
+            false
+            );
+        std::cerr<<"Generating armor for a player...";
+        std::unique_ptr<Item> GenItem= _wg->generate(*p);
+        std::cerr<<"OK\n";
+
+        auto* GenArmor = dynamic_cast<Armor*>(GenItem.get());
+
+        std::cerr<<"Reading armor...\n";
+        try{
+            readArmor(*GenArmor);
+            std::cerr <<"Reading complete!\n";
+        }
+        catch(const std::exception& e){
+            std::cerr<<"FAIL! --- " << e.what();
+        }
+        std::cerr<<"\n=MAIN CHECK=\n";
+        std::cerr << "Armor valid: \n";
+        std::cerr << "\tMartial: ";
+        checkMartial(*GenArmor, *p);
+        std::cerr << "\tShield: ";
+        checkShield(*GenArmor, *p);
+    }
+    catch(const std::exception& e){
+        std::cerr<<"FAIL! --- " << e.what();
+    }
+}
+
+void Test::checkMartial(const Armor &a, const Player &p){
+    if(p.getCanMartialArmor() == true) std::cerr<<"OK\n";
+    else {
+        if(p.getCanMartialArmor() == a.getIsMartial()) std::cerr<<"OK\n";
+        else std::cerr<<"FAIL\n";
+    }
+}
+
+void Test::checkShield(const Armor &a, const Player &p){
+    if(p.getCanShield() == true) std::cerr<<"OK\n";
+    else {
+        if(p.getCanShield() == a.getIsShield()) std::cerr<<"OK\n";
+        else std::cerr<<"FAIL\n";
+    }
+}
+
+void Test::readArmor(const Armor &GenArmor){
+    std::cerr << "\tname: " << GenArmor.getName() << '\n';
+    std::cerr << "\tquality: "<< GenArmor.getDesc() << '\n';
+    std::cerr << "\tprice: " << GenArmor.getPrice() << '\n';
+    std::cerr << "\tinitiative" << GenArmor.getInitiative() << '\n';
+    std::cerr << "\tisMartial" << GenArmor.getIsMartial() << '\n';
+    std::cerr << "\tisShield" << GenArmor.getIsShield() << '\n';
+    std::cerr << "\tmagDerBonus" << GenArmor.getMagDefBonus() << '\n';
+    std::cerr << "\tdefBonus" << GenArmor.getDefBonus() << '\n';
+    std::cerr << "\tmagDefAtr" << attributes[static_cast<size_t>(GenArmor.getMagDefAtr())];
+    std::cerr << "\tdefAtr" << attributes[static_cast<size_t>(GenArmor.getDefAtr())];
 }
 //=== SCENARIOS TESTS
 
