@@ -1,16 +1,11 @@
 #include "itemgendialogue.h"
 #include "ui_itemgendialogue.h"
 
-<<<<<<< HEAD
+
 ItemGenDialogue::ItemGenDialogue(const std::vector<std::unique_ptr<Player>> &_players, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ItemGenDialogue)
     , players(_players)
-=======
-ItemGenDialogue::ItemGenDialogue(std::vector<Player>& players, QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::ItemGenDialogue), players(players)
->>>>>>> 231168f40ea90e510cf1cec36e588c4912b31546
 {
     ui->setupUi(this);
 
