@@ -16,6 +16,8 @@ class CampaignManager
 public:
      CampaignManager();
 
+     void clear();
+
      // ==== Items methods ====
 
      void addItem(std::unique_ptr<Item> item);

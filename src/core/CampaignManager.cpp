@@ -11,6 +11,12 @@ CampaignManager::CampaignManager()
 }
 
 
+void CampaignManager::clear()
+{
+    _items.clear();
+    _players.clear();
+}
+
 // ==== Items methods ====
 
 void CampaignManager::addItem(std::unique_ptr<Item> item)
