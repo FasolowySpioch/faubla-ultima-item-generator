@@ -12,3 +12,9 @@ ItemGenDialogue::~ItemGenDialogue()
 {
     delete ui;
 }
+
+void ItemGenDialogue::on_BttnQuickGenerate_clicked()
+{
+
+}
+

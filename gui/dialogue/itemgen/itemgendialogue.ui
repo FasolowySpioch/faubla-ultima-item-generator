@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>671</width>
-    <height>596</height>
+    <height>955</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0,0">
      <item>
       <layout class="QHBoxLayout" name="ChoosePlayerLayout" stretch="1,0">
        <item>
@@ -32,6 +32,16 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="BttnQuickGenerate">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Losowy Przedmiot</string>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="ChooseItemLayout">

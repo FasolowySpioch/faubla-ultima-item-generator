@@ -39,6 +39,14 @@ void MainWindow::on_BttnAddPlayers_clicked()
             _appcontrol.savePlayer(std::make_unique<Player>(list.at(i)));
         }
     }
+
+    if(apd.getPlayers().size() > 0){
+        ui->BttnEditPlayers->setEnabled(true);
+        ui->BttnQuickGenerate->setEnabled(true);
+        ui->BttnNormalGenerate->setEnabled(true);
+        ui->BttnSaveCampain->setEnabled(true);
+        ui->BttnDelCampain->setEnabled(true);
+    }
 }
 
 // -- Campain functions
@@ -57,7 +65,7 @@ void MainWindow::on_BttnSaveCampain_clicked()
 // -- Generate functions
 void MainWindow::on_BttnQuickGenerate_clicked()
 {
-
+    _appcontrol.generateItemForRandomPlayer();
 }
 
 

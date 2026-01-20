@@ -15,6 +15,9 @@ public:
     explicit ItemGenDialogue(QWidget *parent = nullptr);
     ~ItemGenDialogue();
 
+private slots:
+    void on_BttnQuickGenerate_clicked();
+
 private:
     Ui::ItemGenDialogue *ui;
 };
