@@ -1,7 +1,6 @@
 #include "editplayerdialogue.h"
 #include "ui_editplayerdialogue.h"
 #include <QMessageBox>
-#include <iostream>
 
 EditPlayerDialogue::EditPlayerDialogue(const std::vector<std::unique_ptr<Player>>& players, QWidget *parent)
     : QDialog(parent)
