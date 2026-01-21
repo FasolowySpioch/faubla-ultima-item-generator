@@ -2,7 +2,6 @@
 #define FULTIMA_GEN_WEAPONGENERATOR_H
 
 #include "GeneratorStrategy.h"
-#include <random>
 
 class WeaponGenerator final : public GeneratorStrategy
 {
@@ -14,7 +13,7 @@ class WeaponGenerator final : public GeneratorStrategy
     [[nodiscard]] std::vector<const Weapon*> filterByPlayerAttributesSoft(const Player &player) const;
 
 public:
-    explicit WeaponGenerator(const std::string &file_path);
+    explicit WeaponGenerator(const QString &file_path);
 
     std::unique_ptr<Item> generate(const Player &player) override;
 };

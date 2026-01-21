@@ -1,35 +1,35 @@
 #include "ItemGeneratorSystem.h"
-
-#include <stdexcept>
-#include <cassert>
-
 #include "AccessoryGenerator.h"
 #include "ArmorGenerator.h"
 #include "QualityGenerator.h"
 #include "WeaponGenerator.h"
+#include <cassert>
+#include <QRandomGenerator>
+
+
+QString getPath(const QString &relative_path)
+{
+    return QStringLiteral(":/data/") + relative_path;
+}
 
 
 ItemGeneratorSystem::ItemGeneratorSystem()
 {
-    // rng init
-    std::random_device seed;
-    mt = std::mt19937(seed());
-
     // generators init
-    strategies[ItemType::WEAPON] = std::make_unique<WeaponGenerator>("../../data/basic/Basic_Weapons.json");
-    strategies[ItemType::ARMOR] = std::make_unique<ArmorGenerator>("../../data/basic/Basic_Armor_Shield.json");
+    strategies[ItemType::WEAPON] = std::make_unique<WeaponGenerator>(getPath("basic/Basic_Weapons.json"));
+    strategies[ItemType::ARMOR] = std::make_unique<ArmorGenerator>(getPath("basic/Basic_Armor_Shield.json"));
     strategies[ItemType::ACCESSORY] = std::make_unique<AccessoryGenerator>();
 
-    quality_gen[ItemType::WEAPON] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Weapon_Qualities.json");
-    quality_gen[ItemType::ARMOR] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Armor_Qualities.json");
-    quality_gen[ItemType::ACCESSORY] = std::make_unique<QualityGenerator>("../../data/basic/Basic_Accessory_Qualities.json");
+    quality_gen[ItemType::WEAPON] = std::make_unique<QualityGenerator>(getPath("basic/Basic_Weapon_Qualities.json"));
+    quality_gen[ItemType::ARMOR] = std::make_unique<QualityGenerator>(getPath("basic/Basic_Armor_Qualities.json"));
+    quality_gen[ItemType::ACCESSORY] = std::make_unique<QualityGenerator>(getPath("basic/Basic_Accessory_Qualities.json"));
 }
 
 ItemType ItemGeneratorSystem::getRandomItemType()
 {
-    int random_idx = std::uniform_int_distribution<>(0, 2)(mt);
+    int val = QRandomGenerator::global()->bounded(3);    // 0, 1, 2
 
-    return static_cast<ItemType>(random_idx);
+    return static_cast<ItemType>(val);
 }
 
 bool ItemGeneratorSystem::isItemPriceValid(const Item &item, const Player &player)
@@ -55,24 +55,31 @@ bool ItemGeneratorSystem::isItemPriceValid(const Item &item, const Player &playe
 
 std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Player &player)
 {
-    constexpr int no_of_tries = 20;
+    constexpr int MAX_TRIES = 100;
+    constexpr int MAX_Q_REROLLS = 20;
     int i = 0;
-    const bool wasRandom = type == ItemType::RANDOM;
+    const bool isRandomRequest = type == ItemType::RANDOM;
 
-    while (true)
+    while (i < MAX_TRIES)
     {
-        if (wasRandom)
-        {
-            type = getRandomItemType();
-        }
+        ItemType currentType = isRandomRequest ? getRandomItemType() : type;
 
         // if there was no strategy for type, throw exception
-        if (strategies.find(type) == strategies.end())
-            throw std::invalid_argument("ItemGeneratorSystem::generateItem: Item type not valid or there's no generator strategy for it.");
+        if (strategies.find(currentType) == strategies.end())
+        {
+            qWarning() << "No strategy for type: " << static_cast<int>(currentType);
+            break;
+        }
 
-        std::unique_ptr<Item> item = strategies[type]->generate(player);
+        std::unique_ptr<Item> item = strategies[currentType]->generate(player);
 
-        if (i < no_of_tries)
+        if (!item)
+        {
+            i++;
+            continue;
+        }
+
+        if (i < MAX_Q_REROLLS)
         {
             // generate quality and apply to item
             assignQuality(type, item.get());
@@ -83,15 +90,18 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Pla
 
         i++;
     }
+
+    qWarning() << "Failed to generate valid item for player lvl" << player.getLevel() << "after" << i << "attempts.";
+    return nullptr;
 }
 
 void ItemGeneratorSystem::assignQuality(const ItemType type, Item *item)
 {
-    assert(type != ItemType::RANDOM);
-    if (!item) throw std::invalid_argument("ItemGeneratorSystem::assignQuality: Invalid pointer to item.");
+    if (type == ItemType::RANDOM) return;
+    if (!item) return;
 
-    if (quality_gen.find(type) == quality_gen.end())
-        throw std::invalid_argument("ItemGeneratorSystem::generateItem: Item type not valid or there's no generator strategy for it.");
-
-    quality_gen[type]->applyRandomQualityTo(item);
+    auto it = quality_gen.find(type);
+    if (it != quality_gen.end()) {
+        it->second->applyRandomQualityTo(item);
+    }
 }

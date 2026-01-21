@@ -1,16 +1,12 @@
 #include "WeaponGenerator.h"
 #include "../io/JsonReader.h"
+#include <QRandomGenerator>
 
 
-WeaponGenerator::WeaponGenerator(const std::string &file_path)
+WeaponGenerator::WeaponGenerator(const QString &file_path)
 {
-    // rng init
-    std::random_device seed;
-    _mt = std::mt19937(seed());
-
     // loading the file
-    JsonReader reader;
-    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(QString::fromStdString(file_path), ItemType::WEAPON);
+    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(file_path, ItemType::WEAPON);
 
     // caching the file and casting to derived class
     _cache_weapons.reserve(loadedItems.size());
@@ -19,6 +15,9 @@ WeaponGenerator::WeaponGenerator(const std::string &file_path)
         if (auto* weapon_ptr = dynamic_cast<Weapon*>(item.get()))
             _cache_weapons.push_back(std::make_unique<Weapon>(*weapon_ptr));
     }
+
+    if (_cache_weapons.empty())
+        qWarning() << "WeaponGenerator: No weapons loaded from" << file_path;
 }
 
 
@@ -91,36 +90,35 @@ std::vector<const Weapon*> WeaponGenerator::filterByPlayerAttributesSoft(const P
 
 std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
 {
-    std::vector<const Weapon *> weapons_final = filterByPlayerPreference(player);
+    std::vector<const Weapon *> candidates = filterByPlayerPreference(player);
 
-    // 'chain of responsibility' design pattern?
-    if (weapons_final.empty())
-        weapons_final = filterByPlayerAttributesHard(player);
+    if (candidates.empty())
+        candidates = filterByPlayerAttributesHard(player);
 
-    if (weapons_final.empty())
-        weapons_final = filterByPlayerAttributesSoft(player);
+    if (candidates.empty())
+        candidates = filterByPlayerAttributesSoft(player);
 
-    // if still empty, take everything that player can use
-    if (weapons_final.empty())
+    // if still empty, load in everything that player can use
+    if (candidates.empty())
     {
         for (auto &w : _cache_weapons)
         {
-            if (!isWeaponUsable(player, *w))
-                continue;
-
-            weapons_final.push_back(w.get());
+            if (isWeaponUsable(player, *w))
+                candidates.push_back(w.get());
         }
     }
 
     // if STILL empty, then either:
     // - there's no weapons matching the requirements (like, in the file)
     // - OR player is meant to have absolutely nothing
-    if (weapons_final.empty())
+    if (candidates.empty())
+    {
+        qWarning() << "WeaponGenerator: Could not generate any weapon for player" << player.getCharacterName();
         return nullptr;
-        // throw exception ??
+    }
 
     // choosing random weapon to return
-    std::uniform_int_distribution<> dist(0, weapons_final.size() - 1);
+    const int idx = QRandomGenerator::global()->bounded(static_cast<int>(candidates.size()));
 
-    return std::make_unique<Weapon>(*weapons_final[dist(_mt)]);
+    return std::make_unique<Weapon>(*candidates[idx]);
 }
