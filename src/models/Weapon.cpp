@@ -30,6 +30,7 @@ Weapon::Weapon(const std::string_view name, const std::string_view desc, const i
 {
 }
 
+
 ItemType Weapon::getItemType() const { return ItemType::WEAPON; }
 
 QJsonObject Weapon::toJson() const

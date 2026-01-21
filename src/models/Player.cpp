@@ -1,6 +1,6 @@
 #include "Player.h"
-
 #include <stdexcept>
+
 
 Player::Player()
     : _level(5)
