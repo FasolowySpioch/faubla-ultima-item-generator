@@ -115,7 +115,7 @@ void MainWindow::on_BttnQuickGenerate_clicked()
 
 void MainWindow::on_BttnNormalGenerate_clicked()
 {
-    ItemGenDialogue idg(_appcontrol.getPlayersRepository(), this);
+    ItemGenDialogue idg(&_appcontrol, this);
     if(idg.exec() == QDialog::Accepted){
 
     // _item_model->refresh();
