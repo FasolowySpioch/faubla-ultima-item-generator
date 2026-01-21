@@ -34,6 +34,7 @@ public:
     void setDefaultDesc();
     void setDefaultPrice();
     void increasePriceBy(int add);
+    void addToPrice(const int add);
 };
 
 
