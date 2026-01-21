@@ -48,7 +48,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="TablePlayers"/>
+       <widget class="QTableView" name="TablePlayers"/>
       </item>
       <item>
        <widget class="Line" name="LineSepratationTableDown">
@@ -218,7 +218,7 @@
      <x>0</x>
      <y>0</y>
      <width>886</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

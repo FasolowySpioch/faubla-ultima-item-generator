@@ -13,7 +13,7 @@ class ItemGenDialogue : public QDialog
     Q_OBJECT
 
 public:
-    explicit ItemGenDialogue(const std::vector<std::unique_ptr<Player>>& players, QWidget *parent = nullptr);
+    explicit ItemGenDialogue(const std::vector<std::unique_ptr<Player>> &_players, QWidget *parent = nullptr);
     ~ItemGenDialogue();
 
 private slots:
@@ -21,8 +21,8 @@ private slots:
 
 private:
     Ui::ItemGenDialogue *ui;
+    const std::vector<std::unique_ptr<Player>> &players;
     void setLayoutVisible(bool visible, QLayout* l);
-    const std::vector<std::unique_ptr<Player>>& players;
 };
 
 #endif // ITEMGENDIALOGUE_H

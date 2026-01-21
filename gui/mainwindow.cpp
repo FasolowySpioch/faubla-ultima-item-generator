@@ -9,9 +9,12 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , _item_model(_appcontrol.getItemsRepository())
+    , _item_model(new MyItemTableModel(&_appcontrol.getItemsRepository(), parent))
+    , _player_model(new MyPlayerTableModel(&_appcontrol.getPlayersRepository(), parent))
 {
     ui->setupUi(this);
+    ui->TableGeneratedItems->setModel(_item_model);
+    ui->TablePlayers->setModel(_player_model);
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +48,7 @@ void MainWindow::on_BttnAddPlayers_clicked()
         for(int i = 0; list.size() > i; i++){
             _appcontrol.savePlayer(std::make_unique<Player>(list.at(i)));
         }
+        _player_model->refresh();
     }
 
     if(apd.getPlayers().size() > 0){
@@ -100,6 +104,7 @@ void MainWindow::on_BttnQuickGenerate_clicked()
         return;
 
     _appcontrol.saveItem(std::move(item));
+    _item_model->refresh();
 }
 
 
