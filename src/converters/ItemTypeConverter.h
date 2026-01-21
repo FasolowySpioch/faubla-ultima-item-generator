@@ -5,10 +5,8 @@
 #include <string>
 
 
-class ItemTypeConverter
+struct ItemTypeConverter
 {
-public:
-
     static std::string toString(const ItemType it)
     {
         switch (it)

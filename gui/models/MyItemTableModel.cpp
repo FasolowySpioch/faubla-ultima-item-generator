@@ -1,29 +1,38 @@
-#include "ItemModel.h"
+#include "MyItemTableModel.h"
 #include "../../src/converters/ItemTypeConverter.h"
 
-ItemModel::ItemModel(const std::vector<std::unique_ptr<Item>> &_items, QObject *parent)
+
+MyItemTableModel::MyItemTableModel(const std::vector<std::unique_ptr<Item>> *_container, QObject *parent)
     : QAbstractTableModel(parent)
-    , items(_items)
+    , container(_container)
 {
 }
 
 
-int ItemModel::rowCount(const QModelIndex &parent) const
+void MyItemTableModel::refresh()
 {
-    return static_cast<int>(items.size());
+    beginResetModel();
+    endResetModel();
 }
 
-int ItemModel::columnCount(const QModelIndex &parent) const
+int MyItemTableModel::rowCount(const QModelIndex &parent) const
 {
+    if (!container) return 0;
+    return static_cast<int>(container->size());
+}
+
+int MyItemTableModel::columnCount(const QModelIndex &parent) const
+{
+    if (!container) return 0;
     return 4;
 }
 
-QVariant ItemModel::data(const QModelIndex &index, int role) const
+QVariant MyItemTableModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || index.row() >= static_cast<int>(items.size()))
+    if (!index.isValid() || index.row() >= static_cast<int>(container->size()))
         return {};
 
-    const Item *object = items.at(index.row()).get();
+    const Item *object = container->at(container->size() - index.row() - 1).get();
 
     if (role == Qt::DisplayRole)
     {
@@ -34,7 +43,7 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
             case 1:
                 return QString::fromStdString(object->getName());
             case 2:
-                return QString::number(object->getPrice());
+                return QString::number(object->getPriceModified());
             case 3:
                 return QString::fromStdString(object->getDesc());
             default:
@@ -45,7 +54,7 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
     return {};
 }
 
-QVariant ItemModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant MyItemTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal)
     {
@@ -63,4 +72,5 @@ QVariant ItemModel::headerData(int section, Qt::Orientation orientation, int rol
                 return {};
         }
     }
+    return {};
 }

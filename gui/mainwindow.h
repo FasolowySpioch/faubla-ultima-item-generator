@@ -4,7 +4,8 @@
 #include <QDialog>
 #include <QMainWindow>
 #include "../src/controllers/AppController.h"
-#include "models/ItemModel.h"
+#include "models/MyItemTableModel.h"
+#include "models/MyPlayerTableModel.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -32,7 +33,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     AppController _appcontrol;
-    ItemModel _item_model;
+    MyItemTableModel *_item_model = nullptr;
+    MyPlayerTableModel *_player_model = nullptr;
 
 };
 #endif // MAINWINDOW_H
