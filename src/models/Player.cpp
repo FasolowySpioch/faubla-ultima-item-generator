@@ -77,7 +77,7 @@ void Player::setAuthorName(const std::string_view author_name)
 }
 void Player::setLevel(const int level)
 {
-    if (5 > level || level > 50)
+    if (5 > level)
         throw std::invalid_argument("Player::setLevel: level out of range");
     _level = level;
 }

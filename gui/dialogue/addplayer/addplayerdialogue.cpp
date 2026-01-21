@@ -2,7 +2,7 @@
 #include "ui_addplayerdialogue.h"
 
 #include <QMessageBox>
-#include <iostream>
+//#include <iostream>
 
 AddPlayerDialogue::AddPlayerDialogue(QWidget *parent)
     : QDialog(parent)
@@ -47,7 +47,7 @@ void AddPlayerDialogue::on_BttnNextPlayer_clicked()
 {
     Player p;
     setPlayerAdd(&p);
-    if(!p.getCharacterName().empty()){ playerList.append(p); std::cerr<<"Gracz imie: " << playerList.last().getCharacterName();}
+    if(!p.getCharacterName().empty()) playerList.append(p);
 }
 
 void AddPlayerDialogue::setPlayerAdd(Player* p){

@@ -41,6 +41,9 @@ class Test {
 
 
         void checkMartial(const Armor &a);
+        void readArmor(const Armor &a);
+        void checkMartial(const Armor &a, const Player &p);
+        void checkShield(const Armor &a, const Player &p);
 
     public:
         //=== WEAPON GENERATOR TESTS ===
@@ -53,7 +56,7 @@ class Test {
         //=== ARMOR GENERATOR TESTS ===
         void allArmorTests();
         //===
-        void testArmorPreferances();
+        void testArmorPreferences();
         void testArmorRandom();
         void testLegalArmorQuality();
 
@@ -62,6 +65,8 @@ class Test {
 
         void testIGSRandom();
         void testIGSSpecific();
+
+        void allCostTests();
         //TODO: write those later when it works.
         //=== ACCESSORIES GENERATOR TEST ===
 };
