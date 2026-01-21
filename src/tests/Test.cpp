@@ -360,6 +360,35 @@ void Test::readArmor(const Armor &GenArmor){
 //=== SCENARIOS TESTS
 
 //=== OTHER
+
+void Test::allCostTests(){
+    std::cerr<<"\n=== COSTS TESTS ===\n";
+    try{
+        std::unique_ptr<Player> p = std::make_unique<Player>(
+            "Kael",
+            "Reddi",
+            5,
+            Attribute::NONE,
+            Attribute::NONE,
+            WeaponType::NONE,
+            true,
+            true,
+            true,
+            true
+            );
+        std::cerr<<"Generating armor for a player...";
+        std::unique_ptr<Item> GenItem= _wg->generate(*p);
+        std::cerr<<"OK\n";
+
+        auto* GenArmor = dynamic_cast<Armor*>(GenItem.get());
+
+        checkCost(*GenArmor);
+        checkCostToLevel(*GenArmor, *p);
+    }catch(const std::exception& e){
+        std::cerr<<"FAIL! --- " << e.what();
+    }
+}
+
 void Test::checkCost(const Item &i){
     std::cerr << "\tcost: " << i.getPrice() << '\n';
 }
