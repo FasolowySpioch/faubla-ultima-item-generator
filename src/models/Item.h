@@ -18,11 +18,11 @@ protected:
 
 public:
     Item();
-    Item(std::string_view name, std::string_view desc, int default_price, int add_price);
-    virtual ~Item() = default;
+    Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0);
+    ~Item() override = default;
 
     virtual ItemType getItemType() const = 0;
-    QJsonObject toJson() const override = 0;
+    QJsonObject toJson() const override;
 
     const std::string& getName() const;
     const std::string& getDesc() const;

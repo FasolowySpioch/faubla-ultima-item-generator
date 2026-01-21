@@ -17,10 +17,7 @@ Player::Player()
 Player::Player(const std::string_view character_name, const std::string_view author_name, const int level, const Attribute p_die1,
     const Attribute p_die2, const WeaponType pref_weapon, const bool canMartialWeapon,
     const bool canMartialArmor, const bool canRange, const bool canShield)
-        : _character_name((!character_name.empty()) ? character_name : "[The Nameless]")
-        , _author_name((!author_name.empty()) ? author_name : "[The Creator]")
-        , _level((5 <= level) ? level : throw std::invalid_argument("Player::Player: level out of range"))
-        , _primary_die1(p_die1)
+        : _primary_die1(p_die1)
         , _primary_die2(p_die2)
         , _preferred_weapon_type(pref_weapon)
         , _canMartialWeapon(canMartialWeapon)
@@ -28,6 +25,9 @@ Player::Player(const std::string_view character_name, const std::string_view aut
         , _canRange(canRange)
         , _canShield(canShield)
 {
+    setCharacterName(character_name);
+    setAuthorName(author_name);
+    setLevel(level);
 }
 
 
@@ -42,10 +42,10 @@ QJsonObject Player::toJson() const
     json["Primary_Die_1"] = static_cast<int>(_primary_die1);
     json["Primary_Die_2"] = static_cast<int>(_primary_die2);
     json["Preferred_Weapon_Type"] = static_cast<int>(_preferred_weapon_type);
-    json["CanMartialWeapon"] = _canMartialWeapon ? 1 : 0;
-    json["CanMartialArmor"] = _canMartialArmor ? 1 : 0;
-    json["CanRange"] = _canRange ? 1 : 0;
-    json["CanShield"] = _canShield ? 1 : 0;
+    json["CanMartialWeapon"] = _canMartialWeapon;
+    json["CanMartialArmor"] = _canMartialArmor;
+    json["CanRange"] = _canRange;
+    json["CanShield"] = _canShield;
 
     return json;
 }
@@ -77,7 +77,7 @@ void Player::setAuthorName(const std::string_view author_name)
 }
 void Player::setLevel(const int level)
 {
-    if (5 > level)
+    if (level < 5)
         throw std::invalid_argument("Player::setLevel: level out of range");
     _level = level;
 }

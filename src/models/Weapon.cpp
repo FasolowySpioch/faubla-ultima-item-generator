@@ -34,23 +34,18 @@ ItemType Weapon::getItemType() const { return ItemType::WEAPON; }
 
 QJsonObject Weapon::toJson() const
 {
-    QJsonObject json;
+    QJsonObject json = Item::toJson();
 
     json["Type"] = "Weapon";
-    json["Name"] = QString::fromStdString(_name);
-    json["Desc"] = QString::fromStdString(_desc);
-    json["Default_Price"] = _default_price;
-    json["Price"] = _price;
-
     json["Weapon_Type"] = static_cast<int>(_weapon_type);
     json["Damage_Desc"] = _dmg_desc;
     json["Damage_Type"] = static_cast<int>(_dmg_type);
     json["Accuracy1"] = static_cast<int>(_accuracy1);
     json["Accuracy2"] = static_cast<int>(_accuracy2);
     json["Accuracy_Bonus"] = _accuracy_bonus;
-    json["IsSingleHanded"] = _isSingleHanded ? 1 : 0;
-    json["IsRange"] = _isRange ? 1 : 0;
-    json["IsMartial"] = _isMartial ? 1 : 0;
+    json["IsSingleHanded"] = _isSingleHanded;
+    json["IsRange"] = _isRange;
+    json["IsMartial"] = _isMartial;
 
     return json;
 }

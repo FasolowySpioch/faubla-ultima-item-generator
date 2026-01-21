@@ -5,17 +5,14 @@ Accessory::Accessory(const std::string_view name, const std::string_view desc, c
 {
 }
 
+
 ItemType Accessory::getItemType() const { return ItemType::ACCESSORY; }
 
 QJsonObject Accessory::toJson() const
 {
-    QJsonObject json;
+    QJsonObject json = Item::toJson();
 
     json["Type"] = "Accessory";
-    json["Name"] = QString::fromStdString(_name);
-    json["Desc"] = QString::fromStdString(_desc);
-    json["Default_Price"] = _default_price;
-    json["Price"] = _price;
 
     return json;
 }
