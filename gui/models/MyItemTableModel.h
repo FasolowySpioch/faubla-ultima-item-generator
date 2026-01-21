@@ -13,6 +13,9 @@ public:
     explicit MyItemTableModel(const std::vector<std::unique_ptr<Item>> *_container, QObject* parent = nullptr);
 
     void refresh();
+    void startEditing();
+    void endEditing();
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

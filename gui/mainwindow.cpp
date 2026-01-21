@@ -70,8 +70,13 @@ void MainWindow::on_BttnLoadCampain_clicked()
         QDir::homePath(),
         "*.json"
         );
-    if(!fileName.isEmpty()){
-        _appcontrol.loadCampaign(fileName);
+
+    // _item_model->startEditing();
+    // _player_model->startEditing();
+
+    if (_appcontrol.loadCampaign(fileName))
+    {
+
         _loadedFile = fileName;
 
         ui->BttnEditPlayers->setEnabled(true);
@@ -80,6 +85,12 @@ void MainWindow::on_BttnLoadCampain_clicked()
         ui->BttnSaveCampain->setEnabled(true);
         ui->BttnDelCampain->setEnabled(true);
     }
+
+    // _item_model->endEditing();
+    // _player_model->endEditing();
+
+    _item_model->refresh();
+    _player_model->refresh();
 }
 
 
@@ -113,6 +124,7 @@ void MainWindow::on_BttnNormalGenerate_clicked()
     ItemGenDialogue idg(_appcontrol.getPlayersRepository(), this);
     if(idg.exec() == QDialog::Accepted){
 
+        // _item_model->refresh();
     }
 }
 
@@ -126,6 +138,8 @@ void MainWindow::on_BttnDelCampain_clicked()
         "*.json"
         );
     _appcontrol.deleteCampaign(fileName);
+    _item_model->refresh();
+    _player_model->refresh();
 
     if(fileName == _loadedFile){
         clearControls();
@@ -139,4 +153,5 @@ void MainWindow::clearControls() {
 
 void MainWindow::removePlayer(int index){
     _appcontrol.removePlayer(index);
+    _player_model->refresh();
 }

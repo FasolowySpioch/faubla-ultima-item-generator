@@ -11,7 +11,7 @@ std::unique_ptr<Player> CampaignSerializer::playerFromJson(QJsonObject json_play
 {
     if (json_player["Type"] != "Player")
         return std::make_unique<Player>();
-        // idk im too fucking tired to think what to do here
+        // throw ??
 
     std::string character_name = json_player["Character_Name"].toString().toStdString();
     std::string author_name = json_player["Author_Name"].toString().toStdString();
@@ -31,10 +31,10 @@ std::unique_ptr<Player> CampaignSerializer::playerFromJson(QJsonObject json_play
 std::unique_ptr<Item> CampaignSerializer::itemFromJson(QJsonObject json_item)
 {
     if (json_item["Type"] != "Weapon"
-        && json_item["Level"] != "Armor"
+        && json_item["Type"] != "Armor"
         && json_item["Type"] != "Accessory")
         return nullptr;
-        // same here
+        // throw ??
 
     std::string name = json_item["Name"].toString().toStdString();
     std::string desc = json_item["Desc"].toString().toStdString();
@@ -81,7 +81,7 @@ std::unique_ptr<Item> CampaignSerializer::itemFromJson(QJsonObject json_item)
 
 
 bool CampaignSerializer::save(const CampaignManager &mng, const QString &file_path)
-// Saves the campaign inside &mng into json. Returns true if successful.
+// Saves the campaign inside &mng into JSON. Returns true if successful.
 {
     if (file_path.isEmpty())
         return false;

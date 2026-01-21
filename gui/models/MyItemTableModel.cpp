@@ -15,6 +15,17 @@ void MyItemTableModel::refresh()
     endResetModel();
 }
 
+void MyItemTableModel::startEditing()
+{
+    beginResetModel();
+}
+
+void MyItemTableModel::endEditing()
+{
+    endResetModel();
+}
+
+
 int MyItemTableModel::rowCount(const QModelIndex &parent) const
 {
     if (!container) return 0;

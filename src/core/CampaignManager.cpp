@@ -13,8 +13,8 @@ CampaignManager::CampaignManager()
 
 void CampaignManager::clear()
 {
-    _items.clear();
-    _players.clear();
+    deleteAllPlayers();
+    deleteAllItems();
 }
 
 // ==== Items methods ====

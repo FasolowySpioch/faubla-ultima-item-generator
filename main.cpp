@@ -1,12 +1,8 @@
 #include "gui/mainwindow.h"
-#include "src/systems/WeaponGenerator.h"
 #include "src/tests/Test.h"
 
 
 #include <QApplication>
-#include <iostream>
-
-void testWeaponGenerator();
 
 //TODO: Delete button doesn't work.
 //TODO: ItemGenerator dialog window.
