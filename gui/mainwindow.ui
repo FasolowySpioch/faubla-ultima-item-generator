@@ -112,7 +112,7 @@
         <item row="0" column="1">
          <widget class="QPushButton" name="BttnDelCampain">
           <property name="text">
-           <string>Usuń kampanie</string>
+           <string>Wyczyść kampanie</string>
           </property>
          </widget>
         </item>

@@ -23,16 +23,9 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2">
        <item>
         <widget class="QComboBox" name="ComboBoxSelectPlayer"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="BttnConfirmSelection">
-         <property name="text">
-          <string>WYBIERZ</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>

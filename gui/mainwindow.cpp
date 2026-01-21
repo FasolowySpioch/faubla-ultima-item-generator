@@ -5,6 +5,7 @@
 #include "dialogue/editplayer/editplayerdialogue.h"
 
 #include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,7 +29,6 @@ MainWindow::~MainWindow()
 // -- Player functions
 void MainWindow::on_BttnEditPlayers_clicked()
 {
-
     //testting if dialouge works for now:
     EditPlayerDialogue epd(_appcontrol.getPlayersRepository(),this);
     connect(&epd, &EditPlayerDialogue::removePlayerRequest, this, &MainWindow::removePlayer);
@@ -71,9 +71,6 @@ void MainWindow::on_BttnLoadCampain_clicked()
         "*.json"
         );
 
-    // _item_model->startEditing();
-    // _player_model->startEditing();
-
     if (_appcontrol.loadCampaign(fileName))
     {
 
@@ -85,9 +82,6 @@ void MainWindow::on_BttnLoadCampain_clicked()
         ui->BttnSaveCampain->setEnabled(true);
         ui->BttnDelCampain->setEnabled(true);
     }
-
-    // _item_model->endEditing();
-    // _player_model->endEditing();
 
     _item_model->refresh();
     _player_model->refresh();
@@ -124,31 +118,48 @@ void MainWindow::on_BttnNormalGenerate_clicked()
     ItemGenDialogue idg(_appcontrol.getPlayersRepository(), this);
     if(idg.exec() == QDialog::Accepted){
 
-        // _item_model->refresh();
+    // _item_model->refresh();
     }
 }
 
 
 void MainWindow::on_BttnDelCampain_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(
-        this,
-        "Wybierz plik",
-        QDir::homePath(),
-        "*.json"
-        );
-    _appcontrol.deleteCampaign(fileName);
-    _item_model->refresh();
-    _player_model->refresh();
+    // QString fileName = QFileDialog::getOpenFileName(
+    //     this,
+    //     "Wybierz plik",
+    //     QDir::homePath(),
+    //     "*.json"
+    //     );
 
-    if(fileName == _loadedFile){
+    // _appcontrol.deleteCampaign(fileName);
+    // _item_model->refresh();
+    // _player_model->refresh();
+
+    // if(fileName == _loadedFile){
+    //     clearControls();
+    // }
+
+    QMessageBox::StandardButton reply = QMessageBox::question(this,
+                                  "Wyczyść kampanię",
+                                  "Czy na pewno chcesz wyczyścić całą kampanię?",
+                                  QMessageBox::Ok | QMessageBox::Cancel);
+
+    if (reply == QMessageBox::Ok)
+    {
+        _appcontrol.clearRepository();
+        _item_model->refresh();
+        _player_model->refresh();
         clearControls();
     }
 }
 
 void MainWindow::clearControls() {
-    //TODO: Finish this function
-    //ui->TableGeneratedItems
+    ui->BttnEditPlayers->setEnabled(false);
+    ui->BttnQuickGenerate->setEnabled(false);
+    ui->BttnNormalGenerate->setEnabled(false);
+    ui->BttnSaveCampain->setEnabled(false);
+    ui->BttnDelCampain->setEnabled(false);
 }
 
 void MainWindow::removePlayer(int index){
