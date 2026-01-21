@@ -38,3 +38,4 @@ void Item::setDesc(const std::string_view d) { _desc = d; }
 void Item::setDefaultDesc() { _desc = "No quality."; }
 void Item::setDefaultPrice() { _price = _default_price; }
 void Item::increasePriceBy(const int add) { _price = _default_price + add; }
+void Item::addToPrice(const int add) {_price += add;}

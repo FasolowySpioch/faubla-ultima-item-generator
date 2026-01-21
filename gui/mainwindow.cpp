@@ -109,10 +109,10 @@ void MainWindow::on_BttnQuickGenerate_clicked()
 
 void MainWindow::on_BttnNormalGenerate_clicked()
 {
-    ItemGenDialogue idg(_appcontrol.getPlayersRepository(), this);
+    ItemGenDialogue idg(&_appcontrol, this);
     if(idg.exec() == QDialog::Accepted){
 
-    // _item_model->refresh();
+     _item_model->refresh();
     }
 }
 
@@ -145,3 +145,17 @@ void MainWindow::updateUIState() const
     ui->BttnQuickGenerate->setEnabled(hasPlayers);
     ui->BttnNormalGenerate->setEnabled(hasPlayers);
 }
+
+void MainWindow::on_TableGeneratedItems_doubleClicked(const QModelIndex &index)
+{
+    QMessageBox::StandardButton message = QMessageBox::warning(this, "Usuń przedmiot", "Czy na pewno chcesz usunąć przedmiot?", QMessageBox::Ok | QMessageBox::Cancel);
+    if(message == QMessageBox::Ok){
+        int row = index.row();
+        int repoSize = _appcontrol.getItemsRepository().size();
+        int realIndex = repoSize - 1 - row;
+        _appcontrol.removeItem(static_cast<size_t>(realIndex));
+
+        _item_model->refresh();
+    }
+}
+
