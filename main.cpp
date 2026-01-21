@@ -2,7 +2,6 @@
 #include "src/tests/Test.h"
 #include <QApplication>
 
-//TODO: ItemGenerator dialog window.
 //TODO: (Optional) delete items with doubleclick - maybe.
 
 int main(int argc, char *argv[])

@@ -32,6 +32,8 @@ private slots:
 
     void on_BttnDelCampain_clicked();
 
+    void on_TableGeneratedItems_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     AppController _appcontrol;

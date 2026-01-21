@@ -151,3 +151,17 @@ void MainWindow::removePlayer(int index){
     _appcontrol.removePlayer(index);
     _player_model->refresh();
 }
+
+void MainWindow::on_TableGeneratedItems_doubleClicked(const QModelIndex &index)
+{
+    QMessageBox::StandardButton message = QMessageBox::warning(this, "Usuń przedmiot", "Czy na pewno chcesz usunąć przedmiot?", QMessageBox::Ok | QMessageBox::Cancel);
+    if(message == QMessageBox::Ok){
+        int row = index.row();
+        int repoSize = _appcontrol.getItemsRepository().size();
+        int realIndex = repoSize - 1 - row;
+        _appcontrol.removeItem(static_cast<size_t>(realIndex));
+
+        _item_model->refresh();
+    }
+}
+
