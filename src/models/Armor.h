@@ -17,8 +17,11 @@ class Armor : public Item
 
 public:
     Armor();
-    Armor(std::string_view name, std::string_view desc, int price, int initiative,
+    Armor(std::string_view name, std::string_view desc, int default_price, int price, int initiative,
         bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield);
+
+    ItemType getItemType() const override;
+    QJsonObject toJson() const override;
 
     int getInitiative() const;
     bool getIsMartial() const;

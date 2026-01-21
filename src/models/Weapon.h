@@ -29,11 +29,14 @@ class Weapon : public Item
 
 public:
     Weapon();
-    Weapon(std::string_view name, std::string_view desc, int price, WeaponType weapon_type, int dmg_desc,
+    Weapon(std::string_view name, std::string_view desc, int default_price, int price, WeaponType weapon_type, int dmg_desc,
         DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus,
         bool isSingleHanded, bool isRange, bool isMartial);
 
-    WeaponType getType() const;
+    ItemType getItemType() const override;
+    QJsonObject toJson() const override;
+
+    WeaponType getWeaponType() const;
     int getDmgDesc() const;
     Attribute getAccuracy1() const;
     Attribute getAccuracy2() const;

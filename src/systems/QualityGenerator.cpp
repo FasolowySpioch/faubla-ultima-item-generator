@@ -7,8 +7,6 @@ QualityGenerator::QualityGenerator(const std::string &file_path)
     std::random_device seed;
     _mt = std::mt19937(seed());
 
-    // loading the file into cache
-    JsonReader reader;
     _cache_qualities = JsonReader::loadQualities(QString::fromStdString(file_path));
 }
 

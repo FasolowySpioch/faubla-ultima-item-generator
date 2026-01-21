@@ -53,7 +53,7 @@ bool ItemGeneratorSystem::isItemPriceValid(const Item &item, const Player &playe
 }
 
 
-std::unique_ptr<Item> ItemGeneratorSystem::generateItem(const Player &player, ItemType type)
+std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Player &player)
 {
     constexpr int no_of_tries = 20;
     int i = 0;
@@ -68,7 +68,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(const Player &player, It
 
         // if there was no strategy for type, throw exception
         if (strategies.find(type) == strategies.end())
-            throw std::invalid_argument("ItemGeneratorSystem::generateItem(): Item type not valid or there's no generator strategy for it.");
+            throw std::invalid_argument("ItemGeneratorSystem::generateItem: Item type not valid or there's no generator strategy for it.");
 
         std::unique_ptr<Item> item = strategies[type]->generate(player);
 
@@ -88,7 +88,10 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(const Player &player, It
 void ItemGeneratorSystem::assignQuality(const ItemType type, Item *item)
 {
     assert(type != ItemType::RANDOM);
-    if (!item) throw std::invalid_argument("ItemGeneratorSystem::assignQuality(): Invalid pointer to item");
+    if (!item) throw std::invalid_argument("ItemGeneratorSystem::assignQuality: Invalid pointer to item.");
+
+    if (quality_gen.find(type) == quality_gen.end())
+        throw std::invalid_argument("ItemGeneratorSystem::generateItem: Item type not valid or there's no generator strategy for it.");
 
     quality_gen[type]->applyRandomQualityTo(item);
 }

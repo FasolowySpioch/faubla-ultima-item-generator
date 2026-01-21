@@ -9,7 +9,7 @@ std::unique_ptr<Weapon> JsonReader::parseWeapon(const QJsonObject &JsonWeaponObj
 {
     QString name = JsonWeaponObj.value("Name").toString();
     QString desc = JsonWeaponObj.value("Quality").toString();
-    int price = JsonWeaponObj.value("Cost").toInt();
+    int default_price = JsonWeaponObj.value("Cost").toInt();
 
     WeaponType weapon_type = static_cast<WeaponType>(JsonWeaponObj.value("Type").toInt());
     int dmg_desc = JsonWeaponObj.value("Damage_desc").toInt();
@@ -21,7 +21,7 @@ std::unique_ptr<Weapon> JsonReader::parseWeapon(const QJsonObject &JsonWeaponObj
     bool isRange = JsonWeaponObj.value("IsRange").toBool();
     bool isMartial = JsonWeaponObj.value("IsMartial").toBool();
 
-    return std::make_unique<Weapon>(name.toStdString(), desc.toStdString(), price, weapon_type, dmg_desc, dmg_type, accur_1, accur_2, accur_bonus,
+    return std::make_unique<Weapon>(name.toStdString(), desc.toStdString(), default_price, 0, weapon_type, dmg_desc, dmg_type, accur_1, accur_2, accur_bonus,
         isSingleHanded, isRange, isMartial);
 }
 
@@ -29,7 +29,7 @@ std::unique_ptr<Armor> JsonReader::parseArmor(const QJsonObject &JsonArmorObj, b
 {
     QString name = JsonArmorObj.value("Name").toString();
     QString desc = JsonArmorObj.value("Quality").toString();
-    int price = JsonArmorObj.value("Cost").toInt();
+    int default_price = JsonArmorObj.value("Cost").toInt();
 
     int initiative = JsonArmorObj.value("Initiative").toInt();
     Attribute magic_def = static_cast<Attribute>(JsonArmorObj.value("MagicDefense").toInt());
@@ -38,7 +38,7 @@ std::unique_ptr<Armor> JsonReader::parseArmor(const QJsonObject &JsonArmorObj, b
     int def_bonus = JsonArmorObj.value("DefenseBonus").toInt();
     bool isMartial = JsonArmorObj.value("IsMartial").toBool();
 
-    return std::make_unique<Armor>(name.toStdString(), desc.toStdString(), price, initiative,
+    return std::make_unique<Armor>(name.toStdString(), desc.toStdString(), default_price, 0, initiative,
         isMartial, magic_def, magic_def_bonus, def, def_bonus, makeShield);
 }
 

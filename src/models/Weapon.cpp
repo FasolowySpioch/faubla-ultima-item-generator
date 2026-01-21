@@ -14,10 +14,10 @@ Weapon::Weapon()
 {
 }
 
-Weapon::Weapon(const std::string_view name, const std::string_view desc, const int price, const WeaponType weapon_type,
+Weapon::Weapon(const std::string_view name, const std::string_view desc, const int default_price, const int price, const WeaponType weapon_type,
                const int dmg_desc, const DMGType dmg_type, const Attribute accuracy1, const Attribute accuracy2,
                const int accuracy_bonus, const bool isSingleHanded, const bool isRange, const bool isMartial)
-    : Item(name, desc, price, 0)
+    : Item(name, desc, default_price, price)
     , _weapon_type(weapon_type)
     , _dmg_desc(dmg_desc)   // check if input >=0 ??
     , _dmg_type(dmg_type)
@@ -30,7 +30,32 @@ Weapon::Weapon(const std::string_view name, const std::string_view desc, const i
 {
 }
 
-WeaponType Weapon::getType() const { return _weapon_type; }
+ItemType Weapon::getItemType() const { return ItemType::WEAPON; }
+
+QJsonObject Weapon::toJson() const
+{
+    QJsonObject json;
+
+    json["Type"] = "Weapon";
+    json["Name"] = QString::fromStdString(_name);
+    json["Desc"] = QString::fromStdString(_desc);
+    json["Default_Price"] = _default_price;
+    json["Price"] = _price;
+
+    json["Weapon_Type"] = static_cast<int>(_weapon_type);
+    json["Damage_Desc"] = _dmg_desc;
+    json["Damage_Type"] = static_cast<int>(_dmg_type);
+    json["Accuracy1"] = static_cast<int>(_accuracy1);
+    json["Accuracy2"] = static_cast<int>(_accuracy2);
+    json["Accuracy_Bonus"] = _accuracy_bonus;
+    json["IsSingleHanded"] = _isSingleHanded ? 1 : 0;
+    json["IsRange"] = _isRange ? 1 : 0;
+    json["IsMartial"] = _isMartial ? 1 : 0;
+
+    return json;
+}
+
+WeaponType Weapon::getWeaponType() const { return _weapon_type; }
 int Weapon::getDmgDesc() const { return _dmg_desc; }
 DMGType Weapon::getDmgType() const { return _dmg_type; }
 Attribute Weapon::getAccuracy1() const { return _accuracy1; }

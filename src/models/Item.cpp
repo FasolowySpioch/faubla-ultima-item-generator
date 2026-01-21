@@ -1,4 +1,5 @@
 #include "Item.h"
+#include <QJsonObject>
 
 Item::Item()
     : _default_price(0)
@@ -13,8 +14,6 @@ Item::Item(const std::string_view name, const std::string_view desc, const int d
     , _price(_default_price + add_price)
 {
 }
-
-Item::~Item() = default;
 
 const std::string& Item::getName() const { return _name; }
 const std::string& Item::getDesc() const { return _desc; }

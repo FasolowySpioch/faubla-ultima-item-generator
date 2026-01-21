@@ -14,38 +14,56 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        gui/mainwindow.cpp
+        gui/mainwindow.h
+        gui/mainwindow.ui
         src/tests/Test.cpp
         src/tests/Test.h
+        src/models/Accessory.h src/models/Armor.h src/models/Item.h src/models/Weapon.h
+        src/models/Accessory.cpp src/models/Armor.cpp src/models/Item.cpp src/models/Weapon.cpp
+        src/models/Player.cpp
+        src/models/Player.h
+        src/models/AttributeEnum.h
+        src/core/CampaignManager.cpp
+        src/core/CampaignManager.h
+        src/systems/GeneratorStrategy.h
+        src/systems/WeaponGenerator.cpp
+        src/systems/WeaponGenerator.h
+        src/systems/ArmorGenerator.cpp
+        src/systems/ArmorGenerator.h
+        src/systems/AccessoryGenerator.cpp
+        src/systems/AccessoryGenerator.h
+        src/io/JsonReader.cpp
+        src/io/JsonReader.h
+        src/models/Quality.h
+        src/systems/QualityGenerator.cpp
+        src/systems/QualityGenerator.h
+        src/systems/ItemGeneratorSystem.cpp
+        src/systems/ItemGeneratorSystem.h
+        src/controllers/AppController.cpp
+        src/controllers/AppController.h
+        src/io/CampaignSerializer.cpp
+        src/io/CampaignSerializer.h
+        src/models/IJsonSerializable.h
+        gui/models/MyItemTableModel.cpp
+        gui/models/MyItemTableModel.h
+        src/converters/ItemTypeConverter.h
+        gui/dialogue/editplayer/editplayerdialogue.h gui/dialogue/editplayer/editplayerdialogue.cpp gui/dialogue/editplayer/editplayerdialogue.ui
+        gui/dialogue/addplayer/addplayerdialogue.h gui/dialogue/addplayer/addplayerdialogue.cpp gui/dialogue/addplayer/addplayerdialogue.ui
+        gui/dialogue/itemgen/itemgendialogue.h gui/dialogue/itemgen/itemgendialogue.cpp gui/dialogue/itemgen/itemgendialogue.ui
+        gui/models/MyPlayerTableModel.cpp
+        gui/models/MyPlayerTableModel.h
+        src/converters/AttributeConverter.h
+        src/converters/WeaponTypeConverter.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(fultima-gen
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-            src/models/Accessory.h src/models/Armor.h src/models/Item.h src/models/Weapon.h
-            src/models/Accessory.cpp src/models/Armor.cpp src/models/Item.cpp src/models/Weapon.cpp
-            src/models/Player.cpp
-            src/models/Player.h
-            src/models/AttributeEnum.h
-            src/core/CampaignManager.cpp
-            src/core/CampaignManager.h
-            src/systems/GeneratorStrategy.h
-            src/systems/WeaponGenerator.cpp
-            src/systems/WeaponGenerator.h
-            src/systems/ArmorGenerator.cpp
-            src/systems/ArmorGenerator.h
-            src/systems/AccessoryGenerator.cpp
-            src/systems/AccessoryGenerator.h
-            src/io/JsonReader.cpp
-            src/io/JsonReader.h
-            src/models/Quality.h
-            src/systems/QualityGenerator.cpp
-            src/systems/QualityGenerator.h
-            src/systems/ItemGeneratorSystem.cpp
-            src/systems/ItemGeneratorSystem.h
+        gui/dialogue/editplayer/editplayerdialogue.cpp
+        gui/dialogue/addplayer/addplayerdialogue.cpp
+        gui/dialogue/itemgen/itemgendialogue.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET fultima-gen APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -61,7 +79,7 @@ else()
     else()
         add_executable(fultima-gen
             ${PROJECT_SOURCES}
-            data/basic/Basic_Armor_Shield.json data/basic/Basic_Weapon_Qualities.json data/basic/Basic_Weapons.json src/core/CampaignManager.cpp src/core/CampaignManager.h src/io/JsonReader.cpp src/io/JsonReader.h src/models/Accessory.cpp src/models/Accessory.h src/models/Armor.cpp src/models/Armor.h src/models/AttributeEnum.h src/models/Item.cpp src/models/Item.h src/models/Player.cpp src/models/Player.h src/models/Quality.h src/models/Weapon.cpp src/models/Weapon.h src/systems/AccessoryGenerator.cpp src/systems/AccessoryGenerator.h src/systems/ArmorGenerator.cpp src/systems/ArmorGenerator.h src/systems/GeneratorStrategy.h src/systems/ItemGeneratorSystem.cpp src/systems/ItemGeneratorSystem.h src/systems/QualityGenerator.cpp src/systems/QualityGenerator.h src/systems/WeaponGenerator.cpp src/systems/WeaponGenerator.h src/tests/Test.cpp src/tests/Test.h
+            # data/basic/Basic_Armor_Shield.json data/basic/Basic_Weapon_Qualities.json data/basic/Basic_Weapons.json src/core/CampaignManager.cpp src/core/CampaignManager.h src/io/JsonReader.cpp src/io/JsonReader.h src/models/Accessory.cpp src/models/Accessory.h src/models/Armor.cpp src/models/Armor.h src/models/AttributeEnum.h src/models/Item.cpp src/models/Item.h src/models/Player.cpp src/models/Player.h src/models/Quality.h src/models/Weapon.cpp src/models/Weapon.h src/systems/AccessoryGenerator.cpp src/systems/AccessoryGenerator.h src/systems/ArmorGenerator.cpp src/systems/ArmorGenerator.h src/systems/GeneratorStrategy.h src/systems/ItemGeneratorSystem.cpp src/systems/ItemGeneratorSystem.h src/systems/QualityGenerator.cpp src/systems/QualityGenerator.h src/systems/WeaponGenerator.cpp src/systems/WeaponGenerator.h src/tests/Test.cpp src/tests/Test.h
         )
     endif()
 endif()
