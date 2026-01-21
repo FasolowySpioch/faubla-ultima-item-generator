@@ -42,7 +42,6 @@ void ItemGenDialogue::on_BttnQuickGenerate_clicked()
     const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
     _generatedItem = _apc->generateRandomItem(p);
     setLVItemDependent();
-    itemGenerated = true;
 }
 
 void ItemGenDialogue::on_bttnGenerateAccessory_clicked()
@@ -50,32 +49,77 @@ void ItemGenDialogue::on_bttnGenerateAccessory_clicked()
     const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
     _generatedItem = _apc->generateItem(ItemType::ACCESSORY, p);
     setLVItemDependent();
-    itemGenerated = true;
 }
-
 
 void ItemGenDialogue::on_bttnGenerateArmor_clicked()
 {
     const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
     _generatedItem = _apc->generateItem(ItemType::ARMOR, p);
     setLVItemDependent();
-    itemGenerated = true;
 }
-
 
 void ItemGenDialogue::on_bttnGenerateWeapon_clicked()
 {
     const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
     _generatedItem = _apc->generateItem(ItemType::WEAPON, p);
     setLVItemDependent();
-    itemGenerated = true;
+}
+
+void ItemGenDialogue::on_BttnRerollQualityWeap_clicked()
+{
+    rerollQuality();
+}
+
+void ItemGenDialogue::on_bttnRerollQualityArm_clicked()
+{
+    rerollQuality();
+}
+
+void ItemGenDialogue::on_bttnRerollQualityAcc_clicked()
+{
+    rerollQuality();
+}
+
+void ItemGenDialogue::on_lineEditWName_editingFinished()
+{
+
 }
 
 
+void ItemGenDialogue::on_lineEditNameArmor_editingFinished()
+{
+
+}
+
+
+void ItemGenDialogue::on_lineEditAccName_editingFinished()
+{
+
+}
+
+void ItemGenDialogue::on_comboBoxDmgType_currentIndexChanged(int index)
+{
+    if(physicalChanged == false){
+        if(ui->comboBoxDmgType->itemData(index).toInt() != static_cast<int>(DMGType::PHYSICAL)){
+            dynamic_cast<Weapon*>(_generatedItem.get())->setDmgType(static_cast<DMGType>(ui->comboBoxDmgType->itemData(index).toInt()));
+            _generatedItem->addToPrice(100);
+            physicalChanged=true;
+            setLVItemDependent();
+        }
+    }
+    else{
+        if(ui->comboBoxDmgType->itemData(index).toInt() == static_cast<int>(DMGType::PHYSICAL)){
+            dynamic_cast<Weapon*>(_generatedItem.get())->setDmgType(static_cast<DMGType>(ui->comboBoxDmgType->itemData(index).toInt()));
+            _generatedItem->addToPrice(-100);
+            physicalChanged=false;
+            setLVItemDependent();
+        }
+    }
+}
 
 void ItemGenDialogue::on_comboBoxChoosePlayer_currentIndexChanged(int index)
 {
-    if(ui->comboBoxChoosePlayer->itemData(index).toInt()!=-1 && itemGenerated==false){
+    if(ui->comboBoxChoosePlayer->itemData(index).toInt()!=-1){
         ui->BttnQuickGenerate->setEnabled(true);
         ui->bttnGenerateAccessory->setEnabled(true);
         ui->bttnGenerateWeapon->setEnabled(true);
@@ -109,7 +153,7 @@ void ItemGenDialogue::setLVItemDependent(){
 
         ui->widget->setVisible(false);
 
-        ui->lineEditNameArmor->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
+        ui->lineEditNameArmor->setText(QString::fromStdString(_generatedItem->getName()));
 
         if(genA->getMagDefAtr()==Attribute::NONE){
             ui->labelDisplayMagicDef->setText(QString::number(genA->getMagDefBonus()));
@@ -161,7 +205,7 @@ void ItemGenDialogue::setLVItemDependent(){
         setLayoutVisible(false, ui->LayoutArmor);
         ui->widget->setVisible(false);
 
-        ui->lineEditWName->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
+        ui->lineEditWName->setText(QString::fromStdString(_generatedItem->getName()));
         ui->labelDisplayWeaponType->setText(weapon_type[static_cast<int>(genW->getWeaponType())]);
 
         QString accCheck = "[ " + attributes[static_cast<int>(genW->getAccuracy1())] + " + " + attributes[static_cast<int>(genW->getAccuracy2())] + " ]";
@@ -192,7 +236,7 @@ void ItemGenDialogue::setLVItemDependent(){
         setLayoutVisible(false, ui->LayoutComboboxDmgType);
         ui->widget->setVisible(false);
 
-        ui->lineEditAccName->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
+        ui->lineEditAccName->setText(QString::fromStdString(_generatedItem->getName()));
         ui->textBrowserQualA->setText(QString::fromStdString(_generatedItem->getDesc()));
         ui->labelDisplayPriceAcc->setText(QString::number(_generatedItem->getPriceModified()));
 
@@ -201,4 +245,9 @@ void ItemGenDialogue::setLVItemDependent(){
     }
     }
     ui->widget->setVisible(false);
+}
+
+void ItemGenDialogue::rerollQuality() {
+    _apc->rerollQuality(_generatedItem.get());
+    setLVItemDependent();
 }

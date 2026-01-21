@@ -20,21 +20,27 @@ public:
 private slots:
     void on_BttnQuickGenerate_clicked();
     void on_comboBoxChoosePlayer_currentIndexChanged(int index);
-
     void on_bttnGenerateAccessory_clicked();
-
     void on_bttnGenerateArmor_clicked();
-
     void on_bttnGenerateWeapon_clicked();
+    void on_BttnRerollQualityWeap_clicked();
+    void on_bttnRerollQualityArm_clicked();
+    void on_bttnRerollQualityAcc_clicked();
+    void on_comboBoxDmgType_currentIndexChanged(int index);
+    void on_lineEditWName_editingFinished();
+    void on_lineEditNameArmor_editingFinished();
+    void on_lineEditAccName_editingFinished();
 
 private:
     Ui::ItemGenDialogue *ui;
     AppController * _apc;
     std::unique_ptr<Item> _generatedItem;
-    bool itemGenerated = false;
+    bool physicalChanged = false;
 
     void setLayoutVisible(bool visible, QLayout* l);
     void setLVItemDependent();
+    void rerollQuality();
+    void setNameToItem();
 };
 
 #endif // ITEMGENDIALOGUE_H
