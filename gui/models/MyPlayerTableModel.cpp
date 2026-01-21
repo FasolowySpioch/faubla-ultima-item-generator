@@ -15,6 +15,7 @@ void MyPlayerTableModel::refresh()
     endResetModel();
 }
 
+
 int MyPlayerTableModel::rowCount(const QModelIndex &parent) const
 {
     if (!container) return 0;

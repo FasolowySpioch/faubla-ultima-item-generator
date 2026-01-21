@@ -15,6 +15,7 @@ void MyItemTableModel::refresh()
     endResetModel();
 }
 
+
 int MyItemTableModel::rowCount(const QModelIndex &parent) const
 {
     if (!container) return 0;
