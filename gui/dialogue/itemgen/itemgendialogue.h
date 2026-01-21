@@ -17,6 +17,7 @@ public:
     explicit ItemGenDialogue(AppController *apc, QWidget *parent = nullptr);
     ~ItemGenDialogue();
 
+
 private slots:
     void on_BttnQuickGenerate_clicked();
     void on_comboBoxChoosePlayer_currentIndexChanged(int index);
@@ -31,6 +32,8 @@ private slots:
     void on_lineEditNameArmor_editingFinished();
     void on_lineEditAccName_editingFinished();
 
+    void on_buttonBox_accepted();
+
 private:
     Ui::ItemGenDialogue *ui;
     AppController * _apc;
@@ -41,6 +44,7 @@ private:
     void setLVItemDependent();
     void rerollQuality();
     void setNameToItem();
+    void saveName();
 };
 
 #endif // ITEMGENDIALOGUE_H

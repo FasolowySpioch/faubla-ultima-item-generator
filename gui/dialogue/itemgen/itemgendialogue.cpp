@@ -82,19 +82,17 @@ void ItemGenDialogue::on_bttnRerollQualityAcc_clicked()
 
 void ItemGenDialogue::on_lineEditWName_editingFinished()
 {
-
+    saveName();
 }
-
 
 void ItemGenDialogue::on_lineEditNameArmor_editingFinished()
 {
-
+    saveName();
 }
-
 
 void ItemGenDialogue::on_lineEditAccName_editingFinished()
 {
-
+    saveName();
 }
 
 void ItemGenDialogue::on_comboBoxDmgType_currentIndexChanged(int index)
@@ -251,3 +249,13 @@ void ItemGenDialogue::rerollQuality() {
     _apc->rerollQuality(_generatedItem.get());
     setLVItemDependent();
 }
+
+void ItemGenDialogue::saveName(){
+    _generatedItem->setName((ui->lineEditWName->text()).toStdString());
+}
+
+void ItemGenDialogue::on_buttonBox_accepted()
+{
+    _apc->saveItem(std::move(_generatedItem));
+}
+

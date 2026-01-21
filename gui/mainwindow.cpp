@@ -118,28 +118,13 @@ void MainWindow::on_BttnNormalGenerate_clicked()
     ItemGenDialogue idg(&_appcontrol, this);
     if(idg.exec() == QDialog::Accepted){
 
-    // _item_model->refresh();
+     _item_model->refresh();
     }
 }
 
 
 void MainWindow::on_BttnDelCampain_clicked()
 {
-    // QString fileName = QFileDialog::getOpenFileName(
-    //     this,
-    //     "Wybierz plik",
-    //     QDir::homePath(),
-    //     "*.json"
-    //     );
-
-    // _appcontrol.deleteCampaign(fileName);
-    // _item_model->refresh();
-    // _player_model->refresh();
-
-    // if(fileName == _loadedFile){
-    //     clearControls();
-    // }
-
     QMessageBox::StandardButton reply = QMessageBox::question(this,
                                   "Wyczyść kampanię",
                                   "Czy na pewno chcesz wyczyścić całą kampanię?",
