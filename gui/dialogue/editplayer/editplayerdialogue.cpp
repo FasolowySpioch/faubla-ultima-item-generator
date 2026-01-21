@@ -1,6 +1,7 @@
 #include "editplayerdialogue.h"
 #include "ui_editplayerdialogue.h"
 #include <QMessageBox>
+#include <iostream>
 
 EditPlayerDialogue::EditPlayerDialogue(const std::vector<std::unique_ptr<Player>>& players, QWidget *parent)
     : QDialog(parent)
@@ -37,6 +38,8 @@ EditPlayerDialogue::EditPlayerDialogue(const std::vector<std::unique_ptr<Player>
     ui->ComboBoxWeaponPreference->addItem("Włócznia", static_cast<int>(WeaponType::SPEAR));
     ui->ComboBoxWeaponPreference->addItem("Miecz", static_cast<int>(WeaponType::SWORD));
     ui->ComboBoxWeaponPreference->addItem("Broń miotana", static_cast<int>(WeaponType::THROWN));
+
+    on_ComboBoxSelectPlayer_currentIndexChanged(0);
 }
 
 EditPlayerDialogue::~EditPlayerDialogue()
@@ -74,15 +77,24 @@ void EditPlayerDialogue::on_ComboBoxSelectPlayer_currentIndexChanged(int index)
     ui->TxtEditCharName->setPlainText(QString::fromStdString(players.at(index)->getCharacterName()));
     ui->SpinBoxLvl->setValue(players.at(index)->getLevel());
 
-    if(ui->ComboBoxAttributes->findData(static_cast<int>(players.at(index)->getPrimaryDie1()))){
-        ui->ComboBoxAttributes->setCurrentIndex(static_cast<int>(players.at(index)->getPrimaryDie1()));
-    }
-    if(ui->ComboboxAttributres2->findData(static_cast<int>(players.at(index)->getPrimaryDie2()))){
-        ui->ComboboxAttributres2->setCurrentIndex(static_cast<int>(players.at(index)->getPrimaryDie2()));
-    }
-    if(ui->ComboBoxWeaponPreference->findData(static_cast<int>(players.at(index)->getPreferredWeaponType()))){
-        ui->ComboBoxWeaponPreference->setCurrentIndex(static_cast<int>(players.at(index)->getPreferredWeaponType()));
-    }
+    int idx1 = ui->ComboBoxAttributes->findData(
+        static_cast<int>(players.at(index)->getPrimaryDie1())
+        );
+    if (idx1 != -1)
+        ui->ComboBoxAttributes->setCurrentIndex(idx1);
+
+    int idx2 = ui->ComboboxAttributres2->findData(
+        static_cast<int>(players.at(index)->getPrimaryDie2())
+        );
+    if (idx2 != -1)
+        ui->ComboboxAttributres2->setCurrentIndex(idx2);
+
+    int idxW = ui->ComboBoxWeaponPreference->findData(
+        static_cast<int>(players.at(index)->getPreferredWeaponType())
+        );
+    if (idxW != -1)
+        ui->ComboBoxWeaponPreference->setCurrentIndex(idxW);
+
 
     ui->CheckBoxMartialWeapon->setChecked(players.at(index)->getCanMartialWeapon());
     ui->CheckBoxMartialArmor->setChecked(players.at(index)->getCanMartialArmor());
@@ -90,3 +102,22 @@ void EditPlayerDialogue::on_ComboBoxSelectPlayer_currentIndexChanged(int index)
     ui->CheckBoxShield->setChecked(players.at(index)->getCanShield());
 }
 
+Player EditPlayerDialogue::getPlayer(){
+    Player p;
+    p.setAuthorName((ui->TxtEditAuthor->toPlainText()).toStdString());
+    p.setCharacterName((ui->TxtEditCharName->toPlainText()).toStdString());
+    p.setLevel(ui->SpinBoxLvl->value());
+    p.setPrimaryDie1(static_cast<Attribute>(ui->ComboBoxAttributes->currentData().toInt()));
+    p.setPrimaryDie2(static_cast<Attribute>(ui->ComboboxAttributres2->currentData().toInt()));
+    p.setPreferredWeaponType(static_cast<WeaponType>(ui->ComboBoxWeaponPreference->currentData().toInt()));
+    p.setCanMartialWeapon(ui->CheckBoxMartialWeapon->isChecked());
+    p.setCanMartialArmor(ui->CheckBoxMartialArmor->isChecked());
+    p.setCanRange(ui->CheckBoxRange->isChecked());
+    p.setCanShield(ui->CheckBoxShield->isChecked());
+
+    return p;
+}
+
+int EditPlayerDialogue::getIndex(){
+    return ui->ComboBoxSelectPlayer->currentIndex();
+}

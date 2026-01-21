@@ -5,7 +5,7 @@
 #include "dialogue/editplayer/editplayerdialogue.h"
 
 #include <QFileDialog>
-
+#include <iostream>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -30,7 +30,9 @@ void MainWindow::on_BttnEditPlayers_clicked()
     EditPlayerDialogue epd(_appcontrol.getPlayersRepository(),this);
     connect(&epd, &EditPlayerDialogue::removePlayerRequest, this, &MainWindow::removePlayer);
     if(epd.exec() == QDialog::Accepted){
-        //TODO: Check if players were modified, if yes check index in campain
+        Player p = epd.getPlayer();
+        int index = epd.getIndex();
+        _appcontrol.editPlayer(index, std::make_unique<Player>(p));
     }
 }
 
