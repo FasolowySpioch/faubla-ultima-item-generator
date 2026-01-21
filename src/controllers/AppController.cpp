@@ -1,5 +1,5 @@
 #include "AppController.h"
-
+#include "../../gui/models/MyItemTableModel.h"
 #include <QFile>
 
 

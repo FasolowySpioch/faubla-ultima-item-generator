@@ -5,13 +5,14 @@
 #include <QAbstractTableModel>
 
 
-class ItemModel : public QAbstractTableModel
+class MyItemTableModel : public QAbstractTableModel
 {
-    const std::vector<std::unique_ptr<Item>> &items;
+    const std::vector<std::unique_ptr<Item>> *container;
 
 public:
-    explicit ItemModel(const std::vector<std::unique_ptr<Item>> &_items, QObject* parent = nullptr);
+    explicit MyItemTableModel(const std::vector<std::unique_ptr<Item>> *_container, QObject* parent = nullptr);
 
+    void refresh();
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

@@ -45,12 +45,16 @@ set(PROJECT_SOURCES
         src/io/CampaignSerializer.cpp
         src/io/CampaignSerializer.h
         src/models/IJsonSerializable.h
-        gui/models/ItemModel.cpp
-        gui/models/ItemModel.h
+        gui/models/MyItemTableModel.cpp
+        gui/models/MyItemTableModel.h
         src/converters/ItemTypeConverter.h
         gui/dialogue/editplayer/editplayerdialogue.h gui/dialogue/editplayer/editplayerdialogue.cpp gui/dialogue/editplayer/editplayerdialogue.ui
         gui/dialogue/addplayer/addplayerdialogue.h gui/dialogue/addplayer/addplayerdialogue.cpp gui/dialogue/addplayer/addplayerdialogue.ui
         gui/dialogue/itemgen/itemgendialogue.h gui/dialogue/itemgen/itemgendialogue.cpp gui/dialogue/itemgen/itemgendialogue.ui
+        gui/models/MyPlayerTableModel.cpp
+        gui/models/MyPlayerTableModel.h
+        src/converters/AttributeConverter.h
+        src/converters/WeaponTypeConverter.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
