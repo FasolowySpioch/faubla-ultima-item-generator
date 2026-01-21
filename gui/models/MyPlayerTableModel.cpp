@@ -15,16 +15,6 @@ void MyPlayerTableModel::refresh()
     endResetModel();
 }
 
-void MyPlayerTableModel::startEditing()
-{
-    beginResetModel();
-}
-
-void MyPlayerTableModel::endEditing()
-{
-    endResetModel();
-}
-
 
 int MyPlayerTableModel::rowCount(const QModelIndex &parent) const
 {
