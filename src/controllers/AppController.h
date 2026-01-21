@@ -21,6 +21,7 @@ public:
     void removeItem(size_t idx);
     void editPlayer(size_t idx, std::unique_ptr<Player> edited_player);
     void editItem(size_t idx, std::unique_ptr<Item> edited_item);
+    void clearRepository();
 
     [[nodiscard]] std::unique_ptr<Item> generateItem(ItemType type, const Player &player);
     [[nodiscard]] std::unique_ptr<Item> generateRandomItem(const Player &player);

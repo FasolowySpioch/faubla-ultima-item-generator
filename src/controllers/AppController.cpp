@@ -50,6 +50,11 @@ void AppController::editItem(const size_t idx, std::unique_ptr<Item> edited_item
     repository.replaceItem(idx, std::move(edited_item));
 }
 
+void AppController::clearRepository()
+{
+    repository.clear();
+}
+
 
 std::unique_ptr<Item> AppController::generateItem(const ItemType type, const Player &player)
 {
