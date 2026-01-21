@@ -99,8 +99,42 @@ void ItemGenDialogue::setLVItemDependent(){
     switch (t) {
     case ItemType::ARMOR:{
         Armor* genA = dynamic_cast<Armor*>(_generatedItem.get()); //<- Had to include armor for some wierd reason
+        QString attributes[4] = {"WLP", "INS", "DEX", "MIG"};
+        QString yesNo[2] = {"Nie", "Tak"};
 
         setLayoutVisible(true, ui->LayoutArmor);
+        setLayoutVisible(false, ui->LayoutAccessory);
+        setLayoutVisible(false, ui->LayoutWeapon);
+        setLayoutVisible(false, ui->LayoutComboboxDmgType);
+
+        ui->widget->setVisible(false);
+
+        ui->lineEditNameArmor->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
+
+        if(genA->getMagDefAtr()==Attribute::NONE){
+            ui->labelDisplayMagicDef->setText(QString::number(genA->getMagDefBonus()));
+            ui->labelDisplayMagicBonus->setText(QString::number(0));
+        }
+        else{
+            ui->labelDisplayMagicDef->setText(attributes[static_cast<int>(genA->getMagDefAtr())]);
+            ui->labelDisplayMagicBonus->setText(QString::number(genA->getMagDefBonus()));
+        }
+        if(genA->getDefAtr()==Attribute::NONE){
+            ui->labelDisplayDefense->setText(QString::number(genA->getDefBonus()));
+            ui->labelDisplayDefBonus ->setText(QString::number(0));
+        }
+        else{
+            ui->labelDisplayDefense->setText(attributes[static_cast<int>(genA->getDefAtr())]);
+            ui->labelDisplayDefBonus->setText(QString::number(genA->getDefBonus()));
+        }
+
+        ui->labelDisplayIniciative->setText(QString::number(genA->getInitiative()));
+        ui->txtBrowserQuality->setText(QString::fromStdString(_generatedItem->getDesc()));
+        ui->labelDisplayMartialArm->setText(yesNo[static_cast<int>(genA->getIsMartial())]);
+        ui->labelDisplayShield->setText(yesNo[static_cast<int>(genA->getIsShield())]);
+        ui->labelDisplayPriceA->setText(QString::number(_generatedItem->getPriceModified()));
+
+        ui->comboBoxChoosePlayer->setDisabled(true);
         break;
     }
     case ItemType::WEAPON:{
@@ -122,6 +156,11 @@ void ItemGenDialogue::setLVItemDependent(){
 
         setLayoutVisible(true, ui->LayoutComboboxDmgType);
         setLayoutVisible(true, ui->LayoutWeapon);
+
+        setLayoutVisible(false, ui->LayoutAccessory);
+        setLayoutVisible(false, ui->LayoutArmor);
+        ui->widget->setVisible(false);
+
         ui->lineEditWName->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
         ui->labelDisplayWeaponType->setText(weapon_type[static_cast<int>(genW->getWeaponType())]);
 
@@ -142,10 +181,22 @@ void ItemGenDialogue::setLVItemDependent(){
         ui->labelDisplayRange->setText(yesNo[static_cast<int>(genW->getIsRange())]);
         ui->labelDisplayMartialW->setText(yesNo[static_cast<int>(genW->getIsMartial())]);
         ui->labelDisplayPriceW->setText(QString::number(_generatedItem->getPriceModified()));
+
+        ui->comboBoxChoosePlayer->setDisabled(true);
         break;
     }
     default:{
         setLayoutVisible(true, ui->LayoutAccessory);
+        setLayoutVisible(false, ui->LayoutArmor);
+        setLayoutVisible(false, ui->LayoutWeapon);
+        setLayoutVisible(false, ui->LayoutComboboxDmgType);
+        ui->widget->setVisible(false);
+
+        ui->lineEditAccName->setPlaceholderText(QString::fromStdString(_generatedItem->getName()));
+        ui->textBrowserQualA->setText(QString::fromStdString(_generatedItem->getDesc()));
+        ui->labelDisplayPriceAcc->setText(QString::number(_generatedItem->getPriceModified()));
+
+        ui->comboBoxChoosePlayer->setDisabled(true);
         break;
     }
     }
