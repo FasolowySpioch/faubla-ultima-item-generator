@@ -38,11 +38,10 @@ private:
     Ui::ItemGenDialogue *ui;
     AppController *_apc;
     std::unique_ptr<Item> _generatedItem;
-    bool physicalChanged = false;
 
-    void setLayoutVisible(bool visible, QLayout* l);
-    void setLVItemDependent();
-    void rerollQuality();
+    static void setLayoutVisible(bool visible, QLayout* l);
+    void setLVItemDependent() const;
+    void rerollQuality() const;
     void saveName() const;
 };
 
