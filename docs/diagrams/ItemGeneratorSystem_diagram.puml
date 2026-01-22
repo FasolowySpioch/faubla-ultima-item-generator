@@ -104,6 +104,30 @@ __
 -strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
 }
 }
+package [controllers] as C_0012248337201340293231 {
+class "::AppController" as C_0007310296898495958844
+class C_0007310296898495958844 {
++clearRepository() : void
+{static} +deleteCampaign(const QString & file_path) : bool
++editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
++editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
++generateItemForRandomPlayer() : std::unique_ptr<Item>
++generateRandomItem(const Player & player) : std::unique_ptr<Item>
++getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
++getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
++loadCampaign(const QString & file_path) : bool
++removeItem(size_t idx) : void
++removePlayer(size_t idx) : void
++rerollQuality(Item * item) : void
++saveCampaign(const QString & file_path) const : bool
++saveItem(std::unique_ptr<Item> item) : void
++savePlayer(std::unique_ptr<Player> player) : void
+__
+-generator : ItemGeneratorSystem
+-repository : CampaignManager
+}
+}
 }
 }
 C_0005967165952864249862 ..> C_0009506588567340924694
@@ -116,6 +140,10 @@ C_0003751086353887321154 o-- C_0009506588567340924694 : -strategies
 C_0003751086353887321154 o-- C_0003391557478520177739 : -strategies
 C_0003751086353887321154 o-- C_0009506588567340924694 : -quality_gen
 C_0003751086353887321154 o-- C_0017722926631985697211 : -quality_gen
+C_0007310296898495958844 ..> C_0003692324345213718176
+C_0007310296898495958844 ..> C_0005967165952864249862
+C_0007310296898495958844 ..> C_0009506588567340924694
+C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
 
 'Generated with clang-uml, version 0.6.2
 'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)

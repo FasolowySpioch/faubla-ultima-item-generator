@@ -140,17 +140,6 @@ __
 -_players : std::vector<std::unique_ptr<Player>>
 }
 }
-package [io] as C_0016395333381226012294 {
-class "::JsonReader" as C_0002948440278719519756
-class C_0002948440278719519756 {
-{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
-{static} +loadQualities(const QString & file_path) : std::vector<Quality>
-{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
-{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
-{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
-__
-}
-}
 package [systems] as C_0016692703261607978348 {
 abstract "::GeneratorStrategy" as C_0003391557478520177739
 abstract C_0003391557478520177739 {
@@ -209,6 +198,65 @@ __
 -_cache_weapons : std::vector<std::unique_ptr<Weapon>>
 }
 }
+package [controllers] as C_0012248337201340293231 {
+class "::AppController" as C_0007310296898495958844
+class C_0007310296898495958844 {
++clearRepository() : void
+{static} +deleteCampaign(const QString & file_path) : bool
++editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
++editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
++generateItemForRandomPlayer() : std::unique_ptr<Item>
++generateRandomItem(const Player & player) : std::unique_ptr<Item>
++getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
++getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
++loadCampaign(const QString & file_path) : bool
++removeItem(size_t idx) : void
++removePlayer(size_t idx) : void
++rerollQuality(Item * item) : void
++saveCampaign(const QString & file_path) const : bool
++saveItem(std::unique_ptr<Item> item) : void
++savePlayer(std::unique_ptr<Player> player) : void
+__
+-generator : ItemGeneratorSystem
+-repository : CampaignManager
+}
+}
+package [io] as C_0016395333381226012294 {
+class "::CampaignSerializer" as C_0004718098425785505463
+class C_0004718098425785505463 {
+{static} -itemFromJson(QJsonObject json_item) : std::unique_ptr<Item>
+{static} +load(CampaignManager & mng, const QString & file_path) : bool
+{static} -playerFromJson(QJsonObject json_player) : std::unique_ptr<Player>
+{static} +save(const CampaignManager & mng, const QString & file_path) : bool
+__
+}
+class "::JsonReader" as C_0002948440278719519756
+class C_0002948440278719519756 {
+{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
+{static} +loadQualities(const QString & file_path) : std::vector<Quality>
+{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
+{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
+{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
+__
+}
+}
+}
+package [gui] as C_0004695295680056233043 {
+package [models] as C_0006018854047243949875 {
+class "::MyItemTableModel" as C_0014262518239461510613
+class C_0014262518239461510613 {
++MyItemTableModel(const std::vector<std::unique_ptr<Item>> * _container, QObject * parent = nullptr) : void
+..
++columnCount(const QModelIndex & parent = QModelIndex()) const : int
++data(const QModelIndex & index, int role = Qt::DisplayRole) const : QVariant
++headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const : QVariant
++refresh() : void
++rowCount(const QModelIndex & parent = QModelIndex()) const : int
+__
+-container : const std::vector<std::unique_ptr<Item>> *
+}
+}
 }
 }
 C_0005967165952864249862 ..> C_0009506588567340924694
@@ -220,10 +268,6 @@ C_0005967165952864249862 <|-- C_0001733752998306711321
 C_0017091837617986840564 ..> C_0009506588567340924694
 C_0005967165952864249862 <|-- C_0017091837617986840564
 C_0006935415749788347394 o-- C_0005967165952864249862 : -_items
-C_0002948440278719519756 ..> C_0009880302970961535201
-C_0002948440278719519756 ..> C_0017091837617986840564
-C_0002948440278719519756 ..> C_0009506588567340924694
-C_0002948440278719519756 ..> C_0005967165952864249862
 C_0003391557478520177739 ..> C_0005967165952864249862
 C_0017722926631985697211 ..> C_0005967165952864249862
 C_0003751086353887321154 ..> C_0005967165952864249862
@@ -239,6 +283,17 @@ C_0003391557478520177739 <|-- C_0005567866987455504025
 C_0004150406585329947926 ..> C_0005967165952864249862
 C_0004150406585329947926 o-- C_0009880302970961535201 : -_cache_weapons
 C_0003391557478520177739 <|-- C_0004150406585329947926
+C_0007310296898495958844 ..> C_0005967165952864249862
+C_0007310296898495958844 ..> C_0009506588567340924694
+C_0007310296898495958844 o-- C_0006935415749788347394 : -repository
+C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
+C_0004718098425785505463 ..> C_0005967165952864249862
+C_0004718098425785505463 ..> C_0006935415749788347394
+C_0002948440278719519756 ..> C_0009880302970961535201
+C_0002948440278719519756 ..> C_0017091837617986840564
+C_0002948440278719519756 ..> C_0009506588567340924694
+C_0002948440278719519756 ..> C_0005967165952864249862
+C_0014262518239461510613 --> C_0005967165952864249862 : -container
 
 'Generated with clang-uml, version 0.6.2
 'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)

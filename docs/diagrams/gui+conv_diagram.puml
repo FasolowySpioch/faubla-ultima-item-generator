@@ -1,0 +1,225 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+abstract "::IJsonSerializable" as C_0017605762593928520665
+abstract C_0017605762593928520665 {
++~IJsonSerializable() = default : void
+..
+{abstract} +toJson() const = 0 : QJsonObject
+__
+}
+enum "::ItemType" as C_0009506588567340924694
+enum C_0009506588567340924694 {
+WEAPON
+ARMOR
+ACCESSORY
+RANDOM
+}
+abstract "::Item" as C_0005967165952864249862
+abstract C_0005967165952864249862 {
++Item() : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
++~Item() = default : void
+..
++addToPrice(int add) : void
++getDesc() const : const std::string &
+{abstract} +getItemType() const = 0 : ItemType
++getName() const : const std::string &
++getPrice() const : int
++getPriceModified() const : int
++getQualityPrice() const : int
++setDefaultDesc() : void
++setDefaultPrice() : void
++setDesc(std::string_view d) : void
++setName(std::string_view n) : void
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
+__
+#_default_price : const int
+#_desc : std::string
+#_name : std::string
+#_price : int
+#_quality_price : int
+}
+enum "::Attribute" as C_0013522169845410927695
+enum C_0013522169845410927695 {
+WLP
+INS
+DEX
+MIG
+NONE
+}
+enum "::DMGType" as C_0009351376410296248543
+enum C_0009351376410296248543 {
+PHYSICAL
+AIR
+BOLT
+DARK
+EARTH
+FIRE
+ICE
+LIGHT
+POISON
+NONE
+}
+enum "::WeaponType" as C_0008393046724430625929
+enum C_0008393046724430625929 {
+ARCANE
+BOW
+BRAWL
+DAGGER
+FIREARM
+FLAIL
+HEAVY
+SPEAR
+SWORD
+THROWN
+NONE
+}
+class "::Weapon" as C_0009880302970961535201
+class C_0009880302970961535201 {
++Weapon() : void
++Weapon(std::string_view name, std::string_view desc, int default_price, int price, WeaponType weapon_type, int dmg_desc, DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus, bool isSingleHanded, bool isRange, bool isMartial) : void
+..
++getAccuracy1() const : Attribute
++getAccuracy2() const : Attribute
++getAccuracyBonus() const : int
++getDmgDesc() const : int
++getDmgType() const : DMGType
++getIsMartial() const : bool
++getIsRange() const : bool
++getIsSingleHanded() const : bool
++getItemType() const : ItemType
++getWeaponType() const : WeaponType
++setAccuracy1(Attribute a1) : void
++setAccuracy2(Attribute a2) : void
++setAccuracyBonus(int ab) : void
++setDmgDesc(int dd) : void
++setDmgType(DMGType dt) : void
++setIsMartial(bool im) : void
++setIsRange(bool ir) : void
++setIsSingleHanded(bool ish) : void
++setType(WeaponType t) : void
++toJson() const : QJsonObject
+__
+-_accuracy1 : Attribute
+-_accuracy2 : Attribute
+-_accuracy_bonus : int
+-_dmg_desc : int
+-_dmg_type : DMGType
+-_isMartial : bool
+-_isRange : bool
+-_isSingleHanded : bool
+-_weapon_type : WeaponType
+}
+class "::Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() : void
++Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
+..
++getAuthorName() const : const std::string &
++getCanMartialArmor() const : bool
++getCanMartialWeapon() const : bool
++getCanRange() const : bool
++getCanShield() const : bool
++getCharacterName() const : const std::string &
++getLevel() const : int
++getPreferredWeaponType() const : WeaponType
++getPrimaryDie1() const : Attribute
++getPrimaryDie2() const : Attribute
++setAuthorName(std::string_view author_name) : void
++setCanMartialArmor(bool canMartialArmor) : void
++setCanMartialWeapon(bool canMartialWeapon) : void
++setCanRange(bool canRange) : void
++setCanShield(bool canShield) : void
++setCharacterName(std::string_view ch_name) : void
++setLevel(int level) : void
++setPreferredWeaponType(WeaponType pref_weapon) : void
++setPrimaryDie1(Attribute p_die1) : void
++setPrimaryDie2(Attribute p_die2) : void
++toJson() const : QJsonObject
+__
+-_author_name : std::string
+-_canMartialArmor : bool
+-_canMartialWeapon : bool
+-_canRange : bool
+-_canShield : bool
+-_character_name : std::string
+-_level : int
+-_preferred_weapon_type : WeaponType
+-_primary_die1 : Attribute
+-_primary_die2 : Attribute
+}
+}
+package [converters] as C_0000711852358221677647 {
+class "::ItemTypeConverter" as C_0010981789038846393830
+class C_0010981789038846393830 {
+{static} +toQString(const ItemType it) : QString
+{static} +toString(const ItemType it) : std::string
+__
+}
+class "::AttributeConverter" as C_0005072435100688997565
+class C_0005072435100688997565 {
+{static} +toQString(const Attribute attr) : QString
+{static} +toString(const Attribute attr) : std::string
+__
+}
+class "::WeaponTypeConverter" as C_0009334346552331698971
+class C_0009334346552331698971 {
+{static} +toQString(const WeaponType wt) : QString
+{static} +toString(const WeaponType wt) : std::string
+__
+}
+}
+}
+package [gui] as C_0004695295680056233043 {
+package [models] as C_0006018854047243949875 {
+class "::MyItemTableModel" as C_0014262518239461510613
+class C_0014262518239461510613 {
++MyItemTableModel(const std::vector<std::unique_ptr<Item>> * _container, QObject * parent = nullptr) : void
+..
++columnCount(const QModelIndex & parent = QModelIndex()) const : int
++data(const QModelIndex & index, int role = Qt::DisplayRole) const : QVariant
++headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const : QVariant
++refresh() : void
++rowCount(const QModelIndex & parent = QModelIndex()) const : int
+__
+-container : const std::vector<std::unique_ptr<Item>> *
+}
+class "::MyPlayerTableModel" as C_0011863623600894958275
+class C_0011863623600894958275 {
++MyPlayerTableModel(const std::vector<std::unique_ptr<Player>> * _container, QObject * parent = nullptr) : void
+..
++columnCount(const QModelIndex & parent = QModelIndex()) const : int
++data(const QModelIndex & index, int role = Qt::DisplayRole) const : QVariant
++headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const : QVariant
++refresh() : void
++rowCount(const QModelIndex & parent = QModelIndex()) const : int
+__
+-container : const std::vector<std::unique_ptr<Player>> *
+}
+}
+}
+}
+C_0005967165952864249862 ..> C_0009506588567340924694
+C_0017605762593928520665 <|-- C_0005967165952864249862
+C_0009880302970961535201 ..> C_0009506588567340924694
+C_0009880302970961535201 o-- C_0008393046724430625929 : -_weapon_type
+C_0009880302970961535201 o-- C_0009351376410296248543 : -_dmg_type
+C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy1
+C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy2
+C_0005967165952864249862 <|-- C_0009880302970961535201
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die1
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die2
+C_0003692324345213718176 o-- C_0008393046724430625929 : -_preferred_weapon_type
+C_0017605762593928520665 <|-- C_0003692324345213718176
+C_0010981789038846393830 ..> C_0009506588567340924694
+C_0005072435100688997565 ..> C_0013522169845410927695
+C_0009334346552331698971 ..> C_0008393046724430625929
+C_0014262518239461510613 --> C_0005967165952864249862 : -container
+C_0011863623600894958275 --> C_0003692324345213718176 : -container
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

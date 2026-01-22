@@ -143,6 +143,40 @@ __
 -_cache_weapons : std::vector<std::unique_ptr<Weapon>>
 }
 }
+package [controllers] as C_0012248337201340293231 {
+class "::AppController" as C_0007310296898495958844
+class C_0007310296898495958844 {
++clearRepository() : void
+{static} +deleteCampaign(const QString & file_path) : bool
++editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
++editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
++generateItemForRandomPlayer() : std::unique_ptr<Item>
++generateRandomItem(const Player & player) : std::unique_ptr<Item>
++getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
++getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
++loadCampaign(const QString & file_path) : bool
++removeItem(size_t idx) : void
++removePlayer(size_t idx) : void
++rerollQuality(Item * item) : void
++saveCampaign(const QString & file_path) const : bool
++saveItem(std::unique_ptr<Item> item) : void
++savePlayer(std::unique_ptr<Player> player) : void
+__
+-generator : ItemGeneratorSystem
+-repository : CampaignManager
+}
+}
+package [io] as C_0016395333381226012294 {
+class "::CampaignSerializer" as C_0004718098425785505463
+class C_0004718098425785505463 {
+{static} -itemFromJson(QJsonObject json_item) : std::unique_ptr<Item>
+{static} +load(CampaignManager & mng, const QString & file_path) : bool
+{static} -playerFromJson(QJsonObject json_player) : std::unique_ptr<Player>
+{static} +save(const CampaignManager & mng, const QString & file_path) : bool
+__
+}
+}
 }
 }
 C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die1
@@ -159,6 +193,11 @@ C_0005567866987455504025 ..> C_0003692324345213718176
 C_0003391557478520177739 <|-- C_0005567866987455504025
 C_0004150406585329947926 ..> C_0003692324345213718176
 C_0003391557478520177739 <|-- C_0004150406585329947926
+C_0007310296898495958844 ..> C_0003692324345213718176
+C_0007310296898495958844 o-- C_0006935415749788347394 : -repository
+C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
+C_0004718098425785505463 ..> C_0003692324345213718176
+C_0004718098425785505463 ..> C_0006935415749788347394
 
 'Generated with clang-uml, version 0.6.2
 'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)

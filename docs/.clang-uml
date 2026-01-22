@@ -292,15 +292,17 @@ diagrams:
   main_diagram2:
     type: class
     glob:
-      - ../gui/*.cpp
-      - ../gui/*.h
-      - ../gui/**/*.cpp
-      - ../gui/**/*.h
-      - ../gui/dialogue/**/*.cpp
-      - ../gui/dialogue/**/*.h
-      - ../src/**/*.cpp
-      - ../src/**/*.h
-      - ../main.cpp
+      include:
+       - ../gui/*.cpp
+       - ../gui/*.h
+       - ../gui/**/*.cpp
+       - ../gui/**/*.h
+       - ../src/**/*.cpp
+       - ../src/**/*.h
+       - ../main.cpp
+      exclude:
+        - ../gui/dialogue/**/*.cpp
+        - ../gui/dialogue/**/*.h
     generate_packages: true
     package_type: directory
     using_namespace:
@@ -322,3 +324,127 @@ diagrams:
     include:
       context:
         - main
+
+  models_diagram:
+    type: class
+    glob:
+      - ../src/models/**/*.cpp
+      - ../src/models/**/*.h
+      - ../src/models/*.cpp
+      - ../src/models/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+        
+  systems_diagram:
+    type: class
+    glob:
+      - ../src/systems/**/*.cpp
+      - ../src/systems/**/*.h
+      - ../src/systems/*.cpp
+      - ../src/systems/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+        
+  io_diagram:
+    type: class
+    glob:
+      include:
+        - ../src/io/*.cpp
+        - ../src/io/*.h
+        - ../src/*.cpp
+        - ../src/*.h
+        - ../src/**/*.cpp
+        - ../src/**/*.h
+        - ../**/*.cpp
+        - ../**/*.h
+      exclude:
+        - ../gui/dialogue/**/*.cpp
+        - ../gui/dialogue/**/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - JsonReader
+        - CampaignSerializer
+        
+  core_diagram:
+    type: class
+    glob:
+      include:
+        - ../src/core/*.cpp
+        - ../src/core/*.h
+        - ../src/*.cpp
+        - ../src/*.h
+        - ../src/**/*.cpp
+        - ../src/**/*.h
+        - ../**/*.cpp
+        - ../**/*.h
+      exclude:
+        - ../gui/dialogue/**/*.cpp
+        - ../gui/dialogue/**/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - CampaignManager
+        
+  gui+conv_diagram:
+    type: class
+    glob:
+      - ../gui/models/*.cpp
+      - ../gui/models/*.h
+      - ../src/converters/*.cpp
+      - ../src/converters/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+    
+  gui_extended_diagram:
+    type: class
+    glob:
+      include:
+        - ../gui/*.cpp
+        - ../gui/*.h
+        - ../gui/**/*.cpp
+        - ../gui/**/*.h
+        - ../src/**/*.cpp
+        - ../src/**/*.h
+      exclude:
+        - ../gui/dialogue/**/*.cpp
+        - ../gui/dialogue/**/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - mainwindow
+        - MyItemTableModel
+        - MyPlayerTableModel

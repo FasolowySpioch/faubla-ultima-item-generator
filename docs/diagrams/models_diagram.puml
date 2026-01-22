@@ -1,0 +1,215 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+class "::Accessory" as C_0001733752998306711321
+class C_0001733752998306711321 {
++Accessory() = default : void
++Accessory(std::string_view name, std::string_view desc, int default_price, int price) : void
+..
++getItemType() const : ItemType
++toJson() const : QJsonObject
+__
+}
+class "::Armor" as C_0017091837617986840564
+class C_0017091837617986840564 {
++Armor() : void
++Armor(std::string_view name, std::string_view desc, int default_price, int price, int initiative, bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield) : void
+..
++getDefAtr() const : Attribute
++getDefBonus() const : int
++getInitiative() const : int
++getIsMartial() const : bool
++getIsShield() const : bool
++getItemType() const : ItemType
++getMagDefAtr() const : Attribute
++getMagDefBonus() const : int
++setDef(int d) : void
++setInitiative(int in) : void
++setIsMartial(bool m) : void
++setIsShield(bool s) : void
++setMagDef(int md) : void
++toJson() const : QJsonObject
+__
+-_defense : Attribute
+-_defense_bonus : int
+-_initiative : int
+-_isMartial : bool
+-_isShield : bool
+-_magic_defense : Attribute
+-_magic_defense_bonus : int
+}
+class "::Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() : void
++Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
+..
++getAuthorName() const : const std::string &
++getCanMartialArmor() const : bool
++getCanMartialWeapon() const : bool
++getCanRange() const : bool
++getCanShield() const : bool
++getCharacterName() const : const std::string &
++getLevel() const : int
++getPreferredWeaponType() const : WeaponType
++getPrimaryDie1() const : Attribute
++getPrimaryDie2() const : Attribute
++setAuthorName(std::string_view author_name) : void
++setCanMartialArmor(bool canMartialArmor) : void
++setCanMartialWeapon(bool canMartialWeapon) : void
++setCanRange(bool canRange) : void
++setCanShield(bool canShield) : void
++setCharacterName(std::string_view ch_name) : void
++setLevel(int level) : void
++setPreferredWeaponType(WeaponType pref_weapon) : void
++setPrimaryDie1(Attribute p_die1) : void
++setPrimaryDie2(Attribute p_die2) : void
++toJson() const : QJsonObject
+__
+-_author_name : std::string
+-_canMartialArmor : bool
+-_canMartialWeapon : bool
+-_canRange : bool
+-_canShield : bool
+-_character_name : std::string
+-_level : int
+-_preferred_weapon_type : WeaponType
+-_primary_die1 : Attribute
+-_primary_die2 : Attribute
+}
+abstract "::IJsonSerializable" as C_0017605762593928520665
+abstract C_0017605762593928520665 {
++~IJsonSerializable() = default : void
+..
+{abstract} +toJson() const = 0 : QJsonObject
+__
+}
+enum "::ItemType" as C_0009506588567340924694
+enum C_0009506588567340924694 {
+WEAPON
+ARMOR
+ACCESSORY
+RANDOM
+}
+abstract "::Item" as C_0005967165952864249862
+abstract C_0005967165952864249862 {
++Item() : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
++~Item() = default : void
+..
++addToPrice(int add) : void
++getDesc() const : const std::string &
+{abstract} +getItemType() const = 0 : ItemType
++getName() const : const std::string &
++getPrice() const : int
++getPriceModified() const : int
++getQualityPrice() const : int
++setDefaultDesc() : void
++setDefaultPrice() : void
++setDesc(std::string_view d) : void
++setName(std::string_view n) : void
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
+__
+#_default_price : const int
+#_desc : std::string
+#_name : std::string
+#_price : int
+#_quality_price : int
+}
+enum "::Attribute" as C_0013522169845410927695
+enum C_0013522169845410927695 {
+WLP
+INS
+DEX
+MIG
+NONE
+}
+enum "::DMGType" as C_0009351376410296248543
+enum C_0009351376410296248543 {
+PHYSICAL
+AIR
+BOLT
+DARK
+EARTH
+FIRE
+ICE
+LIGHT
+POISON
+NONE
+}
+enum "::WeaponType" as C_0008393046724430625929
+enum C_0008393046724430625929 {
+ARCANE
+BOW
+BRAWL
+DAGGER
+FIREARM
+FLAIL
+HEAVY
+SPEAR
+SWORD
+THROWN
+NONE
+}
+class "::Weapon" as C_0009880302970961535201
+class C_0009880302970961535201 {
++Weapon() : void
++Weapon(std::string_view name, std::string_view desc, int default_price, int price, WeaponType weapon_type, int dmg_desc, DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus, bool isSingleHanded, bool isRange, bool isMartial) : void
+..
++getAccuracy1() const : Attribute
++getAccuracy2() const : Attribute
++getAccuracyBonus() const : int
++getDmgDesc() const : int
++getDmgType() const : DMGType
++getIsMartial() const : bool
++getIsRange() const : bool
++getIsSingleHanded() const : bool
++getItemType() const : ItemType
++getWeaponType() const : WeaponType
++setAccuracy1(Attribute a1) : void
++setAccuracy2(Attribute a2) : void
++setAccuracyBonus(int ab) : void
++setDmgDesc(int dd) : void
++setDmgType(DMGType dt) : void
++setIsMartial(bool im) : void
++setIsRange(bool ir) : void
++setIsSingleHanded(bool ish) : void
++setType(WeaponType t) : void
++toJson() const : QJsonObject
+__
+-_accuracy1 : Attribute
+-_accuracy2 : Attribute
+-_accuracy_bonus : int
+-_dmg_desc : int
+-_dmg_type : DMGType
+-_isMartial : bool
+-_isRange : bool
+-_isSingleHanded : bool
+-_weapon_type : WeaponType
+}
+}
+}
+}
+C_0001733752998306711321 ..> C_0009506588567340924694
+C_0005967165952864249862 <|-- C_0001733752998306711321
+C_0017091837617986840564 ..> C_0009506588567340924694
+C_0017091837617986840564 o-- C_0013522169845410927695 : -_magic_defense
+C_0017091837617986840564 o-- C_0013522169845410927695 : -_defense
+C_0005967165952864249862 <|-- C_0017091837617986840564
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die1
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die2
+C_0003692324345213718176 o-- C_0008393046724430625929 : -_preferred_weapon_type
+C_0017605762593928520665 <|-- C_0003692324345213718176
+C_0005967165952864249862 ..> C_0009506588567340924694
+C_0017605762593928520665 <|-- C_0005967165952864249862
+C_0009880302970961535201 ..> C_0009506588567340924694
+C_0009880302970961535201 o-- C_0008393046724430625929 : -_weapon_type
+C_0009880302970961535201 o-- C_0009351376410296248543 : -_dmg_type
+C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy1
+C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy2
+C_0005967165952864249862 <|-- C_0009880302970961535201
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

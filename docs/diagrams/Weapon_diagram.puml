@@ -107,17 +107,6 @@ __
 -_weapon_type : WeaponType
 }
 }
-package [io] as C_0016395333381226012294 {
-class "::JsonReader" as C_0002948440278719519756
-class C_0002948440278719519756 {
-{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
-{static} +loadQualities(const QString & file_path) : std::vector<Quality>
-{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
-{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
-{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
-__
-}
-}
 package [systems] as C_0016692703261607978348 {
 class "::WeaponGenerator" as C_0004150406585329947926
 class C_0004150406585329947926 {
@@ -132,6 +121,17 @@ __
 -_cache_weapons : std::vector<std::unique_ptr<Weapon>>
 }
 }
+package [io] as C_0016395333381226012294 {
+class "::JsonReader" as C_0002948440278719519756
+class C_0002948440278719519756 {
+{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
+{static} +loadQualities(const QString & file_path) : std::vector<Quality>
+{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
+{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
+{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
+__
+}
+}
 }
 }
 C_0005967165952864249862 ..> C_0009506588567340924694
@@ -141,11 +141,11 @@ C_0009880302970961535201 o-- C_0009351376410296248543 : -_dmg_type
 C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy1
 C_0009880302970961535201 o-- C_0013522169845410927695 : -_accuracy2
 C_0005967165952864249862 <|-- C_0009880302970961535201
+C_0004150406585329947926 ..> C_0005967165952864249862
+C_0004150406585329947926 o-- C_0009880302970961535201 : -_cache_weapons
 C_0002948440278719519756 ..> C_0009880302970961535201
 C_0002948440278719519756 ..> C_0009506588567340924694
 C_0002948440278719519756 ..> C_0005967165952864249862
-C_0004150406585329947926 ..> C_0005967165952864249862
-C_0004150406585329947926 o-- C_0009880302970961535201 : -_cache_weapons
 
 'Generated with clang-uml, version 0.6.2
 'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
