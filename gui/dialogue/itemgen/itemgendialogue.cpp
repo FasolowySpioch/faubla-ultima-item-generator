@@ -99,22 +99,15 @@ void ItemGenDialogue::on_lineEditAccName_editingFinished()
 
 void ItemGenDialogue::on_comboBoxDmgType_currentIndexChanged(int index)
 {
-    if(physicalChanged == false){
-        if(ui->comboBoxDmgType->itemData(index).toInt() != static_cast<int>(DMGType::PHYSICAL)){
-            dynamic_cast<Weapon*>(_generatedItem.get())->setDmgType(static_cast<DMGType>(ui->comboBoxDmgType->itemData(index).toInt()));
-            _generatedItem->addToPrice(100);
-            physicalChanged=true;
-            setLVItemDependent();
-        }
-    }
-    else{
-        if(ui->comboBoxDmgType->itemData(index).toInt() == static_cast<int>(DMGType::PHYSICAL)){
-            dynamic_cast<Weapon*>(_generatedItem.get())->setDmgType(static_cast<DMGType>(ui->comboBoxDmgType->itemData(index).toInt()));
-            _generatedItem->addToPrice(-100);
-            physicalChanged=false;
-            setLVItemDependent();
-        }
-    }
+    if (!_generatedItem) return;
+
+    auto* weapon = dynamic_cast<Weapon*>(_generatedItem.get());
+    if (!weapon) return;
+
+    auto newType = static_cast<DMGType>(ui->comboBoxDmgType->itemData(index).toInt());
+    weapon->setDmgType(newType);
+
+    setLVItemDependent();
 }
 
 void ItemGenDialogue::on_comboBoxChoosePlayer_currentIndexChanged(int index)
@@ -126,7 +119,35 @@ void ItemGenDialogue::on_comboBoxChoosePlayer_currentIndexChanged(int index)
         ui->bttnGenerateArmor->setEnabled(true);
     }
 
-    _generatedItem = nullptr;
+    _generatedItem.reset();
+
+    // clear everything
+    ui->lineEditWName->clear();
+    ui->lineEditNameArmor->clear();
+    ui->lineEditAccName->clear();
+
+    // set up dmg type combobox (physical is default)
+    int physIdx = ui->comboBoxDmgType->findData(static_cast<int>(DMGType::PHYSICAL));
+    if (physIdx != -1) {
+        ui->comboBoxDmgType->setCurrentIndex(physIdx);
+    }
+
+    setLayoutVisible(false, ui->LayoutAccessory);
+    setLayoutVisible(false, ui->LayoutArmor);
+    setLayoutVisible(false, ui->LayoutWeapon);
+    setLayoutVisible(false, ui->LayoutComboboxDmgType);
+
+    // ui->widget->setVisible(false);
+
+    // player combobox must be enabled!
+    ui->comboBoxChoosePlayer->setEnabled(true);
+
+    // ui->BttnQuickGenerate->setEnabled(false);
+    // ui->bttnGenerateAccessory->setEnabled(false);
+    // ui->bttnGenerateWeapon->setEnabled(false);
+    // ui->bttnGenerateArmor->setEnabled(false);
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 void ItemGenDialogue::setLayoutVisible(bool visible, QLayout* l){
@@ -140,7 +161,10 @@ void ItemGenDialogue::setLayoutVisible(bool visible, QLayout* l){
     }
 }
 
-void ItemGenDialogue::setLVItemDependent(){
+void ItemGenDialogue::setLVItemDependent() const
+{
+    if (!_generatedItem) return;
+
     ItemType t = _generatedItem->getItemType();
     switch (t) {
         case ItemType::ARMOR:{
@@ -179,6 +203,8 @@ void ItemGenDialogue::setLVItemDependent(){
             ui->labelDisplayMartialArm->setText(yesNo[static_cast<int>(genA->getIsMartial())]);
             ui->labelDisplayShield->setText(yesNo[static_cast<int>(genA->getIsShield())]);
             ui->labelDisplayPriceA->setText(QString::number(_generatedItem->getPriceModified()));
+
+            ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
             break;
         }
         case ItemType::WEAPON:{
@@ -225,6 +251,8 @@ void ItemGenDialogue::setLVItemDependent(){
             ui->labelDisplayRange->setText(yesNo[static_cast<int>(genW->getIsRange())]);
             ui->labelDisplayMartialW->setText(yesNo[static_cast<int>(genW->getIsMartial())]);
             ui->labelDisplayPriceW->setText(QString::number(_generatedItem->getPriceModified()));
+
+            ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
             break;
         }
         default:{
@@ -237,13 +265,16 @@ void ItemGenDialogue::setLVItemDependent(){
             ui->lineEditAccName->setText(QString::fromStdString(_generatedItem->getName()));
             ui->textBrowserQualA->setText(QString::fromStdString(_generatedItem->getDesc()));
             ui->labelDisplayPriceAcc->setText(QString::number(_generatedItem->getPriceModified()));
+
+            ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
             break;
         }
     }
     ui->widget->setVisible(false);
 }
 
-void ItemGenDialogue::rerollQuality() {
+void ItemGenDialogue::rerollQuality() const
+{
     _apc->rerollQuality(_generatedItem.get());
     setLVItemDependent();
 }

@@ -14,7 +14,7 @@ void CampaignManager::clear()
 void CampaignManager::addItem(std::unique_ptr<Item> item)
 {
     if (!item)
-        throw std::runtime_error("CampaignManager::addItem: Invalid address to item.");
+        return;
     _items.push_back(std::move(item));
 }
 
@@ -64,7 +64,7 @@ void CampaignManager::replaceItem(const size_t idx, std::unique_ptr<Item> item)
 void CampaignManager::addPlayer(std::unique_ptr<Player> player)
 {
     if (!player)
-        throw std::runtime_error("CampaignManager::addItem: Invalid address to item.");
+        return;
     _players.push_back(std::move(player));
 }
 
