@@ -1,26 +1,20 @@
 #include "CampaignManager.h"
-
 #include <stdexcept>
-
-
-CampaignManager::CampaignManager()
-{
-    // rng init
-    std::random_device seed;
-    mt = std::mt19937(seed());
-}
+#include <QRandomGenerator>
 
 
 void CampaignManager::clear()
 {
-    deleteAllPlayers();
-    deleteAllItems();
+    _players.clear();
+    _items.clear();
 }
 
 // ==== Items methods ====
 
 void CampaignManager::addItem(std::unique_ptr<Item> item)
 {
+    if (!item)
+        throw std::runtime_error("CampaignManager::addItem: Invalid address to item.");
     _items.push_back(std::move(item));
 }
 
@@ -29,7 +23,7 @@ void CampaignManager::deleteItem(const size_t idx)
     if (idx >= _items.size())
         throw std::out_of_range("CampaignManager::deleteItem: index out of range");
 
-    _items.erase(_items.begin() + idx);
+    _items.erase(_items.begin() + static_cast<int>(idx));
 }
 
 void CampaignManager::deleteAllItems()
@@ -44,7 +38,7 @@ Item& CampaignManager::getItem(const size_t idx) const
 
     const auto &ptr = _items.at(idx);
     if (!ptr)
-        throw std::runtime_error("CampaignManager::getItem: null unique_ptr at idx" + std::to_string(idx));
+        throw std::runtime_error("CampaignManager::getItem: invalid address at idx" + std::to_string(idx));
 
     return *ptr;
 }
@@ -69,6 +63,8 @@ void CampaignManager::replaceItem(const size_t idx, std::unique_ptr<Item> item)
 
 void CampaignManager::addPlayer(std::unique_ptr<Player> player)
 {
+    if (!player)
+        throw std::runtime_error("CampaignManager::addItem: Invalid address to item.");
     _players.push_back(std::move(player));
 }
 
@@ -77,7 +73,7 @@ void CampaignManager::deletePlayer(const size_t idx)
     if (idx >= _players.size())
         throw std::out_of_range("CampaignManager::deletePlayer: index out of range");
 
-    _players.erase(_players.begin() + idx);
+    _players.erase(_players.begin() + static_cast<int>(idx));
 }
 
 void CampaignManager::deleteAllPlayers()
@@ -97,9 +93,12 @@ Player& CampaignManager::getPlayer(const size_t idx) const
     return *ptr;
 }
 
-const Player& CampaignManager::getRandomPlayer()
+const Player& CampaignManager::getRandomPlayer() const
 {
-    const int random_idx = std::uniform_int_distribution<>(0, _players.size()-1)(mt);
+    if (_players.empty())
+        throw std::runtime_error("CampaignManager::getRandomPlayer: The players container is empty.");
+
+    const int random_idx = QRandomGenerator::global()->bounded(static_cast<int>(_players.size()));
 
     return *_players[random_idx].get();
 }

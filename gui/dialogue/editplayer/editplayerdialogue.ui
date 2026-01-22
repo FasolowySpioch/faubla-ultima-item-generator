@@ -48,42 +48,10 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QTextEdit" name="TxtEditAuthor">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="LabelName">
          <property name="text">
           <string>Imię:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QTextEdit" name="TxtEditCharName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
          </property>
         </widget>
        </item>
@@ -161,6 +129,12 @@
           <string>Usuń</string>
          </property>
         </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="TxtEditAuthor"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="TxtEditCharName"/>
        </item>
       </layout>
      </item>

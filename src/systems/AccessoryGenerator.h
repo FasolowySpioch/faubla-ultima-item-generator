@@ -3,13 +3,11 @@
 
 #include "GeneratorStrategy.h"
 #include "../models/Accessory.h"
-#include <random>
 
 class AccessoryGenerator final : public GeneratorStrategy
 {
-
 public:
-    explicit AccessoryGenerator();
+    explicit AccessoryGenerator() = default;
 
     std::unique_ptr<Item> generate(const Player &player) override;
 };

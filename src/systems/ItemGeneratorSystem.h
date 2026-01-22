@@ -9,9 +9,8 @@ class ItemGeneratorSystem
 {
     std::map<ItemType, std::unique_ptr<GeneratorStrategy>> strategies;
     std::map<ItemType, std::unique_ptr<QualityGenerator>> quality_gen;
-    std::mt19937 mt;
 
-    ItemType getRandomItemType();
+    static ItemType getRandomItemType();
     static bool isItemPriceValid(const Item &item, const Player &player);
 
 public:

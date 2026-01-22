@@ -1,24 +1,25 @@
 #include "QualityGenerator.h"
 #include "../io/JsonReader.h"
+#include <QRandomGenerator>
 
-QualityGenerator::QualityGenerator(const std::string &file_path)
+
+QualityGenerator::QualityGenerator(const QString &file_path)
 {
-    // rng init
-    std::random_device seed;
-    _mt = std::mt19937(seed());
-
-    _cache_qualities = JsonReader::loadQualities(QString::fromStdString(file_path));
+    _cache_qualities = JsonReader::loadQualities(file_path);
 }
 
 
 const Quality& QualityGenerator::generate()
 {
     if (_cache_qualities.empty())
-        return Quality();
+    {
+        static Quality emptyQ;
+        return emptyQ;
+    }
 
-    std::uniform_int_distribution<> dist(0, _cache_qualities.size() - 1);
+    const int idx = QRandomGenerator::global()->bounded(3);
 
-    return _cache_qualities[dist(_mt)];
+    return _cache_qualities[idx];
 }
 
 void QualityGenerator::applyRandomQualityTo(Item* item)
@@ -28,8 +29,10 @@ void QualityGenerator::applyRandomQualityTo(Item* item)
     const Quality& q = generate();
 
     item->setDefaultDesc();
-    item->setDefaultPrice();
+    item->addToPrice(-item->getQualityPrice());
 
     item->setDesc(q.desc);
-    item->increasePriceBy(q.cost_add);
+    item->addToPrice(q.cost_add);
+
+    item->setQualityPrice(q.cost_add);
 }

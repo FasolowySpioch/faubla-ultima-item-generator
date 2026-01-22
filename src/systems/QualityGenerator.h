@@ -6,15 +6,14 @@
 #include <vector>
 #include <string>
 #include <random>
-#include <memory>
+
 
 class QualityGenerator
 {
     std::vector<Quality> _cache_qualities;
-    std::mt19937 _mt;
 
 public:
-    explicit QualityGenerator(const std::string& file_path);
+    explicit QualityGenerator(const QString& file_path);
 
     const Quality& generate();
     void applyRandomQualityTo(Item* item);

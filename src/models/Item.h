@@ -15,26 +15,28 @@ protected:
     std::string _desc;
     const int _default_price;
     int _price;
+    int _quality_price;
 
 public:
     Item();
-    Item(std::string_view name, std::string_view desc, int default_price, int add_price);
-    virtual ~Item() = default;
+    Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0);
+    ~Item() override = default;
 
     virtual ItemType getItemType() const = 0;
-    QJsonObject toJson() const override = 0;
+    QJsonObject toJson() const override;
 
     const std::string& getName() const;
     const std::string& getDesc() const;
     int getPrice() const;
     int getPriceModified() const;
+    int getQualityPrice() const;
 
     void setName(std::string_view n);
     void setDesc(std::string_view d);
     void setDefaultDesc();
     void setDefaultPrice();
-    void increasePriceBy(int add);
-    void addToPrice(const int add);
+    void addToPrice(int add);
+    void setQualityPrice(int q_price);
 };
 
 

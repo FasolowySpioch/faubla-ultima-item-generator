@@ -1,16 +1,11 @@
 #include "ArmorGenerator.h"
 #include "../io/JsonReader.h"
+#include <QRandomGenerator>
 
-
-ArmorGenerator::ArmorGenerator(const std::string &file_path)
+ArmorGenerator::ArmorGenerator(const QString &file_path)
 {
-    // rng init
-    std::random_device seed;
-    _mt = std::mt19937(seed());
-
     // loading the file
-    JsonReader reader;
-    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(QString::fromStdString(file_path), ItemType::ARMOR);
+    const std::vector<std::unique_ptr<Item>> loadedItems = JsonReader::loadItems(file_path, ItemType::ARMOR);
 
     // caching the file and casting to derived class
     _cache_armors.reserve(loadedItems.size());
@@ -19,6 +14,9 @@ ArmorGenerator::ArmorGenerator(const std::string &file_path)
         if (auto* armor_ptr = dynamic_cast<Armor*>(item.get()))
             _cache_armors.push_back(std::make_unique<Armor>(*armor_ptr));
     }
+
+    if (_cache_armors.empty())
+        qWarning() << "ArmorGenerator: No armors loaded from" << file_path;
 }
 
 
@@ -34,26 +32,26 @@ bool ArmorGenerator::isArmorUsable(const Player &player, const Armor &armor)
 
 std::unique_ptr<Item> ArmorGenerator::generate(const Player &player)
 {
-    std::vector<Armor*> armors_final;
+    std::vector<Armor*> candidates;
 
     // pick up armors that player can use
     for (auto &a : _cache_armors)
     {
-        if (!isArmorUsable(player, *a))
-            continue;
-
-        armors_final.push_back(a.get());
+        if (isArmorUsable(player, *a))
+            candidates.push_back(a.get());
     }
 
     // if still empty, then either:
     // - there's no armors matching the requirements (like, in the file)
     // - OR player is meant to have absolutely nothing
-    if (armors_final.empty())
+    if (candidates.empty())
+    {
+        qWarning() << "ArmorGenerator: Could not generate any armor for player" << player.getCharacterName();
         return nullptr;
-        // throw exception ??
+    }
 
     // choosing random armor to return
-    std::uniform_int_distribution<> dist(0, armors_final.size() - 1);
+    const int idx = QRandomGenerator::global()->bounded(static_cast<int>(candidates.size()));
 
-    return std::make_unique<Armor>(*armors_final[dist(_mt)]);
+    return std::make_unique<Armor>(*candidates[idx]);
 }

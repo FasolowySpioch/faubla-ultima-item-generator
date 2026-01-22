@@ -6,16 +6,15 @@
 
 int main(int argc, char *argv[])
 {
-     QApplication a(argc, argv);
-     MainWindow w;
+    QApplication a(argc, argv);
+    a.setWindowIcon(QIcon(":/icons/icon.png"));
+    MainWindow w;
 
-     //Test t;
-     //t.allArmorTests();
-     //t.allCostTests();
+    //Test t;
+    //t.allArmorTests();
+    //t.allCostTests();
 
-     w.show();
-     return a.exec();
-
-    return 0;
+    w.show();
+    return a.exec();
 }
 
