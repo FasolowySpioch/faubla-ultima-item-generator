@@ -29,8 +29,10 @@ void QualityGenerator::applyRandomQualityTo(Item* item)
     const Quality& q = generate();
 
     item->setDefaultDesc();
-    item->setDefaultPrice();
+    item->addToPrice(-item->getQualityPrice());
 
     item->setDesc(q.desc);
-    item->increasePriceBy(q.cost_add);
+    item->addToPrice(q.cost_add);
+
+    item->setQualityPrice(q.cost_add);
 }

@@ -14,7 +14,7 @@ Armor::Armor()
 
 Armor::Armor(const std::string_view name, const std::string_view desc, const int default_price, const int price,
              const int initiative, const bool isMartial, const Attribute magic_defense, const int magic_defense_bonus, const Attribute defense, const int defense_bonus, const bool isShield)
-    : Item(name, desc, default_price, price)
+    : Item(name, desc, default_price, price - default_price)
     , _magic_defense(magic_defense)
     , _defense(defense)
     , _magic_defense_bonus(magic_defense_bonus)

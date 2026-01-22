@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->TableGeneratedItems->setModel(_item_model);
     ui->TablePlayers->setModel(_player_model);
-
-    ui->BttnNewCampain->setStyleSheet("background-color: rgb(108, 146, 199);");
 }
 
 MainWindow::~MainWindow()
@@ -116,13 +114,12 @@ void MainWindow::on_BttnNormalGenerate_clicked()
     }
 }
 
-
-void MainWindow::on_BttnDelCampain_clicked()
+void MainWindow::on_BttnNewCampain_clicked()
 {
     const QMessageBox::StandardButton reply = QMessageBox::question(this,
-                                  "Wyczyść kampanię",
-                                  "Czy na pewno chcesz wyczyścić całą kampanię?",
-                                  QMessageBox::Ok | QMessageBox::Cancel);
+                                                                    "Wyczyść kampanię",
+                                                                    "Czy na pewno chcesz wyczyścić całą kampanię?",
+                                                                    QMessageBox::Ok | QMessageBox::Cancel);
 
     if (reply == QMessageBox::Ok)
     {

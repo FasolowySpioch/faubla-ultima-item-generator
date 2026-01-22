@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/basic/Basic_Accessory_Qualities.json</file>
+        <file>data/basic/Basic_Armor_Qualities.json</file>
+        <file>data/basic/Basic_Armor_Shield.json</file>
+        <file>data/basic/Basic_Weapon_Qualities.json</file>
+        <file>data/basic/Basic_Weapons.json</file>
+        <file>icons/icon.png</file>
+    </qresource>
+</RCC>

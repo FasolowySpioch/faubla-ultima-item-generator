@@ -2,8 +2,8 @@
 #define ITEMGENDIALOGUE_H
 
 #include <QDialog>
-#include "../../../../src/controllers/AppController.h"
-#include "../../../../src/models/Armor.h"
+#include "../../../src/controllers/AppController.h"
+#include "../../../src/models/Armor.h"
 
 namespace Ui {
 class ItemGenDialogue;
@@ -36,15 +36,14 @@ private slots:
 
 private:
     Ui::ItemGenDialogue *ui;
-    AppController * _apc;
+    AppController *_apc;
     std::unique_ptr<Item> _generatedItem;
     bool physicalChanged = false;
 
     void setLayoutVisible(bool visible, QLayout* l);
     void setLVItemDependent();
     void rerollQuality();
-    void setNameToItem();
-    void saveName();
+    void saveName() const;
 };
 
 #endif // ITEMGENDIALOGUE_H

@@ -29,9 +29,10 @@ private slots:
     void on_BttnSaveCampain_clicked();
     void on_BttnQuickGenerate_clicked();
     void on_BttnNormalGenerate_clicked();
-    void on_BttnDelCampain_clicked();
+    void on_BttnNewCampain_clicked();
 
     void on_TableGeneratedItems_doubleClicked(const QModelIndex &index);
+
 
 private:
     Ui::MainWindow *ui;

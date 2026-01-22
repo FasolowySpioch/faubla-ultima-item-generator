@@ -15,6 +15,7 @@ protected:
     std::string _desc;
     const int _default_price;
     int _price;
+    int _quality_price;
 
 public:
     Item();
@@ -28,13 +29,14 @@ public:
     const std::string& getDesc() const;
     int getPrice() const;
     int getPriceModified() const;
+    int getQualityPrice() const;
 
     void setName(std::string_view n);
     void setDesc(std::string_view d);
     void setDefaultDesc();
     void setDefaultPrice();
-    void increasePriceBy(int add);
-    void addToPrice(const int add);
+    void addToPrice(int add);
+    void setQualityPrice(int q_price);
 };
 
 

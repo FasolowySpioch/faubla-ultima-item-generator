@@ -72,8 +72,8 @@ void EditPlayerDialogue::on_BttnDelPlayer_clicked()
 
 void EditPlayerDialogue::on_ComboBoxSelectPlayer_currentIndexChanged(int index)
 {
-    ui->TxtEditAuthor->setPlainText(QString::fromStdString(players.at(index)->getAuthorName()));
-    ui->TxtEditCharName->setPlainText(QString::fromStdString(players.at(index)->getCharacterName()));
+    ui->TxtEditAuthor->text() = QString::fromStdString(players.at(index)->getAuthorName());
+    ui->TxtEditCharName->text() = QString::fromStdString(players.at(index)->getCharacterName());
     ui->SpinBoxLvl->setValue(players.at(index)->getLevel());
 
     int idx1 = ui->ComboBoxAttributes->findData(
@@ -103,8 +103,8 @@ void EditPlayerDialogue::on_ComboBoxSelectPlayer_currentIndexChanged(int index)
 
 Player EditPlayerDialogue::getPlayer(){
     Player p;
-    p.setAuthorName((ui->TxtEditAuthor->toPlainText()).toStdString());
-    p.setCharacterName((ui->TxtEditCharName->toPlainText()).toStdString());
+    p.setAuthorName((ui->TxtEditAuthor->text()).toStdString());
+    p.setCharacterName((ui->TxtEditCharName->text()).toStdString());
     p.setLevel(ui->SpinBoxLvl->value());
     p.setPrimaryDie1(static_cast<Attribute>(ui->ComboBoxAttributes->currentData().toInt()));
     p.setPrimaryDie2(static_cast<Attribute>(ui->ComboboxAttributres2->currentData().toInt()));
@@ -119,4 +119,15 @@ Player EditPlayerDialogue::getPlayer(){
 
 int EditPlayerDialogue::getIndex(){
     return ui->ComboBoxSelectPlayer->currentIndex();
+}
+
+void EditPlayerDialogue::refreshPlayerList()
+{
+    ui->ComboBoxSelectPlayer->blockSignals(true);
+    ui->ComboBoxSelectPlayer->clear();
+
+    for(int i = 0; i < players.size(); i++){
+        ui->ComboBoxSelectPlayer->addItem(QString::fromStdString(players.at(i)->getCharacterName()), i);
+    }
+    ui->ComboBoxSelectPlayer->blockSignals(false);
 }
