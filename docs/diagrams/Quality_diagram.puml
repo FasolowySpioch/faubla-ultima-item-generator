@@ -26,13 +26,12 @@ __
 package [systems] as C_0016692703261607978348 {
 class "::QualityGenerator" as C_0017722926631985697211
 class C_0017722926631985697211 {
-+QualityGenerator(const std::string & file_path) : void
++QualityGenerator(const QString & file_path) : void
 ..
 +applyRandomQualityTo(Item * item) : void
 +generate() : const Quality &
 __
 -_cache_qualities : std::vector<Quality>
--_mt : std::mt19937
 }
 }
 }

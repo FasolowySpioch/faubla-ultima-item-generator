@@ -73,7 +73,7 @@ __
 package [core] as C_0009398224592071360425 {
 class "::CampaignManager" as C_0006935415749788347394
 class C_0006935415749788347394 {
-+CampaignManager() : void
++CampaignManager() = default : void
 ..
 +addItem(std::unique_ptr<Item> item) : void
 +addPlayer(std::unique_ptr<Player> player) : void
@@ -86,13 +86,12 @@ class C_0006935415749788347394 {
 +getItems() const : const std::vector<std::unique_ptr<Item>> &
 +getPlayer(size_t idx) const : Player &
 +getPlayers() const : const std::vector<std::unique_ptr<Player>> &
-+getRandomPlayer() : const Player &
++getRandomPlayer() const : const Player &
 +replaceItem(size_t idx, std::unique_ptr<Item> item) : void
 +replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
 __
 -_items : std::vector<std::unique_ptr<Item>>
 -_players : std::vector<std::unique_ptr<Player>>
--mt : std::mt19937
 }
 }
 package [systems] as C_0016692703261607978348 {
@@ -102,7 +101,6 @@ abstract C_0003391557478520177739 {
 ..
 {abstract} +generate(const Player & player) = 0 : std::unique_ptr<Item>
 __
-#_mt : std::mt19937
 }
 class "::ItemGeneratorSystem" as C_0003751086353887321154
 class C_0003751086353887321154 {
@@ -110,23 +108,22 @@ class C_0003751086353887321154 {
 ..
 +assignQuality(ItemType type, Item * item) : void
 +generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
--getRandomItemType() : ItemType
+{static} -getRandomItemType() : ItemType
 {static} -isItemPriceValid(const Item & item, const Player & player) : bool
 __
--mt : std::mt19937
 -quality_gen : std::map<ItemType,std::unique_ptr<QualityGenerator>>
 -strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
 }
 class "::AccessoryGenerator" as C_0004788119760935680862
 class C_0004788119760935680862 {
-+AccessoryGenerator() : void
++AccessoryGenerator() = default : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 __
 }
 class "::ArmorGenerator" as C_0005567866987455504025
 class C_0005567866987455504025 {
-+ArmorGenerator(const std::string & file_path) : void
++ArmorGenerator(const QString & file_path) : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 {static} -isArmorUsable(const Player & player, const Armor & armor) : bool
@@ -135,7 +132,7 @@ __
 }
 class "::WeaponGenerator" as C_0004150406585329947926
 class C_0004150406585329947926 {
-+WeaponGenerator(const std::string & file_path) : void
++WeaponGenerator(const QString & file_path) : void
 ..
 -filterByPlayerAttributesHard(const Player & player) const : std::vector<const Weapon *>
 -filterByPlayerAttributesSoft(const Player & player) const : std::vector<const Weapon *>

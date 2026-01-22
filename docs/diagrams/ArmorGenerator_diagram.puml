@@ -5,26 +5,28 @@ package [models] as C_0001626712604113445200 {
 abstract "::Item" as C_0005967165952864249862
 abstract C_0005967165952864249862 {
 +Item() : void
-+Item(std::string_view name, std::string_view desc, int default_price, int add_price) : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
 +~Item() = default : void
 ..
-+addToPrice(const int add) : void
++addToPrice(int add) : void
 +getDesc() const : const std::string &
 {abstract} +getItemType() const = 0 : ItemType
 +getName() const : const std::string &
 +getPrice() const : int
 +getPriceModified() const : int
-+increasePriceBy(int add) : void
++getQualityPrice() const : int
 +setDefaultDesc() : void
 +setDefaultPrice() : void
 +setDesc(std::string_view d) : void
 +setName(std::string_view n) : void
-{abstract} +toJson() const = 0 : QJsonObject
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
 __
 #_default_price : const int
 #_desc : std::string
 #_name : std::string
 #_price : int
+#_quality_price : int
 }
 class "::Player" as C_0003692324345213718176
 class C_0003692324345213718176 {
@@ -100,11 +102,10 @@ abstract C_0003391557478520177739 {
 ..
 {abstract} +generate(const Player & player) = 0 : std::unique_ptr<Item>
 __
-#_mt : std::mt19937
 }
 class "::ArmorGenerator" as C_0005567866987455504025
 class C_0005567866987455504025 {
-+ArmorGenerator(const std::string & file_path) : void
++ArmorGenerator(const QString & file_path) : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 {static} -isArmorUsable(const Player & player, const Armor & armor) : bool
