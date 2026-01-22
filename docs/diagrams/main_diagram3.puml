@@ -19,26 +19,28 @@ RANDOM
 abstract "Item" as C_0005967165952864249862
 abstract C_0005967165952864249862 {
 +Item() : void
-+Item(std::string_view name, std::string_view desc, int default_price, int add_price) : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
 +~Item() = default : void
 ..
-+addToPrice(const int add) : void
++addToPrice(int add) : void
 +getDesc() const : const std::string &
 {abstract} +getItemType() const = 0 : ItemType
 +getName() const : const std::string &
 +getPrice() const : int
 +getPriceModified() const : int
-+increasePriceBy(int add) : void
++getQualityPrice() const : int
 +setDefaultDesc() : void
 +setDefaultPrice() : void
 +setDesc(std::string_view d) : void
 +setName(std::string_view n) : void
-{abstract} +toJson() const = 0 : QJsonObject
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
 __
 #_default_price : const int
 #_desc : std::string
 #_name : std::string
 #_price : int
+#_quality_price : int
 }
 enum "Attribute" as C_0013522169845410927695
 enum C_0013522169845410927695 {
@@ -199,7 +201,7 @@ __
 package [core] as C_0009398224592071360425 {
 class "CampaignManager" as C_0006935415749788347394
 class C_0006935415749788347394 {
-+CampaignManager() : void
++CampaignManager() = default : void
 ..
 +addItem(std::unique_ptr<Item> item) : void
 +addPlayer(std::unique_ptr<Player> player) : void
@@ -212,13 +214,12 @@ class C_0006935415749788347394 {
 +getItems() const : const std::vector<std::unique_ptr<Item>> &
 +getPlayer(size_t idx) const : Player &
 +getPlayers() const : const std::vector<std::unique_ptr<Player>> &
-+getRandomPlayer() : const Player &
++getRandomPlayer() const : const Player &
 +replaceItem(size_t idx, std::unique_ptr<Item> item) : void
 +replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
 __
 -_items : std::vector<std::unique_ptr<Item>>
 -_players : std::vector<std::unique_ptr<Player>>
--mt : std::mt19937
 }
 }
 package [systems] as C_0016692703261607978348 {
@@ -228,17 +229,15 @@ abstract C_0003391557478520177739 {
 ..
 {abstract} +generate(const Player & player) = 0 : std::unique_ptr<Item>
 __
-#_mt : std::mt19937
 }
 class "QualityGenerator" as C_0017722926631985697211
 class C_0017722926631985697211 {
-+QualityGenerator(const std::string & file_path) : void
++QualityGenerator(const QString & file_path) : void
 ..
 +applyRandomQualityTo(Item * item) : void
 +generate() : const Quality &
 __
 -_cache_qualities : std::vector<Quality>
--_mt : std::mt19937
 }
 class "ItemGeneratorSystem" as C_0003751086353887321154
 class C_0003751086353887321154 {
@@ -246,23 +245,22 @@ class C_0003751086353887321154 {
 ..
 +assignQuality(ItemType type, Item * item) : void
 +generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
--getRandomItemType() : ItemType
+{static} -getRandomItemType() : ItemType
 {static} -isItemPriceValid(const Item & item, const Player & player) : bool
 __
--mt : std::mt19937
 -quality_gen : std::map<ItemType,std::unique_ptr<QualityGenerator>>
 -strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
 }
 class "AccessoryGenerator" as C_0004788119760935680862
 class C_0004788119760935680862 {
-+AccessoryGenerator() : void
++AccessoryGenerator() = default : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 __
 }
 class "ArmorGenerator" as C_0005567866987455504025
 class C_0005567866987455504025 {
-+ArmorGenerator(const std::string & file_path) : void
++ArmorGenerator(const QString & file_path) : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 {static} -isArmorUsable(const Player & player, const Armor & armor) : bool
@@ -271,7 +269,7 @@ __
 }
 class "WeaponGenerator" as C_0004150406585329947926
 class C_0004150406585329947926 {
-+WeaponGenerator(const std::string & file_path) : void
++WeaponGenerator(const QString & file_path) : void
 ..
 -filterByPlayerAttributesHard(const Player & player) const : std::vector<const Weapon *>
 -filterByPlayerAttributesSoft(const Player & player) const : std::vector<const Weapon *>
@@ -280,16 +278,6 @@ class C_0004150406585329947926 {
 {static} -isWeaponUsable(const Player & player, const Weapon & weapon) : bool
 __
 -_cache_weapons : std::vector<std::unique_ptr<Weapon>>
-}
-}
-package [io] as C_0016395333381226012294 {
-class "CampaignSerializer" as C_0004718098425785505463
-class C_0004718098425785505463 {
-{static} -itemFromJson(QJsonObject json_item) : std::unique_ptr<Item>
-{static} +load(CampaignManager & mng, const QString & file_path) : bool
-{static} -playerFromJson(QJsonObject json_player) : std::unique_ptr<Player>
-{static} +save(const CampaignManager & mng, const QString & file_path) : bool
-__
 }
 }
 package [controllers] as C_0012248337201340293231 {
@@ -386,21 +374,21 @@ class C_0002900986228388971956 {
 +MainWindow(QWidget * parent = nullptr) : void
 +~MainWindow() : void
 ..
--clearControls() : void
 +metaObject() const : const QMetaObject *
 -on_BttnAddPlayers_clicked() : void
--on_BttnDelCampain_clicked() : void
 -on_BttnEditPlayers_clicked() : void
 -on_BttnLoadCampain_clicked() : void
+-on_BttnNewCampain_clicked() : void
 -on_BttnNormalGenerate_clicked() : void
 -on_BttnQuickGenerate_clicked() : void
 -on_BttnSaveCampain_clicked() : void
 -on_TableGeneratedItems_doubleClicked(const QModelIndex & index) : void
+-on_removePlayer(int index) : void
 +qt_metacall(QMetaObject::Call, int, void **) : int
 +qt_metacast(const char *) : void *
 {static} -qt_static_metacall(QObject *, QMetaObject::Call, int, void **) : void
--removePlayer(int index) : void
 {static} +tr(const char * s, const char * c = nullptr, int n = -1) : QString
+-updateUIState() const : void
 __
 -_appcontrol : AppController
 -_item_model : MyItemTableModel *
@@ -412,32 +400,6 @@ __
 class "MainWindow" as C_0005461363864585996070
 class C_0005461363864585996070 {
 __
-}
-}
-package [..] as C_0014171261687204616676 {
-package [..] as C_0005643450359404850452 {
-package [..] as C_0007205590463529964868 {
-package [..] as C_0005849845958562319668 {
-package [..] as C_0001662950104636937124 {
-package [Qt] as C_0010702282364967397213 {
-package [6.8.0] as C_0012626195919979296151 {
-package [mingw_64] as C_0015693061597172910648 {
-package [include] as C_0018124199592555195040 {
-package [QtCore] as C_0002166560000924496074 {
-class "MainWindow::QPrivateSignal" as C_0013559316693802428772
-class C_0013559316693802428772 {
-+QPrivateSignal() constexpr = default : void
-__
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
 }
 }
 C_0005967165952864249862 ..> C_0009506588567340924694
@@ -481,9 +443,6 @@ C_0004150406585329947926 ..> C_0003692324345213718176
 C_0004150406585329947926 ..> C_0005967165952864249862
 C_0004150406585329947926 o-- C_0009880302970961535201 : -_cache_weapons
 C_0003391557478520177739 <|-- C_0004150406585329947926
-C_0004718098425785505463 ..> C_0003692324345213718176
-C_0004718098425785505463 ..> C_0005967165952864249862
-C_0004718098425785505463 ..> C_0006935415749788347394
 C_0007310296898495958844 ..> C_0003692324345213718176
 C_0007310296898495958844 ..> C_0005967165952864249862
 C_0007310296898495958844 ..> C_0009506588567340924694
@@ -503,7 +462,6 @@ C_0002900986228388971956 --> C_0005461363864585996070 : -ui
 C_0002900986228388971956 o-- C_0007310296898495958844 : -_appcontrol
 C_0002900986228388971956 --> C_0014262518239461510613 : -_item_model
 C_0002900986228388971956 --> C_0011863623600894958275 : -_player_model
-C_0013559316693802428772 --+ C_0002900986228388971956
 
 'Generated with clang-uml, version 0.6.2
 'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)

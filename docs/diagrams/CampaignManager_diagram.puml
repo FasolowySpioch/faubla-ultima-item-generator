@@ -5,26 +5,28 @@ package [models] as C_0001626712604113445200 {
 abstract "::Item" as C_0005967165952864249862
 abstract C_0005967165952864249862 {
 +Item() : void
-+Item(std::string_view name, std::string_view desc, int default_price, int add_price) : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
 +~Item() = default : void
 ..
-+addToPrice(const int add) : void
++addToPrice(int add) : void
 +getDesc() const : const std::string &
 {abstract} +getItemType() const = 0 : ItemType
 +getName() const : const std::string &
 +getPrice() const : int
 +getPriceModified() const : int
-+increasePriceBy(int add) : void
++getQualityPrice() const : int
 +setDefaultDesc() : void
 +setDefaultPrice() : void
 +setDesc(std::string_view d) : void
 +setName(std::string_view n) : void
-{abstract} +toJson() const = 0 : QJsonObject
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
 __
 #_default_price : const int
 #_desc : std::string
 #_name : std::string
 #_price : int
+#_quality_price : int
 }
 class "::Player" as C_0003692324345213718176
 class C_0003692324345213718176 {
@@ -68,7 +70,7 @@ __
 package [core] as C_0009398224592071360425 {
 class "::CampaignManager" as C_0006935415749788347394
 class C_0006935415749788347394 {
-+CampaignManager() : void
++CampaignManager() = default : void
 ..
 +addItem(std::unique_ptr<Item> item) : void
 +addPlayer(std::unique_ptr<Player> player) : void
@@ -81,13 +83,12 @@ class C_0006935415749788347394 {
 +getItems() const : const std::vector<std::unique_ptr<Item>> &
 +getPlayer(size_t idx) const : Player &
 +getPlayers() const : const std::vector<std::unique_ptr<Player>> &
-+getRandomPlayer() : const Player &
++getRandomPlayer() const : const Player &
 +replaceItem(size_t idx, std::unique_ptr<Item> item) : void
 +replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
 __
 -_items : std::vector<std::unique_ptr<Item>>
 -_players : std::vector<std::unique_ptr<Player>>
--mt : std::mt19937
 }
 }
 }
