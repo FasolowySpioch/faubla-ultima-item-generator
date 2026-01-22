@@ -64,6 +64,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gui/dialogue/editplayer/editplayerdialogue.cpp
         gui/dialogue/addplayer/addplayerdialogue.cpp
         gui/dialogue/itemgen/itemgendialogue.cpp
+        resources.qrc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET fultima-gen APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

@@ -29,20 +29,19 @@ private slots:
     void on_BttnSaveCampain_clicked();
     void on_BttnQuickGenerate_clicked();
     void on_BttnNormalGenerate_clicked();
-
-    void on_BttnDelCampain_clicked();
+    void on_BttnNewCampain_clicked();
 
     void on_TableGeneratedItems_doubleClicked(const QModelIndex &index);
+
 
 private:
     Ui::MainWindow *ui;
     AppController _appcontrol;
     QString _loadedFile = "";
-    void removePlayer(int index);
-
-    void clearControls();
     MyItemTableModel *_item_model = nullptr;
     MyPlayerTableModel *_player_model = nullptr;
 
+    void on_removePlayer(int index);
+    void updateUIState() const;
 };
 #endif // MAINWINDOW_H

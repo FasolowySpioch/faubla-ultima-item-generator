@@ -7,6 +7,8 @@ ItemGenDialogue::ItemGenDialogue(AppController *apc, QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
     //Main setup foe ItemGeneratorDialog:
     setLayoutVisible(false, ui->LayoutAccessory);
     setLayoutVisible(false, ui->LayoutArmor);
@@ -123,6 +125,8 @@ void ItemGenDialogue::on_comboBoxChoosePlayer_currentIndexChanged(int index)
         ui->bttnGenerateWeapon->setEnabled(true);
         ui->bttnGenerateArmor->setEnabled(true);
     }
+
+    _generatedItem = nullptr;
 }
 
 void ItemGenDialogue::setLayoutVisible(bool visible, QLayout* l){
@@ -139,108 +143,102 @@ void ItemGenDialogue::setLayoutVisible(bool visible, QLayout* l){
 void ItemGenDialogue::setLVItemDependent(){
     ItemType t = _generatedItem->getItemType();
     switch (t) {
-    case ItemType::ARMOR:{
-        Armor* genA = dynamic_cast<Armor*>(_generatedItem.get()); //<- Had to include armor for some wierd reason
-        QString attributes[4] = {"WLP", "INS", "DEX", "MIG"};
-        QString yesNo[2] = {"Nie", "Tak"};
+        case ItemType::ARMOR:{
+            Armor* genA = dynamic_cast<Armor*>(_generatedItem.get()); //<- Had to include armor for some wierd reason
+            QString attributes[4] = {"WLP", "INS", "DEX", "MIG"};
+            QString yesNo[2] = {"Nie", "Tak"};
 
-        setLayoutVisible(true, ui->LayoutArmor);
-        setLayoutVisible(false, ui->LayoutAccessory);
-        setLayoutVisible(false, ui->LayoutWeapon);
-        setLayoutVisible(false, ui->LayoutComboboxDmgType);
+            setLayoutVisible(true, ui->LayoutArmor);
+            setLayoutVisible(false, ui->LayoutAccessory);
+            setLayoutVisible(false, ui->LayoutWeapon);
+            setLayoutVisible(false, ui->LayoutComboboxDmgType);
 
-        ui->widget->setVisible(false);
+            ui->widget->setVisible(false);
 
-        ui->lineEditNameArmor->setText(QString::fromStdString(_generatedItem->getName()));
+            ui->lineEditNameArmor->setText(QString::fromStdString(_generatedItem->getName()));
 
-        if(genA->getMagDefAtr()==Attribute::NONE){
-            ui->labelDisplayMagicDef->setText(QString::number(genA->getMagDefBonus()));
-            ui->labelDisplayMagicBonus->setText(QString::number(0));
+            if(genA->getMagDefAtr()==Attribute::NONE){
+                ui->labelDisplayMagicDef->setText(QString::number(genA->getMagDefBonus()));
+                ui->labelDisplayMagicBonus->setText(QString::number(0));
+            }
+            else{
+                ui->labelDisplayMagicDef->setText(attributes[static_cast<int>(genA->getMagDefAtr())]);
+                ui->labelDisplayMagicBonus->setText(QString::number(genA->getMagDefBonus()));
+            }
+            if(genA->getDefAtr()==Attribute::NONE){
+                ui->labelDisplayDefense->setText(QString::number(genA->getDefBonus()));
+                ui->labelDisplayDefBonus ->setText(QString::number(0));
+            }
+            else{
+                ui->labelDisplayDefense->setText(attributes[static_cast<int>(genA->getDefAtr())]);
+                ui->labelDisplayDefBonus->setText(QString::number(genA->getDefBonus()));
+            }
+
+            ui->labelDisplayIniciative->setText(QString::number(genA->getInitiative()));
+            ui->txtBrowserQuality->setText(QString::fromStdString(_generatedItem->getDesc()));
+            ui->labelDisplayMartialArm->setText(yesNo[static_cast<int>(genA->getIsMartial())]);
+            ui->labelDisplayShield->setText(yesNo[static_cast<int>(genA->getIsShield())]);
+            ui->labelDisplayPriceA->setText(QString::number(_generatedItem->getPriceModified()));
+            break;
         }
-        else{
-            ui->labelDisplayMagicDef->setText(attributes[static_cast<int>(genA->getMagDefAtr())]);
-            ui->labelDisplayMagicBonus->setText(QString::number(genA->getMagDefBonus()));
+        case ItemType::WEAPON:{
+            QString weapon_type[10] = {
+                "Arkaniczna",
+                "Łuk",
+                "Bijatyka",
+                "Sztylet",
+                "Broń palna",
+                "Korbacz",
+                "Ciężka",
+                "Włócznia",
+                "Miecz",
+                "Rzucana"
+            };
+            QString attributes[4] = {"WLP", "INS", "DEX", "MIG"};
+
+            Weapon* genW = dynamic_cast<Weapon*>(_generatedItem.get());
+
+            setLayoutVisible(true, ui->LayoutComboboxDmgType);
+            setLayoutVisible(true, ui->LayoutWeapon);
+
+            setLayoutVisible(false, ui->LayoutAccessory);
+            setLayoutVisible(false, ui->LayoutArmor);
+            ui->widget->setVisible(false);
+
+            ui->lineEditWName->setText(QString::fromStdString(_generatedItem->getName()));
+            ui->labelDisplayWeaponType->setText(weapon_type[static_cast<int>(genW->getWeaponType())]);
+
+            QString accCheck = "[ " + attributes[static_cast<int>(genW->getAccuracy1())] + " + " + attributes[static_cast<int>(genW->getAccuracy2())] + " ]";
+
+            ui->labelDisplayAccCheck->setText(accCheck);
+            ui->labelDisplayAccBonus->setText(QString::number(genW->getAccuracyBonus()));
+            ui->labelDisplayWDmgDesc->setText("[ HR + "+QString::number(genW->getDmgDesc())+" ]");
+
+            int idx = ui->comboBoxDmgType->findData(static_cast<int>(genW->getDmgType()));
+            if(idx != -1){ ui-> comboBoxDmgType->setCurrentIndex(idx); }
+
+            ui->txtBrowserDisplayQualityW->setText(QString::fromStdString(_generatedItem->getDesc()));
+
+            QString yesNo[2] = {"Nie", "Tak"};
+
+            ui->labelDisplayOneHanded->setText(yesNo[static_cast<int>(genW->getIsSingleHanded())]);
+            ui->labelDisplayRange->setText(yesNo[static_cast<int>(genW->getIsRange())]);
+            ui->labelDisplayMartialW->setText(yesNo[static_cast<int>(genW->getIsMartial())]);
+            ui->labelDisplayPriceW->setText(QString::number(_generatedItem->getPriceModified()));
+            break;
         }
-        if(genA->getDefAtr()==Attribute::NONE){
-            ui->labelDisplayDefense->setText(QString::number(genA->getDefBonus()));
-            ui->labelDisplayDefBonus ->setText(QString::number(0));
+        default:{
+            setLayoutVisible(true, ui->LayoutAccessory);
+            setLayoutVisible(false, ui->LayoutArmor);
+            setLayoutVisible(false, ui->LayoutWeapon);
+            setLayoutVisible(false, ui->LayoutComboboxDmgType);
+            ui->widget->setVisible(false);
+
+            ui->lineEditAccName->setText(QString::fromStdString(_generatedItem->getName()));
+            ui->textBrowserQualA->setText(QString::fromStdString(_generatedItem->getDesc()));
+            ui->labelDisplayPriceAcc->setText(QString::number(_generatedItem->getPriceModified()));
+            break;
         }
-        else{
-            ui->labelDisplayDefense->setText(attributes[static_cast<int>(genA->getDefAtr())]);
-            ui->labelDisplayDefBonus->setText(QString::number(genA->getDefBonus()));
-        }
-
-        ui->labelDisplayIniciative->setText(QString::number(genA->getInitiative()));
-        ui->txtBrowserQuality->setText(QString::fromStdString(_generatedItem->getDesc()));
-        ui->labelDisplayMartialArm->setText(yesNo[static_cast<int>(genA->getIsMartial())]);
-        ui->labelDisplayShield->setText(yesNo[static_cast<int>(genA->getIsShield())]);
-        ui->labelDisplayPriceA->setText(QString::number(_generatedItem->getPriceModified()));
-
-        ui->comboBoxChoosePlayer->setDisabled(true);
-        break;
-    }
-    case ItemType::WEAPON:{
-        QString weapon_type[10] = {
-            "Arkaniczna",
-            "Łuk",
-            "Bijatyka",
-            "Sztylet",
-            "Broń palna",
-            "Korbacz",
-            "Ciężka",
-            "Włócznia",
-            "Miecz",
-            "Rzucana"
-        };
-        QString attributes[4] = {"WLP", "INS", "DEX", "MIG"};
-
-        Weapon* genW = dynamic_cast<Weapon*>(_generatedItem.get());
-
-        setLayoutVisible(true, ui->LayoutComboboxDmgType);
-        setLayoutVisible(true, ui->LayoutWeapon);
-
-        setLayoutVisible(false, ui->LayoutAccessory);
-        setLayoutVisible(false, ui->LayoutArmor);
-        ui->widget->setVisible(false);
-
-        ui->lineEditWName->setText(QString::fromStdString(_generatedItem->getName()));
-        ui->labelDisplayWeaponType->setText(weapon_type[static_cast<int>(genW->getWeaponType())]);
-
-        QString accCheck = "[ " + attributes[static_cast<int>(genW->getAccuracy1())] + " + " + attributes[static_cast<int>(genW->getAccuracy2())] + " ]";
-
-        ui->labelDisplayAccCheck->setText(accCheck);
-        ui->labelDisplayAccBonus->setText(QString::number(genW->getAccuracyBonus()));
-        ui->labelDisplayWDmgDesc->setText("[ HR + "+QString::number(genW->getDmgDesc())+" ]");
-
-        int idx = ui->comboBoxDmgType->findData(static_cast<int>(genW->getDmgType()));
-        if(idx != -1){ ui-> comboBoxDmgType->setCurrentIndex(idx); }
-
-        ui->txtBrowserDisplayQualityW->setText(QString::fromStdString(_generatedItem->getDesc()));
-
-        QString yesNo[2] = {"Nie", "Tak"};
-
-        ui->labelDisplayOneHanded->setText(yesNo[static_cast<int>(genW->getIsSingleHanded())]);
-        ui->labelDisplayRange->setText(yesNo[static_cast<int>(genW->getIsRange())]);
-        ui->labelDisplayMartialW->setText(yesNo[static_cast<int>(genW->getIsMartial())]);
-        ui->labelDisplayPriceW->setText(QString::number(_generatedItem->getPriceModified()));
-
-        ui->comboBoxChoosePlayer->setDisabled(true);
-        break;
-    }
-    default:{
-        setLayoutVisible(true, ui->LayoutAccessory);
-        setLayoutVisible(false, ui->LayoutArmor);
-        setLayoutVisible(false, ui->LayoutWeapon);
-        setLayoutVisible(false, ui->LayoutComboboxDmgType);
-        ui->widget->setVisible(false);
-
-        ui->lineEditAccName->setText(QString::fromStdString(_generatedItem->getName()));
-        ui->textBrowserQualA->setText(QString::fromStdString(_generatedItem->getDesc()));
-        ui->labelDisplayPriceAcc->setText(QString::number(_generatedItem->getPriceModified()));
-
-        ui->comboBoxChoosePlayer->setDisabled(true);
-        break;
-    }
     }
     ui->widget->setVisible(false);
 }
@@ -250,12 +248,32 @@ void ItemGenDialogue::rerollQuality() {
     setLVItemDependent();
 }
 
-void ItemGenDialogue::saveName(){
-    _generatedItem->setName((ui->lineEditWName->text()).toStdString());
+void ItemGenDialogue::saveName() const
+{
+    if (!_generatedItem) return;
+
+    QString newName;
+    switch (_generatedItem->getItemType()) {
+        case ItemType::WEAPON:
+            newName = ui->lineEditWName->text();
+            break;
+        case ItemType::ARMOR:
+            newName = ui->lineEditNameArmor->text();
+            break;
+        case ItemType::ACCESSORY:
+            newName = ui->lineEditAccName->text();
+            break;
+        default:
+            return;
+    }
+
+    _generatedItem->setName(newName.toStdString());
 }
 
 void ItemGenDialogue::on_buttonBox_accepted()
 {
+    if (!_generatedItem)
+        QDialog::reject();
+
     _apc->saveItem(std::move(_generatedItem));
 }
-

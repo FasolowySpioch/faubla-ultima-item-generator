@@ -5,23 +5,20 @@
 #include "../models/Item.h"
 #include <vector>
 #include <memory>
-#include <random>
 
 class CampaignManager
 {
      std::vector<std::unique_ptr<Item>> _items;
      std::vector<std::unique_ptr<Player>> _players;
-     std::mt19937 mt;
 
 public:
-     CampaignManager();
+     CampaignManager() = default;
 
      void clear();
 
      // ==== Items methods ====
 
      void addItem(std::unique_ptr<Item> item);
-     // void deleteItem(Item* item);
      void deleteItem(size_t idx);
      void deleteAllItems();
      Item& getItem(size_t idx) const;
@@ -31,11 +28,10 @@ public:
      // ==== Players methods ====
 
      void addPlayer(std::unique_ptr<Player> player);
-     // void deletePlayer(Player* player);
      void deletePlayer(size_t idx);
      void deleteAllPlayers();
      Player& getPlayer(size_t idx) const;
-     const Player& getRandomPlayer();
+     const Player& getRandomPlayer() const;
      const std::vector<std::unique_ptr<Player>>& getPlayers() const;
      void replacePlayer(size_t idx, std::unique_ptr<Player> player);
 };

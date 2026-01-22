@@ -25,7 +25,6 @@ class Weapon : public Item
     bool _isSingleHanded;
     bool _isRange;
     bool _isMartial;
-    //Quality podpada pod desc og�lnie, bo z perspektywy kodu b�dzie to osobno
 
 public:
     Weapon();

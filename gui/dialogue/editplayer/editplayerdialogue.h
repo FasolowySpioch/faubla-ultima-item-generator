@@ -14,10 +14,11 @@ class EditPlayerDialogue : public QDialog
 
 public:
     explicit EditPlayerDialogue(const std::vector<std::unique_ptr<Player>>& players,QWidget *parent = nullptr);
-    ~EditPlayerDialogue();
+    ~EditPlayerDialogue() override;
 
     Player getPlayer();
     int getIndex();
+
 signals:
     void removePlayerRequest(int index);
 
@@ -28,5 +29,7 @@ private slots:
 private:
     Ui::EditPlayerDialogue *ui;
     const std::vector<std::unique_ptr<Player>>& players;
+
+    void refreshPlayerList();
 };
 #endif // EDITPLAYERDIALOGUE_H

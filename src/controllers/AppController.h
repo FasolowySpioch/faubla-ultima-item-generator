@@ -3,7 +3,6 @@
 
 #include "../core/CampaignManager.h"
 #include "../systems/ItemGeneratorSystem.h"
-#include "../io/CampaignSerializer.h"
 
 class AppController
 {
@@ -11,7 +10,7 @@ class AppController
     ItemGeneratorSystem generator;
 
 public:
-    bool loadCampaign(const QString& file_path);    // (std::string_view) ??
+    bool loadCampaign(const QString& file_path);
     bool saveCampaign(const QString& file_path) const;
     static bool deleteCampaign(const QString& file_path);
 
@@ -25,7 +24,7 @@ public:
 
     [[nodiscard]] std::unique_ptr<Item> generateItem(ItemType type, const Player &player);
     [[nodiscard]] std::unique_ptr<Item> generateRandomItem(const Player &player);
-    [[nodiscard]] std::unique_ptr<Item> generateItemForRandomPlayer();      // random player + random item
+    [[nodiscard]] std::unique_ptr<Item> generateItemForRandomPlayer();
     void rerollQuality(Item *item);
 
     const std::vector<std::unique_ptr<Item>>& getItemsRepository() const;

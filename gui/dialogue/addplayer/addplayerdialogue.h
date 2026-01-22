@@ -14,18 +14,18 @@ class AddPlayerDialogue : public QDialog
 
 public:
     explicit AddPlayerDialogue(QWidget *parent = nullptr);
-    ~AddPlayerDialogue();
+    ~AddPlayerDialogue() override;
     QList<Player> getPlayers() const;
-
-    void accept();
+    void accept() override;
 
 private slots:
     void on_BttnNextPlayer_clicked();
+
 private:
     Ui::AddPlayerDialogue *ui;
     QList<Player> playerList;
-    void setPlayerAdd(Player* p);
-
+    bool validateAndSet(Player* p);
+    void clearForm() const;
 };
 
 #endif // ADDPLAYERDIALOGUE_H

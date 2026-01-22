@@ -24,19 +24,21 @@ MainWindow::~MainWindow()
 }
 
 
-// === BUTTON ON CLICK FUNCTIONS ===
+// === BUTTON ON CLICK SLOTS ===
 
 // -- Player functions
 void MainWindow::on_BttnEditPlayers_clicked()
 {
-    //testting if dialouge works for now:
     EditPlayerDialogue epd(_appcontrol.getPlayersRepository(),this);
-    connect(&epd, &EditPlayerDialogue::removePlayerRequest, this, &MainWindow::removePlayer);
+    connect(&epd, &EditPlayerDialogue::removePlayerRequest, this, &MainWindow::on_removePlayer);
+
     if(epd.exec() == QDialog::Accepted){
         Player p = epd.getPlayer();
         int index = epd.getIndex();
         _appcontrol.editPlayer(index, std::make_unique<Player>(p));
     }
+
+    updateUIState();
 }
 
 
@@ -51,17 +53,10 @@ void MainWindow::on_BttnAddPlayers_clicked()
         _player_model->refresh();
     }
 
-    if(apd.getPlayers().size() > 0){
-        ui->BttnEditPlayers->setEnabled(true);
-        ui->BttnQuickGenerate->setEnabled(true);
-        ui->BttnNormalGenerate->setEnabled(true);
-        ui->BttnSaveCampain->setEnabled(true);
-        ui->BttnDelCampain->setEnabled(true);
-    }
+    updateUIState();
 }
 
-// -- Campain functions
-//TODO: comeback after a commit with functions
+// -- Campaign functions
 void MainWindow::on_BttnLoadCampain_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(
@@ -73,14 +68,8 @@ void MainWindow::on_BttnLoadCampain_clicked()
 
     if (_appcontrol.loadCampaign(fileName))
     {
-
         _loadedFile = fileName;
-
-        ui->BttnEditPlayers->setEnabled(true);
-        ui->BttnQuickGenerate->setEnabled(true);
-        ui->BttnNormalGenerate->setEnabled(true);
-        ui->BttnSaveCampain->setEnabled(true);
-        ui->BttnDelCampain->setEnabled(true);
+        updateUIState();
     }
 
     _item_model->refresh();
@@ -97,8 +86,11 @@ void MainWindow::on_BttnSaveCampain_clicked()
         "*.json"
         );
     if(!fileName.endsWith(".json", Qt::CaseInsensitive)) fileName += ".json";
-    _appcontrol.saveCampaign(fileName);
-    if(!fileName.isEmpty()) _loadedFile = fileName;
+
+    if (_appcontrol.saveCampaign(fileName))
+    {
+        if(!fileName.isEmpty()) _loadedFile = fileName;
+    }
 }
 
 // -- Generate functions
@@ -122,34 +114,33 @@ void MainWindow::on_BttnNormalGenerate_clicked()
     }
 }
 
-
-void MainWindow::on_BttnDelCampain_clicked()
+void MainWindow::on_BttnNewCampain_clicked()
 {
-    QMessageBox::StandardButton reply = QMessageBox::question(this,
-                                  "Wyczyść kampanię",
-                                  "Czy na pewno chcesz wyczyścić całą kampanię?",
-                                  QMessageBox::Ok | QMessageBox::Cancel);
+    const QMessageBox::StandardButton reply = QMessageBox::question(this,
+                                                                    "Wyczyść kampanię",
+                                                                    "Czy na pewno chcesz wyczyścić całą kampanię?",
+                                                                    QMessageBox::Ok | QMessageBox::Cancel);
 
     if (reply == QMessageBox::Ok)
     {
         _appcontrol.clearRepository();
         _item_model->refresh();
         _player_model->refresh();
-        clearControls();
+        updateUIState();
     }
 }
 
-void MainWindow::clearControls() {
-    ui->BttnEditPlayers->setEnabled(false);
-    ui->BttnQuickGenerate->setEnabled(false);
-    ui->BttnNormalGenerate->setEnabled(false);
-    ui->BttnSaveCampain->setEnabled(false);
-    ui->BttnDelCampain->setEnabled(false);
-}
-
-void MainWindow::removePlayer(int index){
+void MainWindow::on_removePlayer(int index){
     _appcontrol.removePlayer(index);
     _player_model->refresh();
+}
+
+void MainWindow::updateUIState() const
+{
+    const bool hasPlayers = !_appcontrol.getPlayersRepository().empty();
+    ui->BttnEditPlayers->setEnabled(hasPlayers);
+    ui->BttnQuickGenerate->setEnabled(hasPlayers);
+    ui->BttnNormalGenerate->setEnabled(hasPlayers);
 }
 
 void MainWindow::on_TableGeneratedItems_doubleClicked(const QModelIndex &index)

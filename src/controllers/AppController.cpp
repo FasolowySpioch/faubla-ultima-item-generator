@@ -1,5 +1,6 @@
 #include "AppController.h"
 #include "../../gui/models/MyItemTableModel.h"
+#include "../../src/io/CampaignSerializer.h"
 #include <QFile>
 
 

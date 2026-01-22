@@ -3,7 +3,6 @@
 
 #include "GeneratorStrategy.h"
 #include "../models/Armor.h"
-#include <random>
 
 class ArmorGenerator final : public GeneratorStrategy
 {
@@ -12,7 +11,7 @@ class ArmorGenerator final : public GeneratorStrategy
     static bool isArmorUsable(const Player &player, const Armor &armor);
 
 public:
-    explicit ArmorGenerator(const std::string &file_path);
+    explicit ArmorGenerator(const QString &file_path);
 
     std::unique_ptr<Item> generate(const Player &player) override;
 };
