@@ -1,0 +1,226 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+enum "::ItemType" as C_0009506588567340924694
+enum C_0009506588567340924694 {
+WEAPON
+ARMOR
+ACCESSORY
+RANDOM
+}
+abstract "::Item" as C_0005967165952864249862
+abstract C_0005967165952864249862 {
++Item() : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
++~Item() = default : void
+..
++addToPrice(int add) : void
++getDesc() const : const std::string &
+{abstract} +getItemType() const = 0 : ItemType
++getName() const : const std::string &
++getPrice() const : int
++getPriceModified() const : int
++getQualityPrice() const : int
++setDefaultDesc() : void
++setDefaultPrice() : void
++setDesc(std::string_view d) : void
++setName(std::string_view n) : void
++setQualityPrice(int q_price) : void
++toJson() const : QJsonObject
+__
+#_default_price : const int
+#_desc : std::string
+#_name : std::string
+#_price : int
+#_quality_price : int
+}
+class "::Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() : void
++Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
+..
++getAuthorName() const : const std::string &
++getCanMartialArmor() const : bool
++getCanMartialWeapon() const : bool
++getCanRange() const : bool
++getCanShield() const : bool
++getCharacterName() const : const std::string &
++getLevel() const : int
++getPreferredWeaponType() const : WeaponType
++getPrimaryDie1() const : Attribute
++getPrimaryDie2() const : Attribute
++setAuthorName(std::string_view author_name) : void
++setCanMartialArmor(bool canMartialArmor) : void
++setCanMartialWeapon(bool canMartialWeapon) : void
++setCanRange(bool canRange) : void
++setCanShield(bool canShield) : void
++setCharacterName(std::string_view ch_name) : void
++setLevel(int level) : void
++setPreferredWeaponType(WeaponType pref_weapon) : void
++setPrimaryDie1(Attribute p_die1) : void
++setPrimaryDie2(Attribute p_die2) : void
++toJson() const : QJsonObject
+__
+-_author_name : std::string
+-_canMartialArmor : bool
+-_canMartialWeapon : bool
+-_canRange : bool
+-_canShield : bool
+-_character_name : std::string
+-_level : int
+-_preferred_weapon_type : WeaponType
+-_primary_die1 : Attribute
+-_primary_die2 : Attribute
+}
+}
+package [core] as C_0009398224592071360425 {
+class "::CampaignManager" as C_0006935415749788347394
+class C_0006935415749788347394 {
++CampaignManager() = default : void
+..
++addItem(std::unique_ptr<Item> item) : void
++addPlayer(std::unique_ptr<Player> player) : void
++clear() : void
++deleteAllItems() : void
++deleteAllPlayers() : void
++deleteItem(size_t idx) : void
++deletePlayer(size_t idx) : void
++getItem(size_t idx) const : Item &
++getItems() const : const std::vector<std::unique_ptr<Item>> &
++getPlayer(size_t idx) const : Player &
++getPlayers() const : const std::vector<std::unique_ptr<Player>> &
++getRandomPlayer() const : const Player &
++replaceItem(size_t idx, std::unique_ptr<Item> item) : void
++replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
+__
+-_items : std::vector<std::unique_ptr<Item>>
+-_players : std::vector<std::unique_ptr<Player>>
+}
+}
+package [systems] as C_0016692703261607978348 {
+class "::ItemGeneratorSystem" as C_0003751086353887321154
+class C_0003751086353887321154 {
++ItemGeneratorSystem() : void
+..
++assignQuality(ItemType type, Item * item) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
+{static} -getRandomItemType() : ItemType
+{static} -isItemPriceValid(const Item & item, const Player & player) : bool
+__
+-quality_gen : std::map<ItemType,std::unique_ptr<QualityGenerator>>
+-strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
+}
+}
+package [controllers] as C_0012248337201340293231 {
+class "::AppController" as C_0007310296898495958844
+class C_0007310296898495958844 {
++clearRepository() : void
+{static} +deleteCampaign(const QString & file_path) : bool
++editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
++editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
++generateItemForRandomPlayer() : std::unique_ptr<Item>
++generateRandomItem(const Player & player) : std::unique_ptr<Item>
++getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
++getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
++loadCampaign(const QString & file_path) : bool
++removeItem(size_t idx) : void
++removePlayer(size_t idx) : void
++rerollQuality(Item * item) : void
++saveCampaign(const QString & file_path) const : bool
++saveItem(std::unique_ptr<Item> item) : void
++savePlayer(std::unique_ptr<Player> player) : void
+__
+-generator : ItemGeneratorSystem
+-repository : CampaignManager
+}
+}
+}
+package [gui] as C_0004695295680056233043 {
+package [dialogue] as C_0015634168960119022395 {
+package [itemgen] as C_0002134151849342098628 {
+class "::ItemGenDialogue" as C_0000978053374665887298
+class C_0000978053374665887298 {
++ItemGenDialogue(AppController * apc, QWidget * parent = nullptr) : void
++~ItemGenDialogue() : void
+..
++metaObject() const : const QMetaObject *
+-on_BttnQuickGenerate_clicked() : void
+-on_BttnRerollQualityWeap_clicked() : void
+-on_bttnGenerateAccessory_clicked() : void
+-on_bttnGenerateArmor_clicked() : void
+-on_bttnGenerateWeapon_clicked() : void
+-on_bttnRerollQualityAcc_clicked() : void
+-on_bttnRerollQualityArm_clicked() : void
+-on_buttonBox_accepted() : void
+-on_comboBoxChoosePlayer_currentIndexChanged(int index) : void
+-on_comboBoxDmgType_currentIndexChanged(int index) : void
+-on_lineEditAccName_editingFinished() : void
+-on_lineEditNameArmor_editingFinished() : void
+-on_lineEditWName_editingFinished() : void
++qt_metacall(QMetaObject::Call, int, void **) : int
++qt_metacast(const char *) : void *
+{static} -qt_static_metacall(QObject *, QMetaObject::Call, int, void **) : void
+-rerollQuality() const : void
+-saveName() const : void
+-setLVItemDependent() const : void
+{static} -setLayoutVisible(bool visible, QLayout * l) : void
+{static} +tr(const char * s, const char * c = nullptr, int n = -1) : QString
+__
+-_apc : AppController *
+-_generatedItem : std::unique_ptr<Item>
+{static} +staticMetaObject : const QMetaObject
+-ui : Ui::ItemGenDialogue *
+}
+}
+}
+class "::MainWindow" as C_0002900986228388971956
+class C_0002900986228388971956 {
++MainWindow(QWidget * parent = nullptr) : void
++~MainWindow() : void
+..
++metaObject() const : const QMetaObject *
+-on_BttnAddPlayers_clicked() : void
+-on_BttnEditPlayers_clicked() : void
+-on_BttnLoadCampain_clicked() : void
+-on_BttnNewCampain_clicked() : void
+-on_BttnNormalGenerate_clicked() : void
+-on_BttnQuickGenerate_clicked() : void
+-on_BttnSaveCampain_clicked() : void
+-on_TableGeneratedItems_doubleClicked(const QModelIndex & index) : void
+-on_removePlayer(int index) : void
++qt_metacall(QMetaObject::Call, int, void **) : int
++qt_metacast(const char *) : void *
+{static} -qt_static_metacall(QObject *, QMetaObject::Call, int, void **) : void
+{static} +tr(const char * s, const char * c = nullptr, int n = -1) : QString
+-updateUIState() const : void
+__
+-_appcontrol : AppController
+-_item_model : MyItemTableModel *
+-_loadedFile : QString
+-_player_model : MyPlayerTableModel *
+{static} +staticMetaObject : const QMetaObject
+-ui : Ui::MainWindow *
+}
+}
+}
+C_0005967165952864249862 ..> C_0009506588567340924694
+C_0006935415749788347394 o-- C_0005967165952864249862 : -_items
+C_0006935415749788347394 o-- C_0003692324345213718176 : -_players
+C_0003751086353887321154 ..> C_0005967165952864249862
+C_0003751086353887321154 ..> C_0003692324345213718176
+C_0003751086353887321154 o-- C_0009506588567340924694 : -strategies
+C_0003751086353887321154 o-- C_0009506588567340924694 : -quality_gen
+C_0007310296898495958844 ..> C_0003692324345213718176
+C_0007310296898495958844 ..> C_0005967165952864249862
+C_0007310296898495958844 ..> C_0009506588567340924694
+C_0007310296898495958844 o-- C_0006935415749788347394 : -repository
+C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
+C_0000978053374665887298 --> C_0007310296898495958844 : -_apc
+C_0000978053374665887298 o-- C_0005967165952864249862 : -_generatedItem
+C_0002900986228388971956 o-- C_0007310296898495958844 : -_appcontrol
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

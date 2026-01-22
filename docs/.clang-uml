@@ -448,3 +448,29 @@ diagrams:
         - mainwindow
         - MyItemTableModel
         - MyPlayerTableModel
+    
+  AppController_diagram:
+    type: class
+    glob:
+      include:
+        - ../gui/*.cpp
+        - ../gui/*.h
+        - ../gui/**/*.cpp
+        - ../gui/**/*.h
+        - ../src/**/*.cpp
+        - ../src/**/*.h
+        - ../src/controllers/*.cpp
+        - ../src/controllers/*.h
+      exclude:
+        - ../gui/dialogue/**/*.cpp
+        - ../gui/dialogue/**/*.h
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - AppController
