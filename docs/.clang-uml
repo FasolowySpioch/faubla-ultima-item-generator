@@ -252,6 +252,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - WeaponGenerator
