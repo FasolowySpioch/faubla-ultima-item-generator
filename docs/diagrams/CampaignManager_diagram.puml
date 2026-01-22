@@ -1,0 +1,100 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+abstract "::Item" as C_0005967165952864249862
+abstract C_0005967165952864249862 {
++Item() : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price) : void
++~Item() = default : void
+..
++addToPrice(const int add) : void
++getDesc() const : const std::string &
+{abstract} +getItemType() const = 0 : ItemType
++getName() const : const std::string &
++getPrice() const : int
++getPriceModified() const : int
++increasePriceBy(int add) : void
++setDefaultDesc() : void
++setDefaultPrice() : void
++setDesc(std::string_view d) : void
++setName(std::string_view n) : void
+{abstract} +toJson() const = 0 : QJsonObject
+__
+#_default_price : const int
+#_desc : std::string
+#_name : std::string
+#_price : int
+}
+class "::Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() : void
++Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
+..
++getAuthorName() const : const std::string &
++getCanMartialArmor() const : bool
++getCanMartialWeapon() const : bool
++getCanRange() const : bool
++getCanShield() const : bool
++getCharacterName() const : const std::string &
++getLevel() const : int
++getPreferredWeaponType() const : WeaponType
++getPrimaryDie1() const : Attribute
++getPrimaryDie2() const : Attribute
++setAuthorName(std::string_view author_name) : void
++setCanMartialArmor(bool canMartialArmor) : void
++setCanMartialWeapon(bool canMartialWeapon) : void
++setCanRange(bool canRange) : void
++setCanShield(bool canShield) : void
++setCharacterName(std::string_view ch_name) : void
++setLevel(int level) : void
++setPreferredWeaponType(WeaponType pref_weapon) : void
++setPrimaryDie1(Attribute p_die1) : void
++setPrimaryDie2(Attribute p_die2) : void
++toJson() const : QJsonObject
+__
+-_author_name : std::string
+-_canMartialArmor : bool
+-_canMartialWeapon : bool
+-_canRange : bool
+-_canShield : bool
+-_character_name : std::string
+-_level : int
+-_preferred_weapon_type : WeaponType
+-_primary_die1 : Attribute
+-_primary_die2 : Attribute
+}
+}
+package [core] as C_0009398224592071360425 {
+class "::CampaignManager" as C_0006935415749788347394
+class C_0006935415749788347394 {
++CampaignManager() : void
+..
++addItem(std::unique_ptr<Item> item) : void
++addPlayer(std::unique_ptr<Player> player) : void
++clear() : void
++deleteAllItems() : void
++deleteAllPlayers() : void
++deleteItem(size_t idx) : void
++deletePlayer(size_t idx) : void
++getItem(size_t idx) const : Item &
++getItems() const : const std::vector<std::unique_ptr<Item>> &
++getPlayer(size_t idx) const : Player &
++getPlayers() const : const std::vector<std::unique_ptr<Player>> &
++getRandomPlayer() : const Player &
++replaceItem(size_t idx, std::unique_ptr<Item> item) : void
++replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
+__
+-_items : std::vector<std::unique_ptr<Item>>
+-_players : std::vector<std::unique_ptr<Player>>
+-mt : std::mt19937
+}
+}
+}
+}
+C_0006935415749788347394 o-- C_0005967165952864249862 : -_items
+C_0006935415749788347394 o-- C_0003692324345213718176 : -_players
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

@@ -1,0 +1,136 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+enum "::ItemType" as C_0009506588567340924694
+enum C_0009506588567340924694 {
+WEAPON
+ARMOR
+ACCESSORY
+RANDOM
+}
+abstract "::Item" as C_0005967165952864249862
+abstract C_0005967165952864249862 {
++Item() : void
++Item(std::string_view name, std::string_view desc, int default_price, int add_price) : void
++~Item() = default : void
+..
++addToPrice(const int add) : void
++getDesc() const : const std::string &
+{abstract} +getItemType() const = 0 : ItemType
++getName() const : const std::string &
++getPrice() const : int
++getPriceModified() const : int
++increasePriceBy(int add) : void
++setDefaultDesc() : void
++setDefaultPrice() : void
++setDesc(std::string_view d) : void
++setName(std::string_view n) : void
+{abstract} +toJson() const = 0 : QJsonObject
+__
+#_default_price : const int
+#_desc : std::string
+#_name : std::string
+#_price : int
+}
+class "::Weapon" as C_0009880302970961535201
+class C_0009880302970961535201 {
++Weapon() : void
++Weapon(std::string_view name, std::string_view desc, int default_price, int price, WeaponType weapon_type, int dmg_desc, DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus, bool isSingleHanded, bool isRange, bool isMartial) : void
+..
++getAccuracy1() const : Attribute
++getAccuracy2() const : Attribute
++getAccuracyBonus() const : int
++getDmgDesc() const : int
++getDmgType() const : DMGType
++getIsMartial() const : bool
++getIsRange() const : bool
++getIsSingleHanded() const : bool
++getItemType() const : ItemType
++getWeaponType() const : WeaponType
++setAccuracy1(Attribute a1) : void
++setAccuracy2(Attribute a2) : void
++setAccuracyBonus(int ab) : void
++setDmgDesc(int dd) : void
++setDmgType(DMGType dt) : void
++setIsMartial(bool im) : void
++setIsRange(bool ir) : void
++setIsSingleHanded(bool ish) : void
++setType(WeaponType t) : void
++toJson() const : QJsonObject
+__
+-_accuracy1 : Attribute
+-_accuracy2 : Attribute
+-_accuracy_bonus : int
+-_dmg_desc : int
+-_dmg_type : DMGType
+-_isMartial : bool
+-_isRange : bool
+-_isSingleHanded : bool
+-_weapon_type : WeaponType
+}
+class "::Quality" as C_0017759373907162862278
+class C_0017759373907162862278 {
++Quality() : void
++Quality(const std::string_view _desc, const int _cost_add, const bool _isOffensive) : void
+__
++cost_add : int
++desc : std::string
++isOffensive : bool
+}
+class "::Armor" as C_0017091837617986840564
+class C_0017091837617986840564 {
++Armor() : void
++Armor(std::string_view name, std::string_view desc, int default_price, int price, int initiative, bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield) : void
+..
++getDefAtr() const : Attribute
++getDefBonus() const : int
++getInitiative() const : int
++getIsMartial() const : bool
++getIsShield() const : bool
++getItemType() const : ItemType
++getMagDefAtr() const : Attribute
++getMagDefBonus() const : int
++setDef(int d) : void
++setInitiative(int in) : void
++setIsMartial(bool m) : void
++setIsShield(bool s) : void
++setMagDef(int md) : void
++toJson() const : QJsonObject
+__
+-_defense : Attribute
+-_defense_bonus : int
+-_initiative : int
+-_isMartial : bool
+-_isShield : bool
+-_magic_defense : Attribute
+-_magic_defense_bonus : int
+}
+}
+package [io] as C_0016395333381226012294 {
+class "::JsonReader" as C_0002948440278719519756
+class C_0002948440278719519756 {
+{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
+{static} +loadQualities(const QString & file_path) : std::vector<Quality>
+{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
+{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
+{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
+__
+}
+}
+}
+}
+C_0005967165952864249862 ..> C_0009506588567340924694
+C_0009880302970961535201 ..> C_0009506588567340924694
+C_0005967165952864249862 <|-- C_0009880302970961535201
+C_0017091837617986840564 ..> C_0009506588567340924694
+C_0005967165952864249862 <|-- C_0017091837617986840564
+C_0002948440278719519756 ..> C_0009880302970961535201
+C_0002948440278719519756 ..> C_0017091837617986840564
+C_0002948440278719519756 ..> C_0017759373907162862278
+C_0002948440278719519756 ..> C_0009506588567340924694
+C_0002948440278719519756 ..> C_0005967165952864249862
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

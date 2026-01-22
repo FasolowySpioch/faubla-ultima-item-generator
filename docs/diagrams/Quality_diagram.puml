@@ -1,0 +1,45 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+class "::Quality" as C_0017759373907162862278
+class C_0017759373907162862278 {
++Quality() : void
++Quality(const std::string_view _desc, const int _cost_add, const bool _isOffensive) : void
+__
++cost_add : int
++desc : std::string
++isOffensive : bool
+}
+}
+package [io] as C_0016395333381226012294 {
+class "::JsonReader" as C_0002948440278719519756
+class C_0002948440278719519756 {
+{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
+{static} +loadQualities(const QString & file_path) : std::vector<Quality>
+{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
+{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
+{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
+__
+}
+}
+package [systems] as C_0016692703261607978348 {
+class "::QualityGenerator" as C_0017722926631985697211
+class C_0017722926631985697211 {
++QualityGenerator(const std::string & file_path) : void
+..
++applyRandomQualityTo(Item * item) : void
++generate() : const Quality &
+__
+-_cache_qualities : std::vector<Quality>
+-_mt : std::mt19937
+}
+}
+}
+}
+C_0002948440278719519756 ..> C_0017759373907162862278
+C_0017722926631985697211 o-- C_0017759373907162862278 : -_cache_qualities
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

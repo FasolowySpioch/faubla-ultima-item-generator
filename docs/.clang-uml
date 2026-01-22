@@ -1,12 +1,13 @@
 # Change to directory where compile_commands.json is
-compilation_database_dir: .\build
+compilation_database_dir: ../build
 # Change to directory where diagram should be written
-output_directory: ./docs/diagrams
+output_directory: ./diagrams
 diagrams:
-  example_class_diagram:
+  main_diagram:
     type: class
     glob:
-      - src/**/*.cpp
+      - ../src/**/*.cpp
+      - ../src/**/*.h
     using_namespace:
       - "*"
     generate_packages: true
@@ -14,3 +15,274 @@ diagrams:
     exclude:
       namespaces:
         - std
+
+  CampaignManager_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - CampaignManager  
+
+  JsonReader_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - JsonReader
+
+  Accessory_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Accessory
+
+  Armor_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Armor
+
+  Player_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Player
+
+  AttributeEnum_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - AttributeEnum
+
+  Item_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Item 
+
+  Quality_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Quality
+
+  Weapon_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Weapon
+
+  AccessoryGenerator_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - AccessoryGenerator
+
+  ArmorGenerator_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - ArmorGenerator
+
+  GeneratorStrategy_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - GeneratorStrategy
+
+  ItemGeneratorSystem_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - ItemGeneratorSystem
+
+  QualityGenerator_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - QualityGenerator
+
+  WeaponGenerator_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - WeaponGenerator
+
+  Test_diagram:
+    type: class
+    glob:
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+    using_namespace:
+      - "*"
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+    include:
+      context:
+        - Test
+
+  main_diagram3:
+    type: class
+    glob:
+      - ../main.cpp
+    generate_packages: true
+    package_type: directory
+    exclude:
+      namespaces:
+        - std
+      context:
+        - QPrivateSignal
+    include:
+      context:
+        - main

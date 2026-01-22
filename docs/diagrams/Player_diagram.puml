@@ -1,0 +1,209 @@
+@startuml
+package [..] as C_0016431317663134048372 {
+package [src] as C_0010634688166860467214 {
+package [models] as C_0001626712604113445200 {
+abstract "::IJsonSerializable" as C_0017605762593928520665
+abstract C_0017605762593928520665 {
++~IJsonSerializable() = default : void
+..
+{abstract} +toJson() const = 0 : QJsonObject
+__
+}
+enum "::Attribute" as C_0013522169845410927695
+enum C_0013522169845410927695 {
+WLP
+INS
+DEX
+MIG
+NONE
+}
+enum "::WeaponType" as C_0008393046724430625929
+enum C_0008393046724430625929 {
+ARCANE
+BOW
+BRAWL
+DAGGER
+FIREARM
+FLAIL
+HEAVY
+SPEAR
+SWORD
+THROWN
+NONE
+}
+class "::Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() : void
++Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
+..
++getAuthorName() const : const std::string &
++getCanMartialArmor() const : bool
++getCanMartialWeapon() const : bool
++getCanRange() const : bool
++getCanShield() const : bool
++getCharacterName() const : const std::string &
++getLevel() const : int
++getPreferredWeaponType() const : WeaponType
++getPrimaryDie1() const : Attribute
++getPrimaryDie2() const : Attribute
++setAuthorName(std::string_view author_name) : void
++setCanMartialArmor(bool canMartialArmor) : void
++setCanMartialWeapon(bool canMartialWeapon) : void
++setCanRange(bool canRange) : void
++setCanShield(bool canShield) : void
++setCharacterName(std::string_view ch_name) : void
++setLevel(int level) : void
++setPreferredWeaponType(WeaponType pref_weapon) : void
++setPrimaryDie1(Attribute p_die1) : void
++setPrimaryDie2(Attribute p_die2) : void
++toJson() const : QJsonObject
+__
+-_author_name : std::string
+-_canMartialArmor : bool
+-_canMartialWeapon : bool
+-_canRange : bool
+-_canShield : bool
+-_character_name : std::string
+-_level : int
+-_preferred_weapon_type : WeaponType
+-_primary_die1 : Attribute
+-_primary_die2 : Attribute
+}
+}
+package [core] as C_0009398224592071360425 {
+class "::CampaignManager" as C_0006935415749788347394
+class C_0006935415749788347394 {
++CampaignManager() : void
+..
++addItem(std::unique_ptr<Item> item) : void
++addPlayer(std::unique_ptr<Player> player) : void
++clear() : void
++deleteAllItems() : void
++deleteAllPlayers() : void
++deleteItem(size_t idx) : void
++deletePlayer(size_t idx) : void
++getItem(size_t idx) const : Item &
++getItems() const : const std::vector<std::unique_ptr<Item>> &
++getPlayer(size_t idx) const : Player &
++getPlayers() const : const std::vector<std::unique_ptr<Player>> &
++getRandomPlayer() : const Player &
++replaceItem(size_t idx, std::unique_ptr<Item> item) : void
++replacePlayer(size_t idx, std::unique_ptr<Player> player) : void
+__
+-_items : std::vector<std::unique_ptr<Item>>
+-_players : std::vector<std::unique_ptr<Player>>
+-mt : std::mt19937
+}
+}
+package [systems] as C_0016692703261607978348 {
+abstract "::GeneratorStrategy" as C_0003391557478520177739
+abstract C_0003391557478520177739 {
++~GeneratorStrategy() = default : void
+..
+{abstract} +generate(const Player & player) = 0 : std::unique_ptr<Item>
+__
+#_mt : std::mt19937
+}
+class "::ItemGeneratorSystem" as C_0003751086353887321154
+class C_0003751086353887321154 {
++ItemGeneratorSystem() : void
+..
++assignQuality(ItemType type, Item * item) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
+-getRandomItemType() : ItemType
+{static} -isItemPriceValid(const Item & item, const Player & player) : bool
+__
+-mt : std::mt19937
+-quality_gen : std::map<ItemType,std::unique_ptr<QualityGenerator>>
+-strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
+}
+class "::AccessoryGenerator" as C_0004788119760935680862
+class C_0004788119760935680862 {
++AccessoryGenerator() : void
+..
++generate(const Player & player) : std::unique_ptr<Item>
+__
+}
+class "::ArmorGenerator" as C_0005567866987455504025
+class C_0005567866987455504025 {
++ArmorGenerator(const std::string & file_path) : void
+..
++generate(const Player & player) : std::unique_ptr<Item>
+{static} -isArmorUsable(const Player & player, const Armor & armor) : bool
+__
+-_cache_armors : std::vector<std::unique_ptr<Armor>>
+}
+class "::WeaponGenerator" as C_0004150406585329947926
+class C_0004150406585329947926 {
++WeaponGenerator(const std::string & file_path) : void
+..
+-filterByPlayerAttributesHard(const Player & player) const : std::vector<const Weapon *>
+-filterByPlayerAttributesSoft(const Player & player) const : std::vector<const Weapon *>
+-filterByPlayerPreference(const Player & player) const : std::vector<const Weapon *>
++generate(const Player & player) : std::unique_ptr<Item>
+{static} -isWeaponUsable(const Player & player, const Weapon & weapon) : bool
+__
+-_cache_weapons : std::vector<std::unique_ptr<Weapon>>
+}
+}
+package [tests] as C_0009102687024667839383 {
+class "::Test" as C_0002626979548338364165
+class C_0002626979548338364165 {
++allArmorTests() : void
++allCostTests() : void
++allIGSTests() : void
++allWeaponTests() : void
+-checkAttributes(const Weapon & w, const Player & p) : void
+-checkCost(const Item & i) : void
+-checkCostToLevel(const Item & i, const Player & p) : void
+-checkMartial(const Weapon & w, const Player & p) : void
+-checkMartial(const Armor & a) : void
+-checkMartial(const Armor & a, const Player & p) : void
+-checkPreference(const Weapon & w, const Player & p) : void
+-checkRange(const Weapon & w, const Player & p) : void
+-checkShield(const Armor & a, const Player & p) : void
+-readArmor(const Armor & a) : void
+-readWeapon(const Weapon & GenWeapon) : void
++testArmorPreferences() : void
++testArmorRandom() : void
++testIGSRandom() : void
++testIGSSpecific() : void
++testLegalArmorQuality() : void
++testWeaponAttributePreference() : void
++testWeaponFullPreferences() : void
++testWeaponRandom() : void
++testWeaponTypePreference() : void
+__
+-_ag : std::unique_ptr<ArmorGenerator>
+-_igs : ItemGeneratorSystem
+-_qg : std::unique_ptr<QualityGenerator>
+-_wg : std::unique_ptr<WeaponGenerator>
+-attributes : std::string[4]
+-dmg_type : std::string[9]
+-weapon_type : std::string[10]
+}
+}
+}
+}
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die1
+C_0003692324345213718176 o-- C_0013522169845410927695 : -_primary_die2
+C_0003692324345213718176 o-- C_0008393046724430625929 : -_preferred_weapon_type
+C_0017605762593928520665 <|-- C_0003692324345213718176
+C_0006935415749788347394 o-- C_0003692324345213718176 : -_players
+C_0003391557478520177739 ..> C_0003692324345213718176
+C_0003751086353887321154 ..> C_0003692324345213718176
+C_0003751086353887321154 o-- C_0003391557478520177739 : -strategies
+C_0004788119760935680862 ..> C_0003692324345213718176
+C_0003391557478520177739 <|-- C_0004788119760935680862
+C_0005567866987455504025 ..> C_0003692324345213718176
+C_0003391557478520177739 <|-- C_0005567866987455504025
+C_0004150406585329947926 ..> C_0003692324345213718176
+C_0003391557478520177739 <|-- C_0004150406585329947926
+C_0002626979548338364165 ..> C_0003692324345213718176
+C_0002626979548338364165 o-- C_0003751086353887321154 : -_igs
+C_0002626979548338364165 o-- C_0004150406585329947926 : -_wg
+C_0002626979548338364165 o-- C_0005567866987455504025 : -_ag
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml
