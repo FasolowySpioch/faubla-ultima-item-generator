@@ -2,21 +2,21 @@
 package [..] as C_0016431317663134048372 {
 package [src] as C_0010634688166860467214 {
 package [models] as C_0001626712604113445200 {
-abstract "IJsonSerializable" as C_0017605762593928520665
+abstract "::IJsonSerializable" as C_0017605762593928520665
 abstract C_0017605762593928520665 {
 +~IJsonSerializable() = default : void
 ..
 {abstract} +toJson() const = 0 : QJsonObject
 __
 }
-enum "ItemType" as C_0009506588567340924694
+enum "::ItemType" as C_0009506588567340924694
 enum C_0009506588567340924694 {
 WEAPON
 ARMOR
 ACCESSORY
 RANDOM
 }
-abstract "Item" as C_0005967165952864249862
+abstract "::Item" as C_0005967165952864249862
 abstract C_0005967165952864249862 {
 +Item() : void
 +Item(std::string_view name, std::string_view desc, int default_price, int add_price = 0) : void
@@ -42,7 +42,7 @@ __
 #_price : int
 #_quality_price : int
 }
-enum "Attribute" as C_0013522169845410927695
+enum "::Attribute" as C_0013522169845410927695
 enum C_0013522169845410927695 {
 WLP
 INS
@@ -50,7 +50,7 @@ DEX
 MIG
 NONE
 }
-enum "DMGType" as C_0009351376410296248543
+enum "::DMGType" as C_0009351376410296248543
 enum C_0009351376410296248543 {
 PHYSICAL
 AIR
@@ -63,7 +63,7 @@ LIGHT
 POISON
 NONE
 }
-enum "WeaponType" as C_0008393046724430625929
+enum "::WeaponType" as C_0008393046724430625929
 enum C_0008393046724430625929 {
 ARCANE
 BOW
@@ -77,7 +77,7 @@ SWORD
 THROWN
 NONE
 }
-class "Weapon" as C_0009880302970961535201
+class "::Weapon" as C_0009880302970961535201
 class C_0009880302970961535201 {
 +Weapon() : void
 +Weapon(std::string_view name, std::string_view desc, int default_price, int price, WeaponType weapon_type, int dmg_desc, DMGType dmg_type, Attribute accuracy1, Attribute accuracy2, int accuracy_bonus, bool isSingleHanded, bool isRange, bool isMartial) : void
@@ -113,7 +113,7 @@ __
 -_isSingleHanded : bool
 -_weapon_type : WeaponType
 }
-class "Player" as C_0003692324345213718176
+class "::Player" as C_0003692324345213718176
 class C_0003692324345213718176 {
 +Player() : void
 +Player(std::string_view character_name, std::string_view author_name, int level, Attribute p_die1, Attribute p_die2, WeaponType pref_weapon, bool canMartialWeapon, bool canMartialArmor, bool canRange, bool canShield) : void
@@ -151,7 +151,7 @@ __
 -_primary_die1 : Attribute
 -_primary_die2 : Attribute
 }
-class "Quality" as C_0017759373907162862278
+class "::Quality" as C_0017759373907162862278
 class C_0017759373907162862278 {
 +Quality() : void
 +Quality(const std::string_view _desc, const int _cost_add, const bool _isOffensive) : void
@@ -160,7 +160,7 @@ __
 +desc : std::string
 +isOffensive : bool
 }
-class "Accessory" as C_0001733752998306711321
+class "::Accessory" as C_0001733752998306711321
 class C_0001733752998306711321 {
 +Accessory() = default : void
 +Accessory(std::string_view name, std::string_view desc, int default_price, int price) : void
@@ -169,7 +169,7 @@ class C_0001733752998306711321 {
 +toJson() const : QJsonObject
 __
 }
-class "Armor" as C_0017091837617986840564
+class "::Armor" as C_0017091837617986840564
 class C_0017091837617986840564 {
 +Armor() : void
 +Armor(std::string_view name, std::string_view desc, int default_price, int price, int initiative, bool isMartial, Attribute magic_defense, int magic_defense_bonus, Attribute defense, int defense_bonus, bool isShield) : void
@@ -199,7 +199,7 @@ __
 }
 }
 package [core] as C_0009398224592071360425 {
-class "CampaignManager" as C_0006935415749788347394
+class "::CampaignManager" as C_0006935415749788347394
 class C_0006935415749788347394 {
 +CampaignManager() = default : void
 ..
@@ -222,15 +222,26 @@ __
 -_players : std::vector<std::unique_ptr<Player>>
 }
 }
+package [io] as C_0016395333381226012294 {
+class "::JsonReader" as C_0002948440278719519756
+class C_0002948440278719519756 {
+{static} +loadItems(const QString & file_path, ItemType type) : std::vector<std::unique_ptr<Item>>
+{static} +loadQualities(const QString & file_path) : std::vector<Quality>
+{static} -parseArmor(const QJsonObject & JsonArmorObj, bool makeShield) : std::unique_ptr<Armor>
+{static} -parseQuality(const QJsonObject & JsonQualityObj, bool makeOffensive) : Quality
+{static} -parseWeapon(const QJsonObject & JsonWeaponObj) : std::unique_ptr<Weapon>
+__
+}
+}
 package [systems] as C_0016692703261607978348 {
-abstract "GeneratorStrategy" as C_0003391557478520177739
+abstract "::GeneratorStrategy" as C_0003391557478520177739
 abstract C_0003391557478520177739 {
 +~GeneratorStrategy() = default : void
 ..
 {abstract} +generate(const Player & player) = 0 : std::unique_ptr<Item>
 __
 }
-class "QualityGenerator" as C_0017722926631985697211
+class "::QualityGenerator" as C_0017722926631985697211
 class C_0017722926631985697211 {
 +QualityGenerator(const QString & file_path) : void
 ..
@@ -239,7 +250,7 @@ class C_0017722926631985697211 {
 __
 -_cache_qualities : std::vector<Quality>
 }
-class "ItemGeneratorSystem" as C_0003751086353887321154
+class "::ItemGeneratorSystem" as C_0003751086353887321154
 class C_0003751086353887321154 {
 +ItemGeneratorSystem() : void
 ..
@@ -251,14 +262,14 @@ __
 -quality_gen : std::map<ItemType,std::unique_ptr<QualityGenerator>>
 -strategies : std::map<ItemType,std::unique_ptr<GeneratorStrategy>>
 }
-class "AccessoryGenerator" as C_0004788119760935680862
+class "::AccessoryGenerator" as C_0004788119760935680862
 class C_0004788119760935680862 {
 +AccessoryGenerator() = default : void
 ..
 +generate(const Player & player) : std::unique_ptr<Item>
 __
 }
-class "ArmorGenerator" as C_0005567866987455504025
+class "::ArmorGenerator" as C_0005567866987455504025
 class C_0005567866987455504025 {
 +ArmorGenerator(const QString & file_path) : void
 ..
@@ -267,7 +278,7 @@ class C_0005567866987455504025 {
 __
 -_cache_armors : std::vector<std::unique_ptr<Armor>>
 }
-class "WeaponGenerator" as C_0004150406585329947926
+class "::WeaponGenerator" as C_0004150406585329947926
 class C_0004150406585329947926 {
 +WeaponGenerator(const QString & file_path) : void
 ..
@@ -280,32 +291,8 @@ __
 -_cache_weapons : std::vector<std::unique_ptr<Weapon>>
 }
 }
-package [controllers] as C_0012248337201340293231 {
-class "AppController" as C_0007310296898495958844
-class C_0007310296898495958844 {
-+clearRepository() : void
-{static} +deleteCampaign(const QString & file_path) : bool
-+editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
-+editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
-+generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
-+generateItemForRandomPlayer() : std::unique_ptr<Item>
-+generateRandomItem(const Player & player) : std::unique_ptr<Item>
-+getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
-+getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
-+loadCampaign(const QString & file_path) : bool
-+removeItem(size_t idx) : void
-+removePlayer(size_t idx) : void
-+rerollQuality(Item * item) : void
-+saveCampaign(const QString & file_path) const : bool
-+saveItem(std::unique_ptr<Item> item) : void
-+savePlayer(std::unique_ptr<Player> player) : void
-__
--generator : ItemGeneratorSystem
--repository : CampaignManager
-}
-}
 package [tests] as C_0009102687024667839383 {
-class "Test" as C_0002626979548338364165
+class "::Test" as C_0002626979548338364165
 class C_0002626979548338364165 {
 +allArmorTests() : void
 +allCostTests() : void
@@ -341,10 +328,34 @@ __
 -weapon_type : std::string[10]
 }
 }
+package [controllers] as C_0012248337201340293231 {
+class "::AppController" as C_0007310296898495958844
+class C_0007310296898495958844 {
++clearRepository() : void
+{static} +deleteCampaign(const QString & file_path) : bool
++editItem(size_t idx, std::unique_ptr<Item> edited_item) : void
++editPlayer(size_t idx, std::unique_ptr<Player> edited_player) : void
++generateItem(ItemType type, const Player & player) : std::unique_ptr<Item>
++generateItemForRandomPlayer() : std::unique_ptr<Item>
++generateRandomItem(const Player & player) : std::unique_ptr<Item>
++getItemsRepository() const : const std::vector<std::unique_ptr<Item>> &
++getPlayersRepository() const : const std::vector<std::unique_ptr<Player>> &
++loadCampaign(const QString & file_path) : bool
++removeItem(size_t idx) : void
++removePlayer(size_t idx) : void
++rerollQuality(Item * item) : void
++saveCampaign(const QString & file_path) const : bool
++saveItem(std::unique_ptr<Item> item) : void
++savePlayer(std::unique_ptr<Player> player) : void
+__
+-generator : ItemGeneratorSystem
+-repository : CampaignManager
+}
+}
 }
 package [gui] as C_0004695295680056233043 {
 package [models] as C_0006018854047243949875 {
-class "MyItemTableModel" as C_0014262518239461510613
+class "::MyItemTableModel" as C_0014262518239461510613
 class C_0014262518239461510613 {
 +MyItemTableModel(const std::vector<std::unique_ptr<Item>> * _container, QObject * parent = nullptr) : void
 ..
@@ -356,7 +367,7 @@ class C_0014262518239461510613 {
 __
 -container : const std::vector<std::unique_ptr<Item>> *
 }
-class "MyPlayerTableModel" as C_0011863623600894958275
+class "::MyPlayerTableModel" as C_0011863623600894958275
 class C_0011863623600894958275 {
 +MyPlayerTableModel(const std::vector<std::unique_ptr<Player>> * _container, QObject * parent = nullptr) : void
 ..
@@ -369,7 +380,7 @@ __
 -container : const std::vector<std::unique_ptr<Player>> *
 }
 }
-class "MainWindow" as C_0002900986228388971956
+class "::MainWindow" as C_0002900986228388971956
 class C_0002900986228388971956 {
 +MainWindow(QWidget * parent = nullptr) : void
 +~MainWindow() : void
@@ -412,7 +423,7 @@ package [6.8.0] as C_0012626195919979296151 {
 package [mingw_64] as C_0015693061597172910648 {
 package [include] as C_0018124199592555195040 {
 package [QtCore] as C_0002166560000924496074 {
-class "MainWindow::QPrivateSignal" as C_0013559316693802428772
+class "::MainWindow::QPrivateSignal" as C_0013559316693802428772
 class C_0013559316693802428772 {
 +QPrivateSignal() constexpr = default : void
 __
@@ -448,6 +459,11 @@ C_0017091837617986840564 o-- C_0013522169845410927695 : -_defense
 C_0005967165952864249862 <|-- C_0017091837617986840564
 C_0006935415749788347394 o-- C_0005967165952864249862 : -_items
 C_0006935415749788347394 o-- C_0003692324345213718176 : -_players
+C_0002948440278719519756 ..> C_0009880302970961535201
+C_0002948440278719519756 ..> C_0017091837617986840564
+C_0002948440278719519756 ..> C_0017759373907162862278
+C_0002948440278719519756 ..> C_0009506588567340924694
+C_0002948440278719519756 ..> C_0005967165952864249862
 C_0003391557478520177739 ..> C_0003692324345213718176
 C_0003391557478520177739 ..> C_0005967165952864249862
 C_0017722926631985697211 ..> C_0005967165952864249862
@@ -469,11 +485,6 @@ C_0004150406585329947926 ..> C_0003692324345213718176
 C_0004150406585329947926 ..> C_0005967165952864249862
 C_0004150406585329947926 o-- C_0009880302970961535201 : -_cache_weapons
 C_0003391557478520177739 <|-- C_0004150406585329947926
-C_0007310296898495958844 ..> C_0003692324345213718176
-C_0007310296898495958844 ..> C_0005967165952864249862
-C_0007310296898495958844 ..> C_0009506588567340924694
-C_0007310296898495958844 o-- C_0006935415749788347394 : -repository
-C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
 C_0002626979548338364165 ..> C_0009880302970961535201
 C_0002626979548338364165 ..> C_0003692324345213718176
 C_0002626979548338364165 ..> C_0005967165952864249862
@@ -482,6 +493,11 @@ C_0002626979548338364165 o-- C_0003751086353887321154 : -_igs
 C_0002626979548338364165 o-- C_0004150406585329947926 : -_wg
 C_0002626979548338364165 o-- C_0005567866987455504025 : -_ag
 C_0002626979548338364165 o-- C_0017722926631985697211 : -_qg
+C_0007310296898495958844 ..> C_0003692324345213718176
+C_0007310296898495958844 ..> C_0005967165952864249862
+C_0007310296898495958844 ..> C_0009506588567340924694
+C_0007310296898495958844 o-- C_0006935415749788347394 : -repository
+C_0007310296898495958844 o-- C_0003751086353887321154 : -generator
 C_0014262518239461510613 --> C_0005967165952864249862 : -container
 C_0011863623600894958275 --> C_0003692324345213718176 : -container
 C_0002900986228388971956 --> C_0005461363864585996070 : -ui

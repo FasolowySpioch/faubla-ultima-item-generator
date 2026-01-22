@@ -15,6 +15,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
 
   CampaignManager_diagram:
     type: class
@@ -28,6 +29,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - CampaignManager  
@@ -44,6 +46,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - JsonReader
@@ -60,6 +63,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Accessory
@@ -76,6 +80,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Armor
@@ -92,6 +97,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Player
@@ -108,6 +114,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - AttributeEnum
@@ -124,6 +131,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Item 
@@ -140,6 +148,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Quality
@@ -156,6 +165,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Weapon
@@ -172,6 +182,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - AccessoryGenerator
@@ -188,6 +199,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - ArmorGenerator
@@ -204,6 +216,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - GeneratorStrategy
@@ -220,6 +233,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - ItemGeneratorSystem
@@ -236,6 +250,7 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - QualityGenerator
@@ -269,10 +284,31 @@ diagrams:
     exclude:
       namespaces:
         - std
+        - Test
     include:
       context:
         - Test
 
+  main_diagram2:
+    type: class
+    glob:
+      - ../gui/*.cpp
+      - ../gui/*.h
+      - ../gui/**/*.cpp
+      - ../gui/**/*.h
+      - ../gui/dialogue/**/*.cpp
+      - ../gui/dialogue/**/*.h
+      - ../src/**/*.cpp
+      - ../src/**/*.h
+      - ../main.cpp
+    generate_packages: true
+    package_type: directory
+    using_namespace:
+      - "*"
+    exclude:
+      namespaces:
+        - std
+        
   main_diagram3:
     type: class
     glob:
@@ -282,7 +318,6 @@ diagrams:
     exclude:
       namespaces:
         - std
-      context:
         - QPrivateSignal
     include:
       context:
