@@ -55,8 +55,7 @@ bool ItemGeneratorSystem::isItemPriceValid(const Item &item, const Player &playe
 
 std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Player &player)
 {
-    constexpr int MAX_TRIES = 100;
-    constexpr int MAX_Q_REROLLS = 20;
+    constexpr int MAX_TRIES = 10000;
     int i = 0;
     const bool isRandomRequest = type == ItemType::RANDOM;
 
@@ -64,7 +63,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Pla
     {
         ItemType currentType = isRandomRequest ? getRandomItemType() : type;
 
-        // if there was no strategy for type, throw exception
+        // if there was no strategy for type, notify and break from the loop
         if (strategies.find(currentType) == strategies.end())
         {
             qWarning() << "No strategy for type: " << static_cast<int>(currentType);
@@ -72,18 +71,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Pla
         }
 
         std::unique_ptr<Item> item = strategies[currentType]->generate(player);
-
-        if (!item)
-        {
-            i++;
-            continue;
-        }
-
-        if (i < MAX_Q_REROLLS)
-        {
-            // generate quality and apply to item
-            assignQuality(currentType, item.get());
-        }
+        assignQuality(currentType, item.get());
 
         if (isItemPriceValid(*item, player))
             return item;
@@ -91,8 +79,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Pla
         i++;
     }
 
-    qWarning() << "Failed to generate valid item for player lvl" << player.getLevel() << "after" << i << "attempts.";
-    return nullptr;
+    throw std::logic_error("Failed to generate valid item for player lvl" + std::to_string(player.getLevel()));
 }
 
 void ItemGeneratorSystem::assignQuality(const ItemType type, Item *item)

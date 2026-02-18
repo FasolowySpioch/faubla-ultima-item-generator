@@ -112,10 +112,7 @@ std::unique_ptr<Item> WeaponGenerator::generate(const Player &player)
     // - there's no weapons matching the requirements (like, in the file)
     // - OR player is meant to have absolutely nothing
     if (candidates.empty())
-    {
-        qWarning() << "WeaponGenerator: Could not generate any weapon for player" << player.getCharacterName();
-        return nullptr;
-    }
+        throw std::logic_error("No matching Weapons were found in weapon cache");
 
     // choosing random weapon to return
     const int idx = QRandomGenerator::global()->bounded(static_cast<int>(candidates.size()));
