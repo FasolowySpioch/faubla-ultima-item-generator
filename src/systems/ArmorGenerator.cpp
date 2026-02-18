@@ -45,10 +45,7 @@ std::unique_ptr<Item> ArmorGenerator::generate(const Player &player)
     // - there's no armors matching the requirements (like, in the file)
     // - OR player is meant to have absolutely nothing
     if (candidates.empty())
-    {
-        qWarning() << "ArmorGenerator: Could not generate any armor for player" << player.getCharacterName();
-        return nullptr;
-    }
+        throw std::logic_error("No matching Armors were found in armor cache");
 
     // choosing random armor to return
     const int idx = QRandomGenerator::global()->bounded(static_cast<int>(candidates.size()));

@@ -96,12 +96,15 @@ void MainWindow::on_BttnSaveCampain_clicked()
 // -- Generate functions
 void MainWindow::on_BttnQuickGenerate_clicked()
 {
-    std::unique_ptr<Item> item = _appcontrol.generateItemForRandomPlayer();
-    if (!item)
-        return;
+    try {
+        std::unique_ptr<Item> item = _appcontrol.generateItemForRandomPlayer();
 
-    _appcontrol.saveItem(std::move(item));
-    _item_model->refresh();
+        _appcontrol.saveItem(std::move(item));
+        _item_model->refresh();
+    }
+    catch (std::exception &e) {
+        QMessageBox::information(this, "Generation failed", e.what());
+    }
 }
 
 

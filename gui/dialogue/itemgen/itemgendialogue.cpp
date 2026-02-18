@@ -1,4 +1,7 @@
 #include "itemgendialogue.h"
+
+#include <QMessageBox>
+
 #include "ui_itemgendialogue.h"
 
 ItemGenDialogue::ItemGenDialogue(AppController *apc, QWidget *parent)
@@ -41,30 +44,50 @@ ItemGenDialogue::~ItemGenDialogue()
 
 void ItemGenDialogue::on_BttnQuickGenerate_clicked()
 {
-    const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
-    _generatedItem = _apc->generateRandomItem(p);
-    setLVItemDependent();
+    try {
+        const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
+        _generatedItem = _apc->generateRandomItem(p);
+        setLVItemDependent();
+    }
+    catch (std::exception &e) {
+        QMessageBox::information(this, "Generation failed", e.what());
+    }
 }
 
 void ItemGenDialogue::on_bttnGenerateAccessory_clicked()
 {
-    const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
-    _generatedItem = _apc->generateItem(ItemType::ACCESSORY, p);
-    setLVItemDependent();
+    try {
+        const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
+        _generatedItem = _apc->generateItem(ItemType::ACCESSORY, p);
+        setLVItemDependent();
+    }
+    catch (std::exception &e) {
+        QMessageBox::information(this, "Generation failed", e.what());
+    }
 }
 
 void ItemGenDialogue::on_bttnGenerateArmor_clicked()
 {
-    const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
-    _generatedItem = _apc->generateItem(ItemType::ARMOR, p);
-    setLVItemDependent();
+    try {
+        const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
+        _generatedItem = _apc->generateItem(ItemType::ARMOR, p);
+        setLVItemDependent();
+    }
+    catch (std::exception &e) {
+        QMessageBox::information(this, "Generation failed", e.what());
+    }
 }
 
 void ItemGenDialogue::on_bttnGenerateWeapon_clicked()
 {
-    const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
-    _generatedItem = _apc->generateItem(ItemType::WEAPON, p);
-    setLVItemDependent();
+    try {
+        const Player p = *(_apc->getPlayersRepository().at(ui->comboBoxChoosePlayer->currentIndex()));
+        _generatedItem = _apc->generateItem(ItemType::WEAPON, p);
+        setLVItemDependent();
+    }
+    catch (std::exception &e) {
+        QMessageBox::information(this, "Generation failed", e.what());
+    }
 }
 
 void ItemGenDialogue::on_BttnRerollQualityWeap_clicked()
