@@ -37,16 +37,16 @@ bool ItemGeneratorSystem::isItemPriceValid(const Item &item, const Player &playe
     if (player.getLevel() >= 40)
         return true;
 
-    if (player.getLevel() >= 30 && item.getPrice() <= 2000)
+    if (player.getLevel() >= 30 && item.getPriceModified() <= 2000)
         return true;
 
-    if (player.getLevel() >= 20 && item.getPrice() <= 1500)
+    if (player.getLevel() >= 20 && item.getPriceModified() <= 1500)
         return true;
 
-    if (player.getLevel() >= 10 && item.getPrice() <= 1000)
+    if (player.getLevel() >= 10 && item.getPriceModified() <= 1000)
         return true;
 
-    if (player.getLevel() >= 5 && item.getPrice() <= 500)
+    if (player.getLevel() >= 5 && item.getPriceModified() <= 500)
         return true;
 
     return false;
@@ -82,7 +82,7 @@ std::unique_ptr<Item> ItemGeneratorSystem::generateItem(ItemType type, const Pla
         if (i < MAX_Q_REROLLS)
         {
             // generate quality and apply to item
-            assignQuality(type, item.get());
+            assignQuality(currentType, item.get());
         }
 
         if (isItemPriceValid(*item, player))

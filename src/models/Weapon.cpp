@@ -17,7 +17,7 @@ Weapon::Weapon()
 Weapon::Weapon(const std::string_view name, const std::string_view desc, const int default_price, const int price, const WeaponType weapon_type,
                const int dmg_desc, const DMGType dmg_type, const Attribute accuracy1, const Attribute accuracy2,
                const int accuracy_bonus, const bool isSingleHanded, const bool isRange, const bool isMartial)
-    : Item(name, desc, default_price, price - default_price)
+    : Item(name, desc, default_price, price)
     , _weapon_type(weapon_type)
     , _dmg_desc(dmg_desc)
     , _dmg_type(dmg_type)

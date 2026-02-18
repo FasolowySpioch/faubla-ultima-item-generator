@@ -12,7 +12,7 @@ Item::Item(const std::string_view name, const std::string_view desc, const int d
     : _name(name)
     , _desc(desc)
     , _default_price(default_price)
-    , _price(_default_price + add_price)
+    , _price(default_price + add_price)
     , _quality_price(0)
 {
 }
