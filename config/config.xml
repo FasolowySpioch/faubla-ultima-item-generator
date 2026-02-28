@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Fultima Item Generator</Name>
+    <Version>0.1</Version>
+    <Title>Fultima Item Generator Installer</Title>
+    <Publisher>Bean Software</Publisher>
+    <StartMenuDir>Fultima Item Gen</StartMenuDir>
+    <TargetDir>@HomeDir@/fultima-item-gen</TargetDir>
+</Installer>
