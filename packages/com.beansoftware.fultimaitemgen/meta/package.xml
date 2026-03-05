@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Fultima Item Generator</DisplayName>
+    <Description>Install Fultima Item Generator app.</Description>
+    <Name>com.beansoftware.fultimaitemgen</Name>
+    <Version>0.1</Version>
+    <ReleaseDate>2026-03-05</ReleaseDate>
+    <Default>script</Default>
+    <Script>installscript.qs</Script>
+</Package>
