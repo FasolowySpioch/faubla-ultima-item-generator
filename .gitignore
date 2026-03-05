@@ -138,3 +138,6 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# Installator files
+*.run
